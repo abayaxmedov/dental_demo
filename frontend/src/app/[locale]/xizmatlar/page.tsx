@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/Card";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Empty } from "@/components/ui/Empty";
+import { ToothMapSection } from "@/components/three/ToothMapSection";
 
 type Params = Promise<{ locale: string }>;
 type Search = Promise<{ category?: string }>;
@@ -34,6 +35,13 @@ export default async function ServicesPage({ params, searchParams }: { params: P
     <Section>
       <Breadcrumbs items={[{ label: tc("home"), href: localePath("/", locale as never) }, { label: t("title") }]} />
       <SectionHeading title={t("title")} lead={t("lead")} />
+
+      {!category ? (
+        <ToothMapSection
+          items={services.filter((s) => s.is_featured).slice(0, 7).map((s) => ({ slug: s.slug ?? "", title: s.title }))}
+          hint={t("all")}
+        />
+      ) : null}
 
       <div className="mb-8 flex flex-wrap gap-2">
         <Link href="/xizmatlar" className={`rounded-full border px-4 py-2 text-sm font-medium ${!category ? "border-brand bg-brand text-white" : "border-line text-ink-muted hover:border-brand"}`}>
