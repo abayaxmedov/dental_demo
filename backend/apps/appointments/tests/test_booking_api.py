@@ -56,11 +56,11 @@ def setup(db):
     return doc, svc
 
 
-def next_slot():
-    d = timezone.localdate() + timedelta(days=1)
-    while d.weekday() == 6:
+def next_slot(days_ahead=1, hour=10):
+    d = timezone.localdate() + timedelta(days=days_ahead)
+    while d.weekday() == 6:  # Yakshanba — klinika yopiq
         d += timedelta(days=1)
-    return datetime(d.year, d.month, d.day, 10, 0, tzinfo=TZ)
+    return datetime(d.year, d.month, d.day, hour, 0, tzinfo=TZ)
 
 
 def payload(doc, svc, **over):
@@ -247,7 +247,7 @@ def test_reschedule_moves_and_clears_reminders(client, setup):
     appt = Appointment.objects.get(cancel_token=ct)
     appt.reminder_24h_sent_at = timezone.now()
     appt.save()
-    new = next_slot() + timedelta(days=1, hours=1)
+    new = next_slot(days_ahead=3, hour=11)  # boshqa ish kuni (Yakshanba o'tkaziladi)
     r = client.post(
         f"/api/v1/appointments/{ct}/reschedule/",
         {"starts_at": new.isoformat()},

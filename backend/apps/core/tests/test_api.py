@@ -139,3 +139,41 @@ def test_healthz(api, db):
 
 def test_openapi_schema_is_reachable(api, db):
     assert api.get("/api/v1/schema/").status_code == 200
+
+
+# ── T-P3-15: detail lookup locale slug bo'yicha ishlashi (8 route shu farazga tayanadi) ──
+import pytest  # noqa: E402
+from django.test import Client  # noqa: E402
+
+
+@pytest.mark.django_db
+def test_detail_lookup_uses_locale_slug(db):
+    """Ruscha slug bilan ?lang=ru so'rovi 200 qaytarishi kerak (modeltranslation slug_ru)."""
+    from apps.services.models import Service, ServiceCategory
+
+    cat = ServiceCategory.objects.create(title="T", slug="t")
+    svc = Service.objects.create(category=cat, title="X", is_active=True)
+    svc.slug_uz, svc.slug_ru, svc.slug_en = "test-uz", "test-ru", "test-en"
+    svc.slug = "test-uz"
+    svc.save()
+
+    c = Client()
+    # uz slug + uz til
+    assert c.get("/api/v1/services/test-uz/?lang=uz").status_code == 200
+    # ru slug + ru til
+    assert c.get("/api/v1/services/test-ru/?lang=ru").status_code == 200
+    # en slug + en til
+    assert c.get("/api/v1/services/test-en/?lang=en").status_code == 200
+
+
+@pytest.mark.django_db
+def test_service_exposes_alternates(db):
+    from apps.services.models import Service, ServiceCategory
+
+    cat = ServiceCategory.objects.create(title="T", slug="t")
+    svc = Service.objects.create(category=cat, title="X", is_active=True)
+    svc.slug_uz, svc.slug_ru, svc.slug_en, svc.slug = "a-uz", "a-ru", "a-en", "a-uz"
+    svc.save()
+    data = Client().get("/api/v1/services/?lang=uz").json()["results"]
+    row = next(r for r in data if r["slug"] == "a-uz")
+    assert row["alternates"] == {"uz": "a-uz", "ru": "a-ru", "en": "a-en"}

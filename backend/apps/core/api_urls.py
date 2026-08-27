@@ -16,7 +16,7 @@ from apps.appointments.api import (
 )
 from apps.blog.api import PostViewSet
 from apps.cases.api import CasePairViewSet
-from apps.core.api import SiteSettingsView
+from apps.core.api import SeoRoutesView, SiteSettingsView
 from apps.gallery.api import GalleryViewSet
 from apps.pages.api import StaticPageViewSet
 from apps.reviews.api import ReviewViewSet
@@ -35,6 +35,7 @@ router.register("pages", StaticPageViewSet, basename="page")
 
 urlpatterns = [
     path("site-settings/", SiteSettingsView.as_view(), name="site-settings"),
+    path("seo/routes/", SeoRoutesView.as_view(), name="seo-routes"),
     # Booking (Faza 2) — router'dan OLDIN aniq yo'llar
     path("appointments/slots/", SlotsView.as_view(), name="slots"),
     path("appointments/form-token/", FormTokenView.as_view(), name="form-token"),

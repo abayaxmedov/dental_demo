@@ -10,7 +10,12 @@ from apps.team.serializers import DoctorDetailSerializer, DoctorListSerializer
 class DoctorViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [AllowAny]
     lookup_field = "slug"
-    queryset = Doctor.objects.filter(is_active=True).prefetch_related("services")
+
+    def get_queryset(self):
+        qs = Doctor.objects.filter(is_active=True).prefetch_related("services")
+        if service := self.request.query_params.get("service"):
+            qs = qs.filter(services__slug=service).distinct()
+        return qs
 
     def get_serializer_class(self):
         return DoctorDetailSerializer if self.action == "retrieve" else DoctorListSerializer

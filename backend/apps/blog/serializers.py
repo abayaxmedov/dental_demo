@@ -1,11 +1,13 @@
 from rest_framework import serializers
 
 from apps.blog.models import Post
-from apps.core.serializers import ImageField
+from apps.core.serializers import ImageField, TranslatedSlugsField
 
 
 class PostListSerializer(serializers.ModelSerializer):
     cover = ImageField()
+    og_image = ImageField()
+    alternates = TranslatedSlugsField()
     author_name = serializers.CharField(source="author.full_name", read_only=True, default=None)
 
     class Meta:
@@ -14,6 +16,9 @@ class PostListSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "slug",
+            "alternates",
+            "updated_at",
+            "og_image",
             "excerpt",
             "cover",
             "author_name",

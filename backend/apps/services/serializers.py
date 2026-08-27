@@ -1,7 +1,7 @@
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
-from apps.core.serializers import ImageField
+from apps.core.serializers import ImageField, TranslatedSlugsField
 from apps.services.models import Faq, PriceItem, Service, ServiceCategory
 
 
@@ -42,6 +42,8 @@ class FaqSerializer(serializers.ModelSerializer):
 class ServiceListSerializer(serializers.ModelSerializer):
     category = ServiceCategorySerializer(read_only=True)
     cover = ImageField()
+    og_image = ImageField()
+    alternates = TranslatedSlugsField()
 
     class Meta:
         model = Service
@@ -49,6 +51,9 @@ class ServiceListSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "slug",
+            "alternates",
+            "updated_at",
+            "og_image",
             "excerpt",
             "icon",
             "cover",

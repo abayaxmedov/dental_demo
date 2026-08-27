@@ -53,24 +53,6 @@
     ],
     "bytes": 77201
   },
-  "cases/case6-before.jpg": {
-    "path": "cases/case6-before.jpg",
-    "query": "missing tooth",
-    "subject": "teeth before",
-    "source_url": "https://www.flickr.com/photos/130460019@N02/23882085855",
-    "direct_url": "https://live.staticflickr.com/569/23882085855_5cc18e071b_b.jpg",
-    "author": "theexploradora",
-    "author_url": "https://www.flickr.com/photos/130460019@N02",
-    "license": "cc0 1.0",
-    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "source": "flickr",
-    "model_release": "none — demo only",
-    "target": [
-      1200,
-      900
-    ],
-    "bytes": 182927
-  },
   "gallery/work-2.jpg": {
     "path": "gallery/work-2.jpg",
     "query": "dental impression mold",
@@ -394,5 +376,83 @@
       788
     ],
     "bytes": 132776
+  },
+  "cases/case3-before.jpg": {
+    "path": "cases/case3-before.jpg",
+    "query": "teeth closeup",
+    "subject": "teeth before",
+    "source_url": "https://www.rawpixel.com/image/5922435/photo-image-public-domain-person-medicine",
+    "direct_url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3B4NDk2NzA3LWltYWdlLWt3dnhuZWp0LmpwZw.jpg",
+    "author": "unknown",
+    "author_url": "",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "rawpixel",
+    "model_release": "none — demo only",
+    "target": [
+      1200,
+      900
+    ],
+    "bytes": 100932
+  },
+  "cases/case3-after.jpg": {
+    "path": "cases/case3-after.jpg",
+    "query": "white teeth smile",
+    "subject": "smile after",
+    "source_url": "https://www.flickr.com/photos/38154080@N00/4159721353",
+    "direct_url": "https://live.staticflickr.com/2549/4159721353_4009792a92_b.jpg",
+    "author": "Rupert Taylor-Price",
+    "author_url": "https://www.flickr.com/photos/38154080@N00",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "flickr",
+    "model_release": "none — demo only",
+    "target": [
+      1200,
+      900
+    ],
+    "bytes": 94662
+  },
+  "brand/logo.png": {
+    "path": "brand/logo.png",
+    "subject": "Oq Marvarid Dental logo (wordmark + tish belgisi)",
+    "source_url": "own work (dental_demo)",
+    "direct_url": "",
+    "author": "Oq Marvarid Dental (demo)",
+    "author_url": "",
+    "license": "own / proprietary",
+    "license_url": "",
+    "source": "authored",
+    "model_release": "n/a",
+    "target": [],
+    "bytes": 5546
+  },
+  "brand/favicon.png": {
+    "path": "brand/favicon.png",
+    "subject": "Favicon (tish belgisi)",
+    "source_url": "own work (dental_demo)",
+    "direct_url": "",
+    "author": "Oq Marvarid Dental (demo)",
+    "author_url": "",
+    "license": "own / proprietary",
+    "license_url": "",
+    "source": "authored",
+    "model_release": "n/a",
+    "target": [],
+    "bytes": 937
+  },
+  "og/og-default.png": {
+    "path": "og/og-default.png",
+    "subject": "Default OpenGraph rasm",
+    "source_url": "own work (dental_demo)",
+    "direct_url": "",
+    "author": "Oq Marvarid Dental (demo)",
+    "author_url": "",
+    "license": "own / proprietary",
+    "license_url": "",
+    "source": "authored",
+    "model_release": "n/a",
+    "target": [],
+    "bytes": 24770
   }
 }

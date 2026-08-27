@@ -54,6 +54,34 @@ class ImageField(serializers.Field):
         return {"src": src, "width": width, "height": height, "alt": alt}
 
 
+@extend_schema_field(
+    {
+        "type": "object",
+        "properties": {
+            "uz": {"type": "string"},
+            "ru": {"type": "string"},
+            "en": {"type": "string"},
+        },
+    }
+)
+class TranslatedSlugsField(serializers.Field):
+    """Har til uchun slug: {"uz","ru","en"} — frontend hreflang/til almashtirgich uchun.
+    modeltranslation hal qilishini chetlab, slug_<lang> ustunlarini toʻgʻridan-toʻgʻri oʻqiydi."""
+
+    def __init__(self, **kwargs):
+        kwargs.setdefault("read_only", True)
+        super().__init__(**kwargs)
+
+    def get_attribute(self, instance):
+        return instance
+
+    def to_representation(self, instance):
+        return {
+            lang: getattr(instance, f"slug_{lang}", None) or instance.slug
+            for lang in ("uz", "ru", "en")
+        }
+
+
 class WorkingHoursSerializer(serializers.ModelSerializer):
     weekday_display = serializers.CharField(source="get_weekday_display", read_only=True)
 

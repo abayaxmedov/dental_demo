@@ -20,4 +20,7 @@ class CasePairViewSet(viewsets.ReadOnlyModelViewSet):
         )
         if service := self.request.query_params.get("service"):
             qs = qs.filter(service__slug=service)
+        featured = self.request.query_params.get("featured")
+        if featured in ("1", "true"):
+            qs = qs.filter(is_featured=True)
         return qs

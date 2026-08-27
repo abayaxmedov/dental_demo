@@ -1,12 +1,14 @@
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
-from apps.core.serializers import ImageField
+from apps.core.serializers import ImageField, TranslatedSlugsField
 from apps.team.models import Doctor
 
 
 class DoctorListSerializer(serializers.ModelSerializer):
     photo = ImageField(alt_source="photo_alt")
+    og_image = ImageField()
+    alternates = TranslatedSlugsField()
     languages = serializers.SerializerMethodField()
 
     class Meta:
@@ -15,6 +17,9 @@ class DoctorListSerializer(serializers.ModelSerializer):
             "id",
             "full_name",
             "slug",
+            "alternates",
+            "updated_at",
+            "og_image",
             "specialization",
             "photo",
             "photo_alt",

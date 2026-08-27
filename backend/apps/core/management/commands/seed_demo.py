@@ -7,9 +7,13 @@ Ishlatish:
     python manage.py seed_demo --reset    # avval demo content'ni tozalaydi
 """
 
+import pathlib
 from datetime import date, time, timedelta
 from decimal import Decimal
+from pathlib import Path
 
+from django.conf import settings
+from django.core.files import File
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.utils import timezone, translation
@@ -17,6 +21,7 @@ from django.utils import timezone, translation
 from apps.appointments.models import Appointment, AppointmentStatus
 from apps.blog.models import Post
 from apps.cases.models import CasePair
+from apps.core import seed_content as sc
 from apps.core.models import ClinicSettings, StatCounter, WorkingHours
 from apps.gallery.models import GalleryImage
 from apps.leads.models import Lead
@@ -1117,6 +1122,26 @@ def set_i18n(obj, field: str, values: dict) -> None:
         setattr(obj, f"{field}_{lang}", text)
 
 
+SEED_ASSETS = Path(settings.BASE_DIR) / "apps" / "core" / "seed_assets"
+
+
+def attach_image(obj, field: str, rel_path: str) -> bool:
+    """seed_assets/ dan rasmni ImageField'ga idempotent ulaydi (deterministik nom).
+    Asset yoʻq boʻlsa jimgina oʻtkazadi — dizayn fallback'i ishlaydi. save=False."""
+    src = SEED_ASSETS / rel_path
+    if not src.exists():
+        return False
+    f = obj._meta.get_field(field)
+    upload_to = f.upload_to if isinstance(f.upload_to, str) else ""
+    basename = rel_path.split("/")[-1]
+    target = pathlib.Path(settings.MEDIA_ROOT) / upload_to / basename
+    if target.exists():
+        target.unlink()  # qayta yozish — accumulation yoʻq
+    with open(src, "rb") as fh:
+        getattr(obj, field).save(basename, File(fh), save=False)
+    return True
+
+
 class Command(BaseCommand):
     help = "Demo content yaratadi: Oq Marvarid Dental (uz/ru/en)."
 
@@ -1150,6 +1175,8 @@ class Command(BaseCommand):
         self._link_services_to_doctors(services, doctors)
         self._reviews()
         self._blog(doctors)
+        self._cases(services, doctors)
+        self._gallery()
         self._pages()
         self._appointments(doctors, services)
         self._leads(services)
@@ -1198,8 +1225,12 @@ class Command(BaseCommand):
         s.legal_entity_name = 'MChJ "OQ MARVARID DENTAL"'
         s.prices_visible = True
         s.booking_enabled = True
+        attach_image(s, "logo", "brand/logo.png")
+        attach_image(s, "favicon", "brand/favicon.png")
+        attach_image(s, "hero_image", "hero/hero.jpg")
+        attach_image(s, "og_image", "og/og-default.png")
         s.save()
-        self.stdout.write("  · sozlamalar")
+        self.stdout.write("  · sozlamalar (+ brand rasmlari)")
 
     def _hours(self):
         for weekday, opens, closes, closed, note in WORKING_HOURS:
@@ -1249,6 +1280,10 @@ class Command(BaseCommand):
                 setattr(svc, f"slug_{lang}", slugify_uz(text))
             svc.slug = slugify_uz(uz)
             svc.duration_minutes, svc.is_featured, svc.order = dur, featured, order
+            if uz in sc.SERVICE_BODIES:
+                set_i18n(svc, "body", sc.SERVICE_BODIES[uz])
+            if uz in sc.SERVICE_COVERS:
+                attach_image(svc, "cover", sc.SERVICE_COVERS[uz])
             svc.save()
             out[uz] = svc
         self.stdout.write(
@@ -1305,6 +1340,14 @@ class Command(BaseCommand):
             doc.slug = slugify_uz(uz)
             doc.experience_years, doc.languages_spoken, doc.order = years, langs, order
             doc.is_bookable = doc.is_active = True
+            if uz in sc.DOCTOR_BIOS:
+                set_i18n(doc, "bio", sc.DOCTOR_BIOS[uz])
+            if uz in sc.DOCTOR_CERTS:
+                set_i18n(doc, "certificates", sc.DOCTOR_CERTS[uz])
+            if uz in sc.DOCTOR_ALTS:
+                set_i18n(doc, "photo_alt", sc.DOCTOR_ALTS[uz])
+            if uz in sc.DOCTOR_PHOTOS:
+                attach_image(doc, "photo", sc.DOCTOR_PHOTOS[uz])
             doc.save()
             out[uz] = doc
         self.stdout.write(f"  · shifokorlar ({len(out)})")
@@ -1396,8 +1439,50 @@ class Command(BaseCommand):
             post.author = authors[i % len(authors)]
             post.published_at = now - timedelta(days=days_ago)
             post.is_published = True
+            if i in sc.BLOG_COVERS:
+                attach_image(post, "cover", sc.BLOG_COVERS[i])
             post.save()
         self.stdout.write(f"  · blog ({len(BLOG_POSTS)})")
+
+    def _cases(self, services, doctors):
+        from apps.core.utils.slugify_uz import slugify_uz
+
+        for order, case in enumerate(sc.CASES, 1):
+            title_uz = case["title"]["uz"]
+            obj, _ = CasePair.objects.get_or_create(
+                slug_uz=slugify_uz(title_uz), defaults={"title": title_uz}
+            )
+            set_i18n(obj, "title", case["title"])
+            for lang, text in case["title"].items():
+                setattr(obj, f"slug_{lang}", slugify_uz(text))
+            obj.slug = slugify_uz(title_uz)
+            set_i18n(obj, "treatment_summary", case["summary"])
+            set_i18n(obj, "duration_note", case["duration"])
+            # "Demo namunasi" izohi caption sifatida
+            set_i18n(obj, "caption", {lang: sc.demo_note(lang) for lang in ("uz", "ru", "en")})
+            obj.service = services.get(case["service"])
+            obj.doctor = doctors.get(case["doctor"])
+            obj.consent_on_file = True
+            obj.is_published = True
+            obj.is_featured = case["featured"]
+            obj.order = order
+            attach_image(obj, "image_before", case["before"])
+            attach_image(obj, "image_after", case["after"])
+            obj.save()
+        self.stdout.write(f"  · ishlarimiz / before-after ({len(sc.CASES)})")
+
+    def _gallery(self):
+        for order, (rel, category, cap) in enumerate(sc.GALLERY, 1):
+            obj, created = GalleryImage.objects.get_or_create(
+                caption_uz=cap["uz"], defaults={"category": category}
+            )
+            set_i18n(obj, "caption", cap)
+            set_i18n(obj, "alt", cap)
+            obj.category = category
+            obj.order = order
+            attach_image(obj, "image", rel)
+            obj.save()
+        self.stdout.write(f"  · galereya ({len(sc.GALLERY)})")
 
     def _pages(self):
         for key, title, body in STATIC_PAGES:

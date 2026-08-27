@@ -362,6 +362,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/seo/routes/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * @description Sitemap va generateStaticParams uchun bitta manba (T-P3-13).
+         *     Har til uchun slug'lar + updated_at. Locale'ga bogʻliq emas, unpaginated.
+         */
+        get: operations["seo_routes_retrieve"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/services/": {
         parameters: {
             query?: never;
@@ -482,17 +502,36 @@ export interface components {
             /** Nomi */
             title: string;
             slug?: string;
+            readonly alternates: {
+                uz?: string;
+                ru?: string;
+                en?: string;
+            };
+            /**
+             * Yangilangan vaqti
+             * Format: date-time
+             */
+            readonly updated_at: string;
             readonly image_before: {
                 /** Format: uri */
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
             } | null;
             readonly image_after: {
                 /** Format: uri */
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
+            } | null;
+            readonly og_image: {
+                /** Format: uri */
+                src?: string;
+                width?: number | null;
+                height?: number | null;
+                alt?: string | null;
             } | null;
             /** Izoh */
             caption?: string;
@@ -503,6 +542,8 @@ export interface components {
             readonly service_slug: string;
             readonly service_title: string;
             readonly doctor_name: string;
+            meta_title?: string;
+            meta_description?: string;
             /** Bosh sahifada */
             is_featured?: boolean;
             /** Tartib */
@@ -528,12 +569,28 @@ export interface components {
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
             } | null;
             readonly favicon: {
                 /** Format: uri */
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
+            } | null;
+            readonly hero_image: {
+                /** Format: uri */
+                src?: string;
+                width?: number | null;
+                height?: number | null;
+                alt?: string | null;
+            } | null;
+            readonly og_image: {
+                /** Format: uri */
+                src?: string;
+                width?: number | null;
+                height?: number | null;
+                alt?: string | null;
             } | null;
             readonly theme: {
                 brand?: string;
@@ -606,6 +663,9 @@ export interface components {
             /** Yandex Metrika ID */
             metrika_id?: string;
             ga4_id?: string;
+            /** Yandex Webmaster */
+            yandex_verification?: string;
+            google_verification?: string;
             readonly working_hours: components["schemas"]["WorkingHours"][];
             readonly counters: components["schemas"]["StatCounter"][];
         };
@@ -614,6 +674,23 @@ export interface components {
             /** F.I.O. */
             full_name: string;
             slug?: string;
+            readonly alternates: {
+                uz?: string;
+                ru?: string;
+                en?: string;
+            };
+            /**
+             * Yangilangan vaqti
+             * Format: date-time
+             */
+            readonly updated_at: string;
+            readonly og_image: {
+                /** Format: uri */
+                src?: string;
+                width?: number | null;
+                height?: number | null;
+                alt?: string | null;
+            } | null;
             /** Mutaxassislik */
             specialization: string;
             readonly photo: {
@@ -621,6 +698,7 @@ export interface components {
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
             } | null;
             /** Rasm alt */
             photo_alt?: string;
@@ -648,6 +726,23 @@ export interface components {
             /** F.I.O. */
             full_name: string;
             slug?: string;
+            readonly alternates: {
+                uz?: string;
+                ru?: string;
+                en?: string;
+            };
+            /**
+             * Yangilangan vaqti
+             * Format: date-time
+             */
+            readonly updated_at: string;
+            readonly og_image: {
+                /** Format: uri */
+                src?: string;
+                width?: number | null;
+                height?: number | null;
+                alt?: string | null;
+            } | null;
             /** Mutaxassislik */
             specialization: string;
             readonly photo: {
@@ -655,6 +750,7 @@ export interface components {
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
             } | null;
             /** Rasm alt */
             photo_alt?: string;
@@ -682,6 +778,7 @@ export interface components {
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
             } | null;
             /** Alt matn */
             alt?: string;
@@ -875,6 +972,23 @@ export interface components {
             /** Sarlavha */
             title: string;
             slug?: string;
+            readonly alternates: {
+                uz?: string;
+                ru?: string;
+                en?: string;
+            };
+            /**
+             * Yangilangan vaqti
+             * Format: date-time
+             */
+            readonly updated_at: string;
+            readonly og_image: {
+                /** Format: uri */
+                src?: string;
+                width?: number | null;
+                height?: number | null;
+                alt?: string | null;
+            } | null;
             /** Qisqa matn */
             excerpt?: string;
             readonly cover: {
@@ -882,6 +996,7 @@ export interface components {
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
             } | null;
             readonly author_name: string;
             /**
@@ -901,6 +1016,23 @@ export interface components {
             /** Sarlavha */
             title: string;
             slug?: string;
+            readonly alternates: {
+                uz?: string;
+                ru?: string;
+                en?: string;
+            };
+            /**
+             * Yangilangan vaqti
+             * Format: date-time
+             */
+            readonly updated_at: string;
+            readonly og_image: {
+                /** Format: uri */
+                src?: string;
+                width?: number | null;
+                height?: number | null;
+                alt?: string | null;
+            } | null;
             /** Qisqa matn */
             excerpt?: string;
             readonly cover: {
@@ -908,6 +1040,7 @@ export interface components {
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
             } | null;
             readonly author_name: string;
             /**
@@ -956,6 +1089,7 @@ export interface components {
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
             } | null;
             /** Reyting */
             rating?: number;
@@ -992,6 +1126,23 @@ export interface components {
             /** Nomi */
             title: string;
             slug?: string;
+            readonly alternates: {
+                uz?: string;
+                ru?: string;
+                en?: string;
+            };
+            /**
+             * Yangilangan vaqti
+             * Format: date-time
+             */
+            readonly updated_at: string;
+            readonly og_image: {
+                /** Format: uri */
+                src?: string;
+                width?: number | null;
+                height?: number | null;
+                alt?: string | null;
+            } | null;
             /** Qisqa tavsif */
             excerpt?: string;
             icon?: string;
@@ -1000,6 +1151,7 @@ export interface components {
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
             } | null;
             /** Davomiyligi (daq) */
             duration_minutes?: number;
@@ -1021,6 +1173,23 @@ export interface components {
             /** Nomi */
             title: string;
             slug?: string;
+            readonly alternates: {
+                uz?: string;
+                ru?: string;
+                en?: string;
+            };
+            /**
+             * Yangilangan vaqti
+             * Format: date-time
+             */
+            readonly updated_at: string;
+            readonly og_image: {
+                /** Format: uri */
+                src?: string;
+                width?: number | null;
+                height?: number | null;
+                alt?: string | null;
+            } | null;
             /** Qisqa tavsif */
             excerpt?: string;
             icon?: string;
@@ -1029,6 +1198,7 @@ export interface components {
                 src?: string;
                 width?: number | null;
                 height?: number | null;
+                alt?: string | null;
             } | null;
             /** Davomiyligi (daq) */
             duration_minutes?: number;
@@ -1666,6 +1836,27 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Review"];
+                };
+            };
+        };
+    };
+    seo_routes_retrieve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
                 };
             };
         };
