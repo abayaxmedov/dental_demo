@@ -94,5 +94,94 @@
     "cancelReason": "Reason (optional)",
     "cancelled": "Appointment cancelled",
     "back": "Back"
+  },
+  "pages": {
+    "home": "Home",
+    "prices": {
+      "title": "Prices",
+      "lead": "The cost of every service — transparent and clear.",
+      "from": "from",
+      "callTitle": "Ask about a price",
+      "callLead": "Leave a request and we'll call you back.",
+      "hidden": "Prices are provided by phone."
+    },
+    "doctors": {
+      "title": "Doctors",
+      "lead": "Experienced, certified specialists.",
+      "years": "years of experience",
+      "book": "Book this doctor",
+      "education": "Education",
+      "certificates": "Certificates",
+      "services": "Services"
+    },
+    "services": {
+      "title": "Services",
+      "lead": "The full list of dental services.",
+      "all": "All",
+      "duration": "duration",
+      "min": "min",
+      "relatedDoctors": "Doctors who perform this",
+      "relatedCases": "Our work",
+      "book": "Book an appointment",
+      "priceFrom": "Price"
+    },
+    "cases": {
+      "title": "Our work",
+      "lead": "Before-and-after results of our patients.",
+      "before": "Before",
+      "after": "After",
+      "all": "All services"
+    },
+    "reviews": {
+      "title": "Reviews",
+      "lead": "What our patients say.",
+      "basedOn": "based on reviews",
+      "verified": "Verified at source"
+    },
+    "gallery": {
+      "title": "Gallery",
+      "lead": "Our clinic and work.",
+      "clinic": "Clinic",
+      "equipment": "Equipment",
+      "team": "Team",
+      "work": "Work",
+      "all": "All"
+    },
+    "blog": {
+      "title": "Blog",
+      "lead": "Helpful articles and tips.",
+      "search": "Search…",
+      "readTime": "min read",
+      "related": "Related articles",
+      "share": "Share",
+      "back": "Back to blog",
+      "empty": "No articles found."
+    },
+    "contact": {
+      "title": "Contact",
+      "lead": "Get in touch with us.",
+      "address": "Address",
+      "phone": "Phone",
+      "hours": "Working hours",
+      "showMap": "Show map",
+      "directions": "Directions",
+      "form": "Send a message",
+      "name": "Your name",
+      "message": "Message",
+      "send": "Send",
+      "sent": "Thank you! We'll contact you soon."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "lead": "Answers to the most common questions."
+    },
+    "empty": {
+      "title": "Nothing here yet",
+      "hint": "Coming soon.",
+      "call": "Call us"
+    },
+    "crumbs": {
+      "home": "Home"
+    }
   }
 }

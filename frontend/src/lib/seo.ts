@@ -51,7 +51,8 @@ export function localeHrefs(
   return out;
 }
 
-type OgSource = { og_image?: { src: string } | null; cover?: { src: string } | null; photo?: { src: string } | null };
+type Img = { src?: string | null } | null | undefined;
+type OgSource = { og_image?: Img; cover?: Img; photo?: Img };
 
 /** OG rasm URL'i: og_image → cover/photo → default. */
 export function ogFor(entity?: OgSource | null): string {

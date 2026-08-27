@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { ApiImage } from "@/lib/api";
+import type { ImageLike } from "@/lib/api";
 
 /** Shifokor/sharh avatari — rasm yoki initsial fallback (brend doira). */
 export function Avatar({
@@ -8,7 +8,7 @@ export function Avatar({
   size = 64,
   className = "",
 }: {
-  image?: ApiImage;
+  image?: ImageLike;
   name: string;
   size?: number;
   className?: string;

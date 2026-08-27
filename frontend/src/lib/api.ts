@@ -20,6 +20,17 @@ export type Review = components["schemas"]["Review"];
 export type CasePair = components["schemas"]["CasePair"];
 export type Post = components["schemas"]["PostList"];
 export type Faq = components["schemas"]["Faq"];
+export type DoctorDetail = components["schemas"]["DoctorDetail"];
+export type PostDetail = components["schemas"]["PostDetail"];
+export type GalleryImage = components["schemas"]["GalleryImage"];
+export type StaticPage = components["schemas"]["StaticPage"];
+export type SeoRoutes = {
+  services: { slugs: Record<string, string>; updated_at: string }[];
+  doctors: { slugs: Record<string, string>; updated_at: string }[];
+  cases: { slugs: Record<string, string>; updated_at: string }[];
+  posts: { slugs: Record<string, string>; updated_at: string }[];
+  pages: { key: string; updated_at: string }[];
+};
 
 /** Backend rasm obyekti — yalangʻoch URL emas (CLS=0 uchun). */
 export type ApiImage = {
@@ -28,6 +39,11 @@ export type ApiImage = {
   height: number | null;
   alt?: string | null;
 } | null;
+
+export type ImageLike =
+  | { src?: string | null; width?: number | null; height?: number | null; alt?: string | null }
+  | null
+  | undefined;
 
 type Paginated<T> = { count: number; results: T[] };
 
@@ -65,13 +81,19 @@ const listOf = <T>(data: Paginated<T> | T[] | null): T[] =>
 export const getSiteSettings = (locale: string) =>
   get<ClinicSettings>("/site-settings/", locale);
 
-export const getServices = async (locale: string, opts: { featured?: boolean } = {}) =>
-  listOf(
-    await get<Paginated<Service>>(
-      `/services/${opts.featured ? "?featured=1" : ""}`,
-      locale,
-    ),
-  );
+export const getServices = async (
+  locale: string,
+  opts: { featured?: boolean; category?: string } = {},
+) => {
+  const q = new URLSearchParams();
+  if (opts.featured) q.set("featured", "1");
+  if (opts.category) q.set("category", opts.category);
+  const qs = q.toString();
+  return listOf(await get<Paginated<Service>>(`/services/${qs ? `?${qs}` : ""}`, locale));
+};
+
+export const getService = (locale: string, slug: string) =>
+  get<ServiceDetail>(`/services/${encodeURIComponent(slug)}/`, locale);
 
 export const getServiceCategories = async (locale: string) =>
   listOf(await get<ServiceCategory[]>("/services/categories/", locale));
@@ -79,8 +101,16 @@ export const getServiceCategories = async (locale: string) =>
 export const getPrices = async (locale: string) =>
   listOf(await get<PriceItem[]>("/services/prices/", locale));
 
-export const getDoctors = async (locale: string) =>
-  listOf(await get<Paginated<Doctor>>("/doctors/", locale));
+export const getDoctors = async (locale: string, opts: { service?: string } = {}) =>
+  listOf(
+    await get<Paginated<Doctor>>(
+      `/doctors/${opts.service ? `?service=${encodeURIComponent(opts.service)}` : ""}`,
+      locale,
+    ),
+  );
+
+export const getDoctor = (locale: string, slug: string) =>
+  get<DoctorDetail>(`/doctors/${encodeURIComponent(slug)}/`, locale);
 
 export const getReviews = async (locale: string, opts: { featured?: boolean } = {}) =>
   listOf(
@@ -90,11 +120,37 @@ export const getReviews = async (locale: string, opts: { featured?: boolean } = 
 export const getReviewSummary = (locale: string) =>
   get<{ average: number; total: number }>("/reviews/summary/", locale);
 
-export const getCases = async (locale: string) =>
-  listOf(await get<Paginated<CasePair>>("/cases/", locale));
+export const getCases = async (
+  locale: string,
+  opts: { featured?: boolean; service?: string } = {},
+) => {
+  const q = new URLSearchParams();
+  if (opts.featured) q.set("featured", "1");
+  if (opts.service) q.set("service", opts.service);
+  const qs = q.toString();
+  return listOf(await get<Paginated<CasePair>>(`/cases/${qs ? `?${qs}` : ""}`, locale));
+};
 
-export const getPosts = async (locale: string) =>
-  listOf(await get<Paginated<Post>>("/posts/", locale));
+export const getPosts = async (locale: string, opts: { q?: string } = {}) =>
+  listOf(
+    await get<Paginated<Post>>(`/posts/${opts.q ? `?q=${encodeURIComponent(opts.q)}` : ""}`, locale),
+  );
+
+export const getPost = (locale: string, slug: string) =>
+  get<PostDetail>(`/posts/${encodeURIComponent(slug)}/`, locale);
+
+export const getGallery = async (locale: string, opts: { category?: string } = {}) =>
+  listOf(
+    await get<Paginated<GalleryImage>>(
+      `/gallery/${opts.category ? `?category=${encodeURIComponent(opts.category)}` : ""}`,
+      locale,
+    ),
+  );
+
+export const getStaticPage = (locale: string, key: string) =>
+  get<StaticPage>(`/pages/${encodeURIComponent(key)}/`, locale);
+
+export const getSeoRoutes = (locale: string) => get<SeoRoutes>("/seo/routes/", locale);
 
 export const getFaqs = async (locale: string) =>
   listOf(await get<Paginated<Faq>>("/faq/", locale));

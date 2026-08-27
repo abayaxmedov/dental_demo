@@ -1,0 +1,72 @@
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Clock } from "lucide-react";
+import { getServiceCategories, getServices } from "@/lib/api";
+import { buildAlternates, localePath } from "@/lib/seo";
+import { Link } from "@/i18n/navigation";
+import { Section, SectionHeading } from "@/components/ui/Section";
+import { Card } from "@/components/ui/Card";
+import { ImageFrame } from "@/components/ui/ImageFrame";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { Empty } from "@/components/ui/Empty";
+
+type Params = Promise<{ locale: string }>;
+type Search = Promise<{ category?: string }>;
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "pages.services" });
+  return { title: t("title"), description: t("lead"), alternates: buildAlternates({ pathname: "/xizmatlar", currentLocale: locale as never }) };
+}
+
+export default async function ServicesPage({ params, searchParams }: { params: Params; searchParams: Search }) {
+  const { locale } = await params;
+  const { category } = await searchParams;
+  setRequestLocale(locale);
+  const [services, categories] = await Promise.all([
+    getServices(locale, category ? { category } : {}),
+    getServiceCategories(locale),
+  ]);
+  const t = await getTranslations("pages.services");
+  const tc = await getTranslations("pages.crumbs");
+
+  return (
+    <Section>
+      <Breadcrumbs items={[{ label: tc("home"), href: localePath("/", locale as never) }, { label: t("title") }]} />
+      <SectionHeading title={t("title")} lead={t("lead")} />
+
+      <div className="mb-8 flex flex-wrap gap-2">
+        <Link href="/xizmatlar" className={`rounded-full border px-4 py-2 text-sm font-medium ${!category ? "border-brand bg-brand text-white" : "border-line text-ink-muted hover:border-brand"}`}>
+          {t("all")}
+        </Link>
+        {categories.map((c) => (
+          <Link key={c.id} href={{ pathname: "/xizmatlar", query: { category: c.slug } }}
+            className={`rounded-full border px-4 py-2 text-sm font-medium ${category === c.slug ? "border-brand bg-brand text-white" : "border-line text-ink-muted hover:border-brand"}`}>
+            {c.title}
+          </Link>
+        ))}
+      </div>
+
+      {services.length === 0 ? (
+        <Empty title={t("title")} />
+      ) : (
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s) => (
+            <Link key={s.id} href={{ pathname: "/xizmatlar/[slug]", params: { slug: s.slug ?? "" } }}>
+              <Card interactive className="flex h-full flex-col overflow-hidden">
+                <ImageFrame image={s.cover} alt={s.title} ratio="3/2" rounded="" sizes="(min-width:1024px) 33vw, 100vw" />
+                <div className="flex flex-1 flex-col p-5">
+                  <h2 className="font-display text-lg font-bold text-ink">{s.title}</h2>
+                  <p className="mt-2 line-clamp-2 flex-1 text-sm text-ink-muted">{s.excerpt}</p>
+                  <p className="mt-3 inline-flex items-center gap-1.5 text-xs text-ink-subtle">
+                    <Clock className="h-3.5 w-3.5" aria-hidden /> {s.duration_minutes} {t("min")}
+                  </p>
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      )}
+    </Section>
+  );
+}

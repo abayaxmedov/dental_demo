@@ -94,5 +94,94 @@
     "cancelReason": "Sabab (ixtiyoriy)",
     "cancelled": "Qabul bekor qilindi",
     "back": "Ortga"
+  },
+  "pages": {
+    "home": "Bosh sahifa",
+    "prices": {
+      "title": "Narxlar",
+      "lead": "Barcha xizmatlar narxi — shaffof va aniq.",
+      "from": "dan",
+      "callTitle": "Narxni aniqlashtirish",
+      "callLead": "Qoldiring — biz qoʻngʻiroq qilamiz.",
+      "hidden": "Narxlar telefon orqali beriladi."
+    },
+    "doctors": {
+      "title": "Shifokorlar",
+      "lead": "Tajribali va sertifikatlangan mutaxassislar.",
+      "years": "yil tajriba",
+      "book": "Shu shifokorga yozilish",
+      "education": "Taʼlim",
+      "certificates": "Sertifikatlar",
+      "services": "Xizmatlari"
+    },
+    "services": {
+      "title": "Xizmatlar",
+      "lead": "Toʻliq stomatologik xizmatlar roʻyxati.",
+      "all": "Barchasi",
+      "duration": "davomiyligi",
+      "min": "daq",
+      "relatedDoctors": "Bu xizmatni bajaradigan shifokorlar",
+      "relatedCases": "Ishlarimiz",
+      "book": "Qabulga yozilish",
+      "priceFrom": "Narxi"
+    },
+    "cases": {
+      "title": "Ishlarimiz",
+      "lead": "Bemorlarimizning oldingi va keyingi natijalari.",
+      "before": "Oldin",
+      "after": "Keyin",
+      "all": "Barcha xizmatlar"
+    },
+    "reviews": {
+      "title": "Sharhlar",
+      "lead": "Bemorlarimiz fikri.",
+      "basedOn": "sharh asosida",
+      "verified": "Manbada tekshirilgan"
+    },
+    "gallery": {
+      "title": "Galereya",
+      "lead": "Klinikamiz va ishlarimiz.",
+      "clinic": "Klinika",
+      "equipment": "Uskunalar",
+      "team": "Jamoa",
+      "work": "Ishlar",
+      "all": "Barchasi"
+    },
+    "blog": {
+      "title": "Blog",
+      "lead": "Foydali maqolalar va maslahatlar.",
+      "search": "Qidirish…",
+      "readTime": "daq oʻqish",
+      "related": "Oʻxshash maqolalar",
+      "share": "Ulashish",
+      "back": "Blogga qaytish",
+      "empty": "Maqola topilmadi."
+    },
+    "contact": {
+      "title": "Aloqa",
+      "lead": "Biz bilan bogʻlaning.",
+      "address": "Manzil",
+      "phone": "Telefon",
+      "hours": "Ish vaqti",
+      "showMap": "Xaritani koʻrsatish",
+      "directions": "Yoʻnalish",
+      "form": "Xabar yuborish",
+      "name": "Ismingiz",
+      "message": "Xabar",
+      "send": "Yuborish",
+      "sent": "Rahmat! Tez orada bogʻlanamiz."
+    },
+    "faq": {
+      "title": "Koʻp beriladigan savollar",
+      "lead": "Eng koʻp soʻraladigan savollarga javoblar."
+    },
+    "empty": {
+      "title": "Hozircha maʼlumot yoʻq",
+      "hint": "Tez orada toʻldiriladi.",
+      "call": "Qoʻngʻiroq qilish"
+    },
+    "crumbs": {
+      "home": "Bosh sahifa"
+    }
   }
 }

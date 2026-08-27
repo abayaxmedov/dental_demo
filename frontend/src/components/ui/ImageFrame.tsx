@@ -1,8 +1,8 @@
 import Image from "next/image";
-import type { ApiImage } from "@/lib/api";
+import type { ImageLike } from "@/lib/api";
 
 type Props = {
-  image: ApiImage;
+  image: ImageLike;
   alt: string;
   sizes?: string;
   ratio?: string; // "4/3", "16/9", "1/1"
