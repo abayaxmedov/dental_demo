@@ -9,7 +9,8 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "lint:colors": "bash scripts/lint-colors.sh",
-    "test": "npm run typecheck && npm run lint:colors"
+    "test:messages": "node scripts/check-messages.mjs",
+    "test": "npm run typecheck && npm run lint:colors && npm run test:messages"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",

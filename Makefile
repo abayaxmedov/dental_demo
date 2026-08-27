@@ -17,6 +17,7 @@ help:
 	@echo "  make fe-install    # frontend npm install"
 	@echo "  make fe-run        # Next.js dev server (:3000)"
 	@echo "  make fe-build      # Next.js production build"
+	@echo "  make fe-test       # typecheck + rang lint + i18n kalit parity"
 	@echo "  make fe-types      # OpenAPI'dan TS tiplar (backend ishga tushgan boʻlsin)"
 
 # --- infra ---
@@ -49,5 +50,7 @@ fe-run:
 	cd frontend && npm run dev
 fe-build:
 	cd frontend && npm run build
+fe-test:
+	cd frontend && npm run test
 fe-types:
 	cd frontend && npx openapi-typescript http://localhost:8000/api/v1/schema/ -o src/lib/api-types.ts
