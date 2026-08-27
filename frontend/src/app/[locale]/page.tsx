@@ -1,7 +1,4 @@
 import { setRequestLocale } from "next-intl/server";
-import { Topbar } from "@/components/layout/Topbar";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { Counters } from "@/components/sections/Counters";
 import { Services } from "@/components/sections/Services";
@@ -43,19 +40,14 @@ export default async function HomePage({
 
   return (
     <>
-      <Topbar settings={settings} locale={locale} />
-      <Header settings={settings} />
-      <main>
-        <Hero settings={settings} />
-        <Counters settings={settings} locale={locale} />
-        <Services services={featuredServices} />
-        <Prices prices={prices} locale={locale} />
-        <Doctors doctors={doctors} />
-        <Reviews reviews={reviews} summary={summary} />
-        <Faq faqs={faqs} />
-        <Booking services={allServices} doctors={doctors} settings={settings} />
-      </main>
-      <Footer settings={settings} locale={locale} />
+      <Hero settings={settings} />
+      <Counters settings={settings} locale={locale} />
+      <Services services={featuredServices} />
+      <Prices prices={prices} locale={locale} />
+      <Doctors doctors={doctors} />
+      <Reviews reviews={reviews} summary={summary} />
+      <Faq faqs={faqs} />
+      <Booking services={allServices} doctors={doctors} settings={settings} />
     </>
   );
 }

@@ -22,7 +22,12 @@ export type Post = components["schemas"]["PostList"];
 export type Faq = components["schemas"]["Faq"];
 
 /** Backend rasm obyekti — yalangʻoch URL emas (CLS=0 uchun). */
-export type ApiImage = { src: string; width: number | null; height: number | null } | null;
+export type ApiImage = {
+  src: string;
+  width: number | null;
+  height: number | null;
+  alt?: string | null;
+} | null;
 
 type Paginated<T> = { count: number; results: T[] };
 
