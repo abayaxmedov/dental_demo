@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Manrope } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { getSiteSettings } from "@/lib/api";
 import { SITE_URL } from "@/lib/seo";
+import { BRAND_THEME_COLOR } from "@/lib/theme";
 import { LocaleAlternatesProvider } from "@/components/layout/locale-alternates";
 import { Topbar } from "@/components/layout/Topbar";
 import { Header } from "@/components/layout/Header";
@@ -28,6 +29,14 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// Mobil brauzer xromining rangi = brend teal (globals.css --brand bilan mos).
+export const viewport: Viewport = {
+  themeColor: BRAND_THEME_COLOR,
+  colorScheme: "light",
+};
+
+const OG_LOCALE: Record<string, string> = { uz: "uz_UZ", ru: "ru_RU", en: "en_US" };
+
 export async function generateMetadata({
   params,
 }: {
@@ -36,10 +45,31 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "meta" });
   const settings = await getSiteSettings(locale);
+  const name = settings?.name ?? "Oq Marvarid Dental";
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: t("title"), template: `%s — ${settings?.name ?? "Oq Marvarid Dental"}` },
+    title: { default: t("title"), template: `%s — ${name}` },
     description: t("description"),
+    applicationName: name,
+    manifest: "/manifest.webmanifest",
+    // iOS manzil/sana/kodni telefon havolasiga aylantirib buzmasin.
+    formatDetection: { telephone: false, address: false, date: false },
+    appleWebApp: { capable: true, title: name, statusBarStyle: "default" },
+    // Har sahifa uchun asosiy sotsial karta (detal sahifalar oʻzinikini override qiladi).
+    openGraph: {
+      type: "website",
+      siteName: name,
+      locale: OG_LOCALE[locale] ?? "uz_UZ",
+      title: t("title"),
+      description: t("description"),
+      images: [{ url: "/og-default.png", width: 1200, height: 630, alt: name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: ["/og-default.png"],
+    },
     verification: {
       google: settings?.google_verification || undefined,
       yandex: settings?.yandex_verification || undefined,
