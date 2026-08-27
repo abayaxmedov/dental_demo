@@ -8,6 +8,7 @@ import { Prices } from "@/components/sections/Prices";
 import { Reviews } from "@/components/sections/Reviews";
 import { Faq } from "@/components/sections/Faq";
 import { Booking } from "@/components/sections/Booking";
+import { TreatmentStages } from "@/components/sections/TreatmentStages";
 import { DentistJsonLd } from "@/components/seo/DentistJsonLd";
 import { buildAlternates } from "@/lib/seo";
 import {
@@ -62,6 +63,7 @@ export default async function HomePage({
       <Hero settings={settings} />
       <Counters settings={settings} locale={locale} />
       <Services services={featuredServices} />
+      <TreatmentStages />
       <Prices prices={prices} locale={locale} />
       <Doctors doctors={doctors} />
       <Reviews reviews={reviews} summary={summary} />

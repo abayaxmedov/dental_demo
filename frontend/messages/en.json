@@ -182,6 +182,18 @@
     },
     "crumbs": {
       "home": "Home"
+    },
+    "stages": {
+      "title": "Implant stages",
+      "lead": "From diagnostics to a natural smile — in 4 steps.",
+      "s1t": "Diagnostics",
+      "s1d": "Precise 3D CBCT planning and bone analysis.",
+      "s2t": "Preparation",
+      "s2d": "The jaw is prepared, with bone grafting if needed.",
+      "s3t": "Implantation",
+      "s3d": "The titanium implant is placed painlessly.",
+      "s4t": "Result",
+      "s4d": "A natural zirconia crown — a new smile."
     }
   }
 }

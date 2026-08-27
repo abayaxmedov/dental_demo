@@ -182,6 +182,18 @@
     },
     "crumbs": {
       "home": "Bosh sahifa"
+    },
+    "stages": {
+      "title": "Implantatsiya bosqichlari",
+      "lead": "Diagnostikadan tabiiy tabassumgacha — 4 bosqich.",
+      "s1t": "Diagnostika",
+      "s1d": "3D KLKT bilan aniq rejalashtirish va suyak tahlili.",
+      "s2t": "Tayyorlash",
+      "s2d": "Jagʻ tayyorlanadi, kerak boʻlsa suyak plastikasi.",
+      "s3t": "Implantatsiya",
+      "s3d": "Titan implant ogʻriqsiz oʻrnatiladi.",
+      "s4t": "Natija",
+      "s4d": "Tabiiy koʻrinishdagi sirkoniy toj — yangi tabassum."
     }
   }
 }
