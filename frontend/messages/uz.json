@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "title": "Oq Marvarid Dental — Toshkentdagi zamonaviy stomatologiya",
+    "description": "Implantatsiya, estetik stomatologiya, ortodontiya. Onlayn qabulga yoziling."
+  },
+  "topbar": {
+    "address": "Toshkent, Yunusobod tumani, Amir Temur shoh koʻchasi 108",
+    "hours": "Du–Sha 09:00–19:00",
+    "phone": "+998 71 200 40 40"
+  },
+  "nav": {
+    "home": "Bosh sahifa",
+    "about": "Biz haqimizda",
+    "services": "Xizmatlar",
+    "prices": "Narxlar",
+    "doctors": "Shifokorlar",
+    "cases": "Ishlarimiz",
+    "gallery": "Galereya",
+    "reviews": "Sharhlar",
+    "blog": "Blog",
+    "contact": "Aloqa"
+  },
+  "hero": {
+    "eyebrow": "Ishonchli stomatologiya",
+    "title": "Tabassumingizni seving",
+    "subtitle": "Zamonaviy uskunalar va tajribali shifokorlar bilan ogʻriqsiz davolash.",
+    "ctaBook": "Qabulga yozilish",
+    "ctaCall": "Qoʻngʻiroq buyurtma qilish"
+  },
+  "common": {
+    "language": "Til",
+    "readMore": "Batafsil",
+    "loading": "Yuklanmoqda…"
+  },
+  "booking": {
+    "title": "Qabulga yozilish",
+    "subtitle": "Bir necha daqiqada onlayn navbat oling",
+    "service": "Xizmat",
+    "doctor": "Shifokor",
+    "anyDoctor": "Farqi yoʻq",
+    "day": "Kun",
+    "time": "Vaqt",
+    "name": "Ismingiz",
+    "namePlaceholder": "Ism familiya",
+    "phone": "Telefon",
+    "comment": "Izoh (ixtiyoriy)",
+    "consent": "Maxfiylik siyosatiga roziman",
+    "consentLink": "Maxfiylik siyosati",
+    "submit": "Yozilish",
+    "submitting": "Yuborilmoqda…",
+    "selectService": "Xizmatni tanlang",
+    "selectTime": "Vaqtni tanlang",
+    "loadingSlots": "Boʻsh vaqtlar yuklanmoqda…",
+    "noSlots": "Bu kuni boʻsh vaqt yoʻq — boshqa kunni tanlang",
+    "closedDay": "Bu kuni klinika ishlamaydi",
+    "morning": "Ertalab",
+    "afternoon": "Kunduzi",
+    "evening": "Kechqurun",
+    "bookingDisabled": "Onlayn yozilish vaqtincha yopiq. Iltimos, qoʻngʻiroq qiling.",
+    "success": {
+      "title": "Yozildingiz!",
+      "code": "Sizning kodingiz",
+      "notified": "Klinikaga xabar yuborildi",
+      "notifyPending": "Registratura tez orada bogʻlanadi",
+      "next": "Registratura tasdiqlash uchun qoʻngʻiroq qiladi",
+      "manage": "Qabulni boshqarish",
+      "manageHint": "Bu havolani saqlang — bekor qilish yoki koʻchirish uchun kerak boʻladi",
+      "again": "Yana bir qabulga yozilish"
+    },
+    "errors": {
+      "networkTitle": "Ulanishda xatolik",
+      "retry": "Qayta yuborish",
+      "call": "Telefon qilish"
+    }
+  },
+  "manage": {
+    "title": "Sizning qabulingiz",
+    "notFound": "Qabul topilmadi",
+    "notFoundHint": "Havola notoʻgʻri yoki qabul oʻchirilgan.",
+    "status": {
+      "pending": "Tasdiq kutilmoqda",
+      "confirmed": "Tasdiqlangan",
+      "cancelled_by_patient": "Bekor qilingan",
+      "cancelled_by_clinic": "Klinika bekor qildi",
+      "completed": "Yakunlangan",
+      "no_show": "Kelinmagan"
+    },
+    "doctor": "Shifokor",
+    "service": "Xizmat",
+    "when": "Vaqt",
+    "cancel": "Bekor qilish",
+    "reschedule": "Boshqa vaqtga koʻchirish",
+    "cancelConfirm": "Rostdan bekor qilasizmi?",
+    "cancelReason": "Sabab (ixtiyoriy)",
+    "cancelled": "Qabul bekor qilindi",
+    "back": "Ortga"
+  }
+}

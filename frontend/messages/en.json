@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "title": "Oq Marvarid Dental — modern dentistry in Tashkent",
+    "description": "Implants, aesthetic dentistry, orthodontics. Book your appointment online."
+  },
+  "topbar": {
+    "address": "108 Amir Temur Ave, Yunusobod, Tashkent",
+    "hours": "Mon–Sat 09:00–19:00",
+    "phone": "+998 71 200 40 40"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "prices": "Prices",
+    "doctors": "Doctors",
+    "cases": "Our work",
+    "gallery": "Gallery",
+    "reviews": "Reviews",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "hero": {
+    "eyebrow": "Dentistry you can trust",
+    "title": "Love your smile",
+    "subtitle": "Painless treatment with modern equipment and experienced doctors.",
+    "ctaBook": "Book an appointment",
+    "ctaCall": "Request a call"
+  },
+  "common": {
+    "language": "Language",
+    "readMore": "Read more",
+    "loading": "Loading…"
+  },
+  "booking": {
+    "title": "Book an appointment",
+    "subtitle": "Online booking takes a couple of minutes",
+    "service": "Service",
+    "doctor": "Doctor",
+    "anyDoctor": "No preference",
+    "day": "Day",
+    "time": "Time",
+    "name": "Your name",
+    "namePlaceholder": "Full name",
+    "phone": "Phone",
+    "comment": "Comment (optional)",
+    "consent": "I agree to the privacy policy",
+    "consentLink": "Privacy policy",
+    "submit": "Book",
+    "submitting": "Submitting…",
+    "selectService": "Select a service",
+    "selectTime": "Select a time",
+    "loadingSlots": "Loading available times…",
+    "noSlots": "No free times this day — try another",
+    "closedDay": "The clinic is closed this day",
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "bookingDisabled": "Online booking is temporarily off. Please call us.",
+    "success": {
+      "title": "You're booked!",
+      "code": "Your code",
+      "notified": "The clinic has been notified",
+      "notifyPending": "Reception will contact you soon",
+      "next": "Reception will call to confirm",
+      "manage": "Manage appointment",
+      "manageHint": "Save this link — you'll need it to cancel or reschedule",
+      "again": "Book another appointment"
+    },
+    "errors": {
+      "networkTitle": "Connection error",
+      "retry": "Try again",
+      "call": "Call us"
+    }
+  },
+  "manage": {
+    "title": "Your appointment",
+    "notFound": "Appointment not found",
+    "notFoundHint": "The link is invalid or the appointment was removed.",
+    "status": {
+      "pending": "Awaiting confirmation",
+      "confirmed": "Confirmed",
+      "cancelled_by_patient": "Cancelled",
+      "cancelled_by_clinic": "Cancelled by clinic",
+      "completed": "Completed",
+      "no_show": "No-show"
+    },
+    "doctor": "Doctor",
+    "service": "Service",
+    "when": "Time",
+    "cancel": "Cancel",
+    "reschedule": "Reschedule",
+    "cancelConfirm": "Really cancel?",
+    "cancelReason": "Reason (optional)",
+    "cancelled": "Appointment cancelled",
+    "back": "Back"
+  }
+}

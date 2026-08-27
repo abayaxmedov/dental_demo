@@ -1,0 +1,22 @@
+# dental_demo — dev infratuzilma (ADR: PostgreSQL 17, btree_gist/pg_trgm/unaccent).
+# Ishga tushirish: docker compose up -d
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: dental_db
+    environment:
+      POSTGRES_DB: dental
+      POSTGRES_USER: dental
+      POSTGRES_PASSWORD: dental
+    ports:
+      - "5432:5432"
+    volumes:
+      - dental_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dental"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  dental_pgdata:

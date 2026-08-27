@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/*
+  Design tokenlar. v1.1 (Faza 1): statik demo palitrasi.
+  Keyinchalik (ADR-004) bu qiymatlar backend `ClinicSettings` dan CSS custom property
+  sifatida <head>ga injeksiya qilinadi — komponentlar oʻzgarmaydi.
+*/
+:root {
+  --brand: #0e7c86;
+  --brand-600: #0e7c86;
+  --brand-700: #0a5f67;
+  --accent: #f2a65a;
+  --ink: #0f172a;
+  --surface: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--surface);
+  --color-foreground: var(--ink);
+  --color-brand: var(--brand);
+  --color-accent: var(--accent);
+  --font-body: var(--font-inter);
+  --font-display: var(--font-manrope);
+}
+
+body {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
