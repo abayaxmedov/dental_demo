@@ -285,6 +285,8 @@ export type PublicAppointment = {
   doctor_name: string | null;
   doctor_specialization: string | null;
   service_title: string | null;
+  doctor_id: number | null;
+  service_id: number | null;
   patient_name: string;
   can_cancel: boolean;
   can_reschedule: boolean;

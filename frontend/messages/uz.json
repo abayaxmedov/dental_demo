@@ -93,7 +93,13 @@
     "cancelConfirm": "Rostdan bekor qilasizmi?",
     "cancelReason": "Sabab (ixtiyoriy)",
     "cancelled": "Qabul bekor qilindi",
-    "back": "Ortga"
+    "back": "Ortga",
+    "rescheduleTitle": "Yangi vaqtni tanlang",
+    "pickTime": "Vaqtni tanlang",
+    "noSlots": "Boʻsh vaqt yoʻq",
+    "rescheduled": "Qabul koʻchirildi",
+    "confirm": "Tasdiqlash",
+    "loadingSlots": "Yuklanmoqda…"
   },
   "pages": {
     "home": "Bosh sahifa",

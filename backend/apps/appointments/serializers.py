@@ -115,6 +115,8 @@ class AppointmentPublicSerializer(serializers.ModelSerializer):
     doctor_name = serializers.CharField(source="doctor.full_name", default=None)
     doctor_specialization = serializers.CharField(source="doctor.specialization", default=None)
     service_title = serializers.CharField(source="service.title", default=None)
+    doctor_id = serializers.SerializerMethodField()
+    service_id = serializers.SerializerMethodField()
     can_cancel = serializers.SerializerMethodField()
     can_reschedule = serializers.SerializerMethodField()
 
@@ -128,10 +130,18 @@ class AppointmentPublicSerializer(serializers.ModelSerializer):
             "doctor_name",
             "doctor_specialization",
             "service_title",
+            "doctor_id",
+            "service_id",
             "patient_name",
             "can_cancel",
             "can_reschedule",
         )
+
+    def get_doctor_id(self, obj):
+        return obj.doctor_id
+
+    def get_service_id(self, obj):
+        return obj.service_id
 
     def get_can_cancel(self, obj):
         from django.utils import timezone

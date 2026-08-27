@@ -238,6 +238,39 @@ def test_double_cancel_returns_already_cancelled(client, setup):
     assert r.status_code == 409 and r.json()["code"] == "already_cancelled"
 
 
+# ── Public retrieve (bemor token orqali ko'radi) ──
+
+
+def test_public_retrieve_exposes_reschedule_contract(client, setup):
+    """Reschedule UI shu maydonlarga tayanadi: service_id, doctor_id, can_reschedule."""
+    doc, svc = setup
+    ct = post(client, payload(doc, svc)).json()["cancel_token"]
+    r = client.get(f"/api/v1/appointments/{ct}/")
+    assert r.status_code == 200
+    data = r.json()
+    assert data["service_id"] == svc.id
+    assert data["doctor_id"] == doc.id
+    assert data["can_reschedule"] is True
+    # Ichki maydonlar OSHKOR ETILMAYDI (token — bemorники, staff emas)
+    assert "cancel_token" not in data
+    assert "phone" not in data
+
+
+def test_public_retrieve_null_doctor(client, setup):
+    """Shifokorsiz qabulda (admin/telefon — DB constraint faqat web'da majbur qiladi)
+    doctor_id null bo'ladi va serializer 500 bermaydi."""
+    doc, svc = setup
+    ct = post(client, payload(doc, svc)).json()["cancel_token"]
+    appt = Appointment.objects.get(cancel_token=ct)
+    appt.source = Appointment.Source.ADMIN  # web bo'lmagan manba doctor=NULL'ga ruxsat beradi
+    appt.doctor = None
+    appt.save(update_fields=["source", "doctor"])
+    r = client.get(f"/api/v1/appointments/{ct}/")
+    assert r.status_code == 200
+    assert r.json()["doctor_id"] is None
+    assert r.json()["service_id"] == svc.id
+
+
 # ── Reschedule ──
 
 

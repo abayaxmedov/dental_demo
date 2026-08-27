@@ -9,6 +9,7 @@ import {
   type PublicAppointment,
 } from "@/lib/api";
 import { formatWhen } from "@/lib/format";
+import { RescheduleFlow } from "./RescheduleFlow";
 
 export function ManageAppointment({ token }: { token: string }) {
   const t = useTranslations("manage");
@@ -18,6 +19,7 @@ export function ManageAppointment({ token }: { token: string }) {
   const [cancelling, setCancelling] = useState(false);
   const [reason, setReason] = useState("");
   const [showCancel, setShowCancel] = useState(false);
+  const [showResched, setShowResched] = useState(false);
 
   useEffect(() => {
     fetchAppointment(token, locale)
@@ -86,15 +88,37 @@ export function ManageAppointment({ token }: { token: string }) {
         <Row label="" value={<span className="font-mono font-bold tracking-widest">{appt.code}</span>} />
       </div>
 
-      {appt.can_cancel && !showCancel && (
-        <div className="mt-8 flex gap-3">
-          <button
-            onClick={() => setShowCancel(true)}
-            className="rounded-full border border-red-200 px-5 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50"
-          >
-            {t("cancel")}
-          </button>
+      {(appt.can_cancel || appt.can_reschedule) && !showCancel && !showResched && (
+        <div className="mt-8 flex flex-wrap gap-3">
+          {appt.can_reschedule && (
+            <button
+              onClick={() => setShowResched(true)}
+              className="rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
+            >
+              {t("reschedule")}
+            </button>
+          )}
+          {appt.can_cancel && (
+            <button
+              onClick={() => setShowCancel(true)}
+              className="rounded-full border border-red-200 px-5 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50"
+            >
+              {t("cancel")}
+            </button>
+          )}
         </div>
+      )}
+
+      {showResched && (
+        <RescheduleFlow
+          token={token}
+          serviceId={appt.service_id ?? null}
+          doctorId={appt.doctor_id ?? null}
+          onDone={(startsAt) => {
+            setAppt((a) => (a ? { ...a, starts_at: startsAt } : a));
+            setShowResched(false);
+          }}
+        />
       )}
 
       {showCancel && (

@@ -93,7 +93,13 @@
     "cancelConfirm": "Точно отменить?",
     "cancelReason": "Причина (необязательно)",
     "cancelled": "Запись отменена",
-    "back": "Назад"
+    "back": "Назад",
+    "rescheduleTitle": "Выберите новое время",
+    "pickTime": "Выберите время",
+    "noSlots": "Нет свободного времени",
+    "rescheduled": "Запись перенесена",
+    "confirm": "Подтвердить",
+    "loadingSlots": "Загрузка…"
   },
   "pages": {
     "home": "Главная",

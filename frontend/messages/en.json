@@ -93,7 +93,13 @@
     "cancelConfirm": "Really cancel?",
     "cancelReason": "Reason (optional)",
     "cancelled": "Appointment cancelled",
-    "back": "Back"
+    "back": "Back",
+    "rescheduleTitle": "Pick a new time",
+    "pickTime": "Select a time",
+    "noSlots": "No free times",
+    "rescheduled": "Appointment moved",
+    "confirm": "Confirm",
+    "loadingSlots": "Loading…"
   },
   "pages": {
     "home": "Home",
