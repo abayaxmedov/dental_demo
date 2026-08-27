@@ -3,6 +3,8 @@ Root URLconf — headless backend (ADR-016).
 Faqat /admin/, /api/v1/ va /healthz/. i18n_patterns YOʻQ — URL prefiks Next.js'da.
 """
 
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from drf_spectacular.views import (
@@ -24,3 +26,7 @@ urlpatterns = [
     ),
     path("api/v1/", include("apps.core.api_urls")),
 ]
+
+# Dev'da yuklangan media'ni Django servis qiladi (prod'da nginx `/media/` ni beradi).
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

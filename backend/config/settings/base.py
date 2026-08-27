@@ -138,8 +138,14 @@ USE_TZ = True
 # ---- Static / media ----
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+# Rasm URL'lari uchun ommaviy tashqi baza (ADR-016).
+# Bo'sh bo'lsa — serializer request host'iga qaytadi (dev). Prod'da bu
+# `https://demo.<domen>` bo'ladi: Next SSR API'ga 127.0.0.1 orqali murojaat qiladi,
+# lekin rasm `src` ommaviy hostda bo'lishi kerak — aks holda next/image xususiy IP'ni rad etadi.
+MEDIA_PUBLIC_BASE = env("MEDIA_PUBLIC_BASE", default="")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SITE_ID = 1

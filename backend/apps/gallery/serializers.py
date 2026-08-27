@@ -5,7 +5,7 @@ from apps.gallery.models import GalleryImage
 
 
 class GalleryImageSerializer(serializers.ModelSerializer):
-    image = ImageField()
+    image = ImageField(alt_source="alt")
 
     class Meta:
         model = GalleryImage

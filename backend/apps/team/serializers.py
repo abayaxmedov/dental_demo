@@ -6,7 +6,7 @@ from apps.team.models import Doctor
 
 
 class DoctorListSerializer(serializers.ModelSerializer):
-    photo = ImageField()
+    photo = ImageField(alt_source="photo_alt")
     languages = serializers.SerializerMethodField()
 
     class Meta:

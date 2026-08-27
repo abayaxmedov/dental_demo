@@ -1,5 +1,6 @@
 """Core serializerlar. Rasmlar {src, width, height, alt} shaklida (CLS=0 uchun)."""
 
+from django.conf import settings
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
@@ -14,34 +15,43 @@ from apps.core.models import ClinicSettings, StatCounter, WorkingHours
             "src": {"type": "string", "format": "uri"},
             "width": {"type": "integer", "nullable": True},
             "height": {"type": "integer", "nullable": True},
+            "alt": {"type": "string", "nullable": True},
         },
     }
 )
 class ImageField(serializers.Field):
-    """Rasmni yalangʻoch URL emas, oʻlchamlari bilan obyekt sifatida qaytaradi."""
+    """
+    Rasmni yalangʻoch URL emas, oʻlchamlari + alt bilan obyekt sifatida qaytaradi.
+    `alt_source` — obyektdagi qoʻshni maydon nomi (masalan "photo_alt"), undan `alt` olinadi.
+    `src` — `MEDIA_PUBLIC_BASE` boʻlsa oʻshandan, aks holda request host'idan (dev).
+    """
 
     def __init__(self, alt_source=None, **kwargs):
         self.alt_source = alt_source
         kwargs.setdefault("read_only", True)
         super().__init__(**kwargs)
 
-    def to_representation(self, value):
-        if not value:
+    def get_attribute(self, instance):
+        # Butun obyektni olamiz — alt qoʻshni maydonini ham oʻqishimiz kerak.
+        return instance
+
+    def to_representation(self, instance):
+        image = getattr(instance, self.field_name, None)
+        if not image:
             return None
-        request = self.context.get("request")
         try:
-            width, height = value.width, value.height
+            width, height = image.width, image.height
         except (OSError, ValueError):
             width = height = None
-        url = value.url
-        return {
-            "src": request.build_absolute_uri(url) if request else url,
-            "width": width,
-            "height": height,
-        }
-
-    def get_attribute(self, instance):
-        return getattr(instance, self.field_name, None)
+        url = image.url  # "/media/..." (MEDIA_URL bosh slash bilan)
+        base = settings.MEDIA_PUBLIC_BASE
+        if base:
+            src = base.rstrip("/") + url
+        else:
+            request = self.context.get("request")
+            src = request.build_absolute_uri(url) if request else url
+        alt = getattr(instance, self.alt_source, "") if self.alt_source else None
+        return {"src": src, "width": width, "height": height, "alt": alt}
 
 
 class WorkingHoursSerializer(serializers.ModelSerializer):
