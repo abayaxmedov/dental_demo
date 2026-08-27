@@ -23,8 +23,8 @@ export function LangSwitcher() {
           className={
             "rounded px-2 py-1 text-xs font-semibold transition " +
             (loc === locale
-              ? "bg-teal-600 text-white"
-              : "text-slate-500 hover:text-teal-700")
+              ? "bg-brand-600 text-white"
+              : "text-slate-500 hover:text-brand-700")
           }
         >
           {LABELS[loc]}

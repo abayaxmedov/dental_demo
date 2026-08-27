@@ -8,7 +8,7 @@ export async function Hero({ settings }: { settings: ClinicSettings | null }) {
   const phone = settings?.phone_primary ?? "+998712004040";
 
   return (
-    <section className="relative overflow-hidden border-b border-slate-100 bg-gradient-to-b from-teal-50/60 to-white">
+    <section className="relative overflow-hidden border-b border-slate-100 bg-gradient-to-b from-brand-50 to-white">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
         <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-brand">
           {t("eyebrow")}

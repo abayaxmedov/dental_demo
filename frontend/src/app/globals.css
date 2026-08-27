@@ -1,24 +1,57 @@
 @import "tailwindcss";
 
 /*
-  Design tokenlar. v1.1 (Faza 1): statik demo palitrasi.
-  Keyinchalik (ADR-004) bu qiymatlar backend `ClinicSettings` dan CSS custom property
-  sifatida <head>ga injeksiya qilinadi — komponentlar oʻzgarmaydi.
+  Design tokenlar (ADR-004). Bitta manba — `--brand`/`--accent` (keyinchalik backend
+  `ClinicSettings` dan <head>ga injeksiya qilinadi). Ramp `color-mix` bilan HOSILA qilinadi,
+  shuning uchun `reskin` faqat bitta qiymatni oʻzgartiradi va butun shkala moslashadi.
 */
 :root {
   --brand: #0e7c86;
-  --brand-600: #0e7c86;
-  --brand-700: #0a5f67;
   --accent: #f2a65a;
   --ink: #0f172a;
   --surface: #ffffff;
+
+  /* brand shkala — color-mix orqali hosila (oklab = tekis yorugʻlik) */
+  --brand-50: color-mix(in oklab, var(--brand) 8%, white);
+  --brand-100: color-mix(in oklab, var(--brand) 16%, white);
+  --brand-200: color-mix(in oklab, var(--brand) 28%, white);
+  --brand-400: color-mix(in oklab, var(--brand) 70%, white);
+  --brand-600: color-mix(in oklab, var(--brand) 88%, black);
+  --brand-700: color-mix(in oklab, var(--brand) 72%, black);
+
+  --accent-100: color-mix(in oklab, var(--accent) 18%, white);
+  --accent-700: color-mix(in oklab, var(--accent) 70%, black);
+
+  /* neytral semantik tokenlar */
+  --surface-muted: #f8fafc; /* slate-50 — seksiya almashinuvi */
+  --line: #e2e8f0; /* slate-200 — kartalar chegarasi */
+  --ink-muted: #475569; /* slate-600 — asosiy matn */
+  --ink-subtle: #94a3b8; /* slate-400 — meta */
 }
 
 @theme inline {
   --color-background: var(--surface);
   --color-foreground: var(--ink);
+
   --color-brand: var(--brand);
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-400: var(--brand-400);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+
   --color-accent: var(--accent);
+  --color-accent-100: var(--accent-100);
+  --color-accent-700: var(--accent-700);
+
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+
   --font-body: var(--font-inter);
   --font-display: var(--font-manrope);
 }

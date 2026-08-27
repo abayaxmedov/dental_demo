@@ -403,7 +403,7 @@ function SuccessCard({
   const t = useTranslations("booking.success");
   const when = formatWhen(result.starts_at, locale);
   return (
-    <div role="status" className="rounded-2xl border border-brand/30 bg-teal-50/40 p-8 text-center">
+    <div role="status" className="rounded-2xl border border-brand/30 bg-brand-50 p-8 text-center">
       <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-brand/10">
         <Check className="h-7 w-7 text-brand" />
       </div>

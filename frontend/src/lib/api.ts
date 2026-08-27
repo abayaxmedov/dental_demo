@@ -3,13 +3,11 @@
  * Tiplar `src/lib/api-types.ts` da — OpenAPI schema'dan generatsiya qilinadi:
  *   make fe-types
  */
-import createClient from "openapi-fetch";
 import type { components, paths } from "./api-types";
 
 export const API_BASE =
   process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
 
-export const client = createClient<paths>({ baseUrl: `${API_BASE}/api/v1/` });
 
 /** Schema'dan olingan model tiplari — komponentlar shularni ishlatadi. */
 export type ClinicSettings = components["schemas"]["ClinicSettings"];

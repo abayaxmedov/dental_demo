@@ -17,7 +17,7 @@ export async function Doctors({ doctors }: { doctors: Doctor[] }) {
           {doctors.map((d) => (
             <article key={d.id} className="rounded-2xl border border-slate-200 bg-white p-6">
               <div
-                className="mb-4 h-16 w-16 rounded-full bg-gradient-to-br from-teal-100 to-teal-50 ring-1 ring-teal-200/60"
+                className="mb-4 h-16 w-16 rounded-full bg-gradient-to-br from-brand-100 to-brand-50 ring-1 ring-brand-200"
                 aria-hidden
               />
               <h3 className="font-display text-lg font-bold text-slate-900">{d.full_name}</h3>

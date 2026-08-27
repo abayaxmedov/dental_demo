@@ -28,7 +28,7 @@ export async function Prices({
                   <td className="px-5 py-4">
                     <span className="font-medium text-slate-900">{p.title}</span>
                     {p.is_promo && p.promo_note ? (
-                      <span className="ml-2 rounded bg-accent/15 px-2 py-0.5 text-xs font-semibold text-amber-700">
+                      <span className="ml-2 rounded bg-accent/15 px-2 py-0.5 text-xs font-semibold text-accent-700">
                         {p.promo_note}
                       </span>
                     ) : null}
