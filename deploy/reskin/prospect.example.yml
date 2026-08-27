@@ -1,0 +1,63 @@
+# Prospekt reskin config — `manage.py reskin --config prospect.yml` (ADR-012).
+#
+# FAQAT oʻzgartirmoqchi boʻlgan kalitlarni qoldiring (qisman yangilash). Har bir seksiya
+# ixtiyoriy. Ranglar hex boʻlishi shart (#RRGGBB). Rasm yoʻllari config yoniga (yoki
+# --assets-dir ga) nisbatan.
+#
+#   manage.py reskin --config prospect.yml --assets-dir ./prospect-assets
+#   manage.py reskin --config prospect.yml --dry-run     # avval koʻrish
+
+name: "Smile Line Dental"
+tagline: "Toshkentda zamonaviy va ogʻriqsiz stomatologiya"
+about_short: "10 yillik tajriba, xalqaro sertifikatli shifokorlar, raqamli diagnostika."
+
+theme:
+  brand: "#0E7C86"      # asosiy — butun color-mix shkalasi shundan hosila (ADR-004)
+  accent: "#F2A65A"     # aksent — faqat toʻldirish/yulduz/chegara (matn ostida EMAS)
+  ink: "#0F172A"        # asosiy matn
+  surface: "#FFFFFF"    # fon
+  font_pair: "inter_manrope"   # yoki: playfair_inter
+
+contact:
+  phone_primary: "+998712004040"
+  phone_secondary: ""
+  email: "info@smileline.uz"
+  telegram_username: "smileline_admin"
+  telegram_channel_url: "https://t.me/smileline"
+  instagram_url: "https://instagram.com/smileline.uz"
+  facebook_url: ""
+  youtube_url: ""
+
+location:
+  address: "Toshkent, Yunusobod tumani, Amir Temur shoh koʻchasi 108"
+  map_lat: 41.311081
+  map_lng: 69.279737
+  map_zoom: 16
+  yandex_maps_url: "https://yandex.uz/maps/-/CDeQ4H"
+  two_gis_url: ""
+
+legal:
+  license_text: "Litsenziya: LB № 0001234, 2020-yil"
+  legal_entity_name: 'MChJ "Smile Line"'
+
+analytics:
+  metrika_id: ""
+  ga4_id: ""
+  yandex_verification: ""
+  google_verification: ""
+
+flags:
+  prices_visible: true
+  booking_enabled: true
+
+meta:
+  default_meta_title: "Smile Line Dental — Toshkent stomatologiyasi"
+  default_meta_description: "Implantatsiya, estetik stomatologiya, ortodontiya. Onlayn qabul."
+
+# Rasm assetlari (ixtiyoriy) — mavjud fayllar boʻlishi shart, aks holda buyruq toʻxtaydi.
+assets:
+  logo: "logo.png"
+  # logo_dark: "logo-dark.png"
+  favicon: "favicon.png"
+  hero_image: "hero.jpg"
+  og_image: "og.png"

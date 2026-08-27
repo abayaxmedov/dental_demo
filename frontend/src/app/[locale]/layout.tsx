@@ -91,8 +91,26 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const settings = await getSiteSettings(locale);
 
+  // ADR-004: brand rang YAGONA manba (ClinicSettings) → <html>ga inline CSS custom property
+  // sifatida injeksiya. globals.css `:root` defaultlarini ustma-ust bosadi (inline > stylesheet),
+  // color-mix rampasi (`--brand-50…`) shu injeksiya qilingan `--brand`dan HOSILA boʻladi.
+  // Shu tufayli `reskin` bitta hex oʻzgartirsa butun shkala moslashadi. SSR — FOUC yoʻq.
+  const theme = settings?.theme;
+  const themeStyle = theme
+    ? ({
+        "--brand": theme.brand,
+        "--accent": theme.accent,
+        "--ink": theme.ink,
+        "--surface": theme.surface,
+      } as React.CSSProperties)
+    : undefined;
+
   return (
-    <html lang={locale} className={`${inter.variable} ${manrope.variable}`}>
+    <html
+      lang={locale}
+      className={`${inter.variable} ${manrope.variable}`}
+      style={themeStyle}
+    >
       <body className="min-h-dvh bg-surface text-ink antialiased">
         <NextIntlClientProvider>
           <LocaleAlternatesProvider>

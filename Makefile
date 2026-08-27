@@ -13,6 +13,7 @@ help:
 	@echo "  make be-check      # django check"
 	@echo "  make be-lint       # ruff"
 	@echo "  make be-test       # pytest"
+	@echo "  make reskin CONFIG=prospect.yml [ARGS=--dry-run]  # prospekt uchun qayta brendlash (ADR-012)"
 	@echo "  make be-schema     # OpenAPI schema.yml generatsiya"
 	@echo "  make fe-install    # frontend npm install"
 	@echo "  make fe-run        # Next.js dev server (:3000)"
@@ -42,6 +43,8 @@ be-test:
 	cd backend && .venv/bin/python -m pytest || true
 be-schema:
 	cd backend && .venv/bin/python manage.py spectacular --file schema.yml
+reskin:
+	cd backend && .venv/bin/python manage.py reskin --config $(CONFIG) $(ARGS)
 
 # --- frontend ---
 fe-install:
