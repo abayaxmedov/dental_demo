@@ -63,6 +63,9 @@ class ClinicSettings(SingletonModel):
     logo = models.ImageField("logo", upload_to="brand/", blank=True, null=True)
     logo_dark = models.ImageField("logo (dark)", upload_to="brand/", blank=True, null=True)
     favicon = models.ImageField("favicon", upload_to="brand/", blank=True, null=True)
+    # Hero — LCP elementi va klinikaga xos, shuning uchun sozlamada (public/ ga qotirilmaydi).
+    hero_image = models.ImageField("hero rasmi", upload_to="brand/", blank=True, null=True)
+    og_image = models.ImageField("OG rasm (default)", upload_to="og/", blank=True, null=True)
 
     # Ranglar (ADR-004: CSS custom property sifatida frontend'ga uzatiladi)
     brand_color = models.CharField("brand rang", max_length=9, default="#0E7C86")

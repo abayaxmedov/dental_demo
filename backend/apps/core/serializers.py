@@ -71,6 +71,8 @@ class StatCounterSerializer(serializers.ModelSerializer):
 class ClinicSettingsSerializer(serializers.ModelSerializer):
     logo = ImageField()
     favicon = ImageField()
+    hero_image = ImageField()
+    og_image = ImageField()
     working_hours = serializers.SerializerMethodField()
     counters = serializers.SerializerMethodField()
     theme = serializers.SerializerMethodField()
@@ -83,6 +85,8 @@ class ClinicSettingsSerializer(serializers.ModelSerializer):
             "about_short",
             "logo",
             "favicon",
+            "hero_image",
+            "og_image",
             "theme",
             "phone_primary",
             "phone_secondary",
@@ -106,6 +110,8 @@ class ClinicSettingsSerializer(serializers.ModelSerializer):
             "default_meta_description",
             "metrika_id",
             "ga4_id",
+            "yandex_verification",
+            "google_verification",
             "working_hours",
             "counters",
         )

@@ -37,6 +37,7 @@ be-check:
 be-lint:
 	cd backend && .venv/bin/python -m ruff check . || true
 be-test:
+	cd backend && .venv/bin/python manage.py check_asset_licenses
 	cd backend && .venv/bin/python -m pytest || true
 be-schema:
 	cd backend && .venv/bin/python manage.py spectacular --file schema.yml

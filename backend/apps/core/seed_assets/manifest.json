@@ -1,0 +1,398 @@
+{
+  "services/tishlarni-oqartirish.jpg": {
+    "path": "services/tishlarni-oqartirish.jpg",
+    "query": "teeth whitening",
+    "subject": "whitening",
+    "source_url": "https://www.flickr.com/photos/181893085@N08/48001506898",
+    "direct_url": "https://live.staticflickr.com/65535/48001506898_e3e3483f13_b.jpg",
+    "author": "piomodi",
+    "author_url": "https://www.flickr.com/photos/181893085@N08",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "flickr",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      933
+    ],
+    "bytes": 165568
+  },
+  "cases/case1-before.jpg": {
+    "path": "cases/case1-before.jpg",
+    "query": "teeth closeup",
+    "subject": "teeth before",
+    "source_url": "https://www.rawpixel.com/image/5922435/photo-image-public-domain-person-medicine",
+    "direct_url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L3B4NDk2NzA3LWltYWdlLWt3dnhuZWp0LmpwZw.jpg",
+    "author": "unknown",
+    "author_url": "",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "rawpixel",
+    "model_release": "none — demo only",
+    "target": [
+      1200,
+      900
+    ],
+    "bytes": 100932
+  },
+  "cases/case1-after.jpg": {
+    "path": "cases/case1-after.jpg",
+    "query": "white smile teeth",
+    "subject": "smile after",
+    "source_url": "https://www.flickr.com/photos/150210070@N05/38551450035",
+    "direct_url": "https://live.staticflickr.com/4728/38551450035_7dc79d5a4d_b.jpg",
+    "author": "Smiles7676",
+    "author_url": "https://www.flickr.com/photos/150210070@N05",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "flickr",
+    "model_release": "none — demo only",
+    "target": [
+      1200,
+      900
+    ],
+    "bytes": 77201
+  },
+  "cases/case6-before.jpg": {
+    "path": "cases/case6-before.jpg",
+    "query": "missing tooth",
+    "subject": "teeth before",
+    "source_url": "https://www.flickr.com/photos/130460019@N02/23882085855",
+    "direct_url": "https://live.staticflickr.com/569/23882085855_5cc18e071b_b.jpg",
+    "author": "theexploradora",
+    "author_url": "https://www.flickr.com/photos/130460019@N02",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "flickr",
+    "model_release": "none — demo only",
+    "target": [
+      1200,
+      900
+    ],
+    "bytes": 182927
+  },
+  "gallery/work-2.jpg": {
+    "path": "gallery/work-2.jpg",
+    "query": "dental impression mold",
+    "subject": "detail",
+    "source_url": "https://www.flickr.com/photos/181893085@N08/49340236213",
+    "direct_url": "https://live.staticflickr.com/65535/49340236213_fcd71aa8b0_b.jpg",
+    "author": "piomodi",
+    "author_url": "https://www.flickr.com/photos/181893085@N08",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "flickr",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      1050
+    ],
+    "bytes": 126372
+  },
+  "blog/toothache.jpg": {
+    "path": "blog/toothache.jpg",
+    "query": "toothache pain",
+    "subject": "toothache",
+    "source_url": "https://commons.wikimedia.org/w/index.php?curid=190441347",
+    "direct_url": "https://upload.wikimedia.org/wikipedia/commons/7/74/African_nutmeg_%28_Gyadar_miya_%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Asunke",
+    "author_url": "https://commons.wikimedia.org/w/index.php?title=User:Asunke&action=edit&redlink=1",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+    "source": "wikimedia",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      788
+    ],
+    "bytes": 184093
+  },
+  "hero/hero.jpg": {
+    "path": "hero/hero.jpg",
+    "query": "dentist chair clinic",
+    "subject": "clinic operatory wide",
+    "source_url": "https://stocksnap.io/photo/clinic-doctor-6C4YTOELUE",
+    "direct_url": "https://cdn.stocksnap.io/img-thumbs/960w/6C4YTOELUE.jpg",
+    "author": "Mali Maeder",
+    "author_url": "https://stocksnap.io/author/29221",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "stocksnap",
+    "model_release": "n/a",
+    "target": [
+      1600,
+      900
+    ],
+    "bytes": 129173
+  },
+  "services/suyak-toqimasi-tiklash.jpg": {
+    "path": "services/suyak-toqimasi-tiklash.jpg",
+    "query": "dental xray",
+    "subject": "cbct",
+    "source_url": "https://www.flickr.com/photos/46835425@N00/3382932340",
+    "direct_url": "https://live.staticflickr.com/3439/3382932340_e6a03f683f_b.jpg",
+    "author": "Inha Leex Hale",
+    "author_url": "https://www.flickr.com/photos/46835425@N00",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "flickr",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      933
+    ],
+    "bytes": 100601
+  },
+  "doctors/nigora-yusupova.jpg": {
+    "path": "doctors/nigora-yusupova.jpg",
+    "query": "dentist mask gloves",
+    "subject": "masked dentist",
+    "source_url": "https://www.flickr.com/photos/141436406@N04/49734557782",
+    "direct_url": "https://live.staticflickr.com/65535/49734557782_e2ba1f5298_b.jpg",
+    "author": "homegets.com",
+    "author_url": "https://www.flickr.com/photos/141436406@N04",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "flickr",
+    "model_release": "none — demo only",
+    "target": [
+      1200,
+      1500
+    ],
+    "bytes": 208272
+  },
+  "doctors/kamola-ergasheva.jpg": {
+    "path": "doctors/kamola-ergasheva.jpg",
+    "query": "dentist face mask clinic",
+    "subject": "masked dentist",
+    "source_url": "https://www.rawpixel.com/image/4040207/photo-image-face-mask-public-domain",
+    "direct_url": "https://images.rawpixel.com/image_1300/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZmw0OTg0Mjg4OTQ5OC1pbWFnZS1rdTN2OWl3eC5qcGc.jpg",
+    "author": "U.S. Army",
+    "author_url": "",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "rawpixel",
+    "model_release": "none — demo only",
+    "target": [
+      1200,
+      1500
+    ],
+    "bytes": 239425
+  },
+  "cases/case2-before.jpg": {
+    "path": "cases/case2-before.jpg",
+    "query": "crooked teeth",
+    "subject": "teeth before",
+    "source_url": "https://www.flickr.com/photos/72511655@N00/309968625",
+    "direct_url": "https://live.staticflickr.com/115/309968625_c75f13966f_b.jpg",
+    "author": "greggoconnell",
+    "author_url": "https://www.flickr.com/photos/72511655@N00",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "flickr",
+    "model_release": "none — demo only",
+    "target": [
+      1200,
+      900
+    ],
+    "bytes": 118614
+  },
+  "gallery/clinic-4.jpg": {
+    "path": "gallery/clinic-4.jpg",
+    "query": "dental treatment room",
+    "subject": "operatory",
+    "source_url": "https://commons.wikimedia.org/w/index.php?curid=196715621",
+    "direct_url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Dental_treatment_room_featuring_equipment_and_a_chair_in_a_modern_clinic.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Shixart1985",
+    "author_url": "https://commons.wikimedia.org/wiki/User:Shixart1985",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "wikimedia",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      1050
+    ],
+    "bytes": 113041
+  },
+  "gallery/equipment-3.jpg": {
+    "path": "gallery/equipment-3.jpg",
+    "query": "dental sterilizer tools",
+    "subject": "sterilizer",
+    "source_url": "https://commons.wikimedia.org/w/index.php?curid=196789451",
+    "direct_url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Set_of_dental_tools_and_instruments_on_a_table_in_a_clinic_during_a_procedure.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Shixart1985",
+    "author_url": "https://commons.wikimedia.org/wiki/User:Shixart1985",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "wikimedia",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      1050
+    ],
+    "bytes": 100587
+  },
+  "gallery/equipment-4.jpg": {
+    "path": "gallery/equipment-4.jpg",
+    "query": "microscope",
+    "subject": "microscope",
+    "source_url": "https://www.flickr.com/photos/59923990@N05/16715002931",
+    "direct_url": "https://live.staticflickr.com/8677/16715002931_262b4d1611_b.jpg",
+    "author": "Picturepest",
+    "author_url": "https://www.flickr.com/photos/59923990@N05",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "flickr",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      1050
+    ],
+    "bytes": 207701
+  },
+  "gallery/team-2.jpg": {
+    "path": "gallery/team-2.jpg",
+    "query": "dentist hands gloves work",
+    "subject": "hands at work",
+    "source_url": "https://www.flickr.com/photos/36281822@N08/3813512901",
+    "direct_url": "https://live.staticflickr.com/2434/3813512901_1145e442b8_b.jpg",
+    "author": "US Army Africa",
+    "author_url": "https://www.flickr.com/photos/36281822@N08",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "flickr",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      1050
+    ],
+    "bytes": 145525
+  },
+  "gallery/work-1.jpg": {
+    "path": "gallery/work-1.jpg",
+    "query": "dental instruments closeup",
+    "subject": "instruments",
+    "source_url": "https://www.rawpixel.com/image/6035003/photo-image-public-domain-free",
+    "direct_url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJtaXJyb3JfZGVudGlzdF9pbnN0cnVtZW50c18xMjkyNTIwLWltYWdlLWt5YmQ2ejZ5LmpwZw.jpg",
+    "author": "unknown",
+    "author_url": "",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "rawpixel",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      1050
+    ],
+    "bytes": 212203
+  },
+  "blog/implant-care.jpg": {
+    "path": "blog/implant-care.jpg",
+    "query": "dental implant care",
+    "subject": "implant",
+    "source_url": "https://www.flickr.com/photos/71401718@N00/15075782098",
+    "direct_url": "https://live.staticflickr.com/3838/15075782098_4902983cf5_b.jpg",
+    "author": "Wonderlane",
+    "author_url": "https://www.flickr.com/photos/71401718@N00",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "flickr",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      788
+    ],
+    "bytes": 135091
+  },
+  "blog/braces-aligners.jpg": {
+    "path": "blog/braces-aligners.jpg",
+    "query": "dental braces",
+    "subject": "orthodontics",
+    "source_url": "https://commons.wikimedia.org/w/index.php?curid=115191892",
+    "direct_url": "https://upload.wikimedia.org/wikipedia/commons/6/64/2015-03-10_teeth_wearing_dental_braces.jpg",
+    "author": "Tamaki Sono",
+    "author_url": "",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "wikimedia",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      788
+    ],
+    "bytes": 75087
+  },
+  "services/ildiz-kanali-davolash.jpg": {
+    "path": "services/ildiz-kanali-davolash.jpg",
+    "query": "dental treatment",
+    "subject": "endodontics",
+    "source_url": "https://commons.wikimedia.org/w/index.php?curid=196715621",
+    "direct_url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Dental_treatment_room_featuring_equipment_and_a_chair_in_a_modern_clinic.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Shixart1985",
+    "author_url": "https://commons.wikimedia.org/wiki/User:Shixart1985",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "wikimedia",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      933
+    ],
+    "bytes": 101057
+  },
+  "services/vinirlar.jpg": {
+    "path": "services/vinirlar.jpg",
+    "query": "dental veneers",
+    "subject": "veneers",
+    "source_url": "https://www.flickr.com/photos/91083986@N00/138741452",
+    "direct_url": "https://live.staticflickr.com/49/138741452_e32ac6056b_b.jpg",
+    "author": "Zak Greant",
+    "author_url": "https://www.flickr.com/photos/91083986@N00",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "flickr",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      933
+    ],
+    "bytes": 111684
+  },
+  "doctors/dilshod-raximov.jpg": {
+    "path": "doctors/dilshod-raximov.jpg",
+    "query": "dentist patient chair",
+    "subject": "masked dentist",
+    "source_url": "https://stocksnap.io/photo/dentist-orthodontist-YXEEJ34DKF",
+    "direct_url": "https://cdn.stocksnap.io/img-thumbs/960w/YXEEJ34DKF.jpg",
+    "author": "Michal Jarmoluk",
+    "author_url": "https://stocksnap.io/author/34629",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "stocksnap",
+    "model_release": "none — demo only",
+    "target": [
+      1200,
+      1500
+    ],
+    "bytes": 78196
+  },
+  "blog/hygiene.jpg": {
+    "path": "blog/hygiene.jpg",
+    "query": "toothbrush dental hygiene",
+    "subject": "hygiene",
+    "source_url": "https://www.flickr.com/photos/83346641@N00/3602608137",
+    "direct_url": "https://live.staticflickr.com/3399/3602608137_84cdce735c_b.jpg",
+    "author": "JD Hancock",
+    "author_url": "https://www.flickr.com/photos/83346641@N00",
+    "license": "by 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source": "flickr",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      788
+    ],
+    "bytes": 132776
+  }
+}
