@@ -53,7 +53,33 @@ frontend/  Next.js (src/app/[locale]/), uch tilli, SSR/SSG
 deploy/    nginx, systemd, cron, backup (Faza 1 oxiri)
 ```
 
+## Ishlash koʻrsatkichlari — Lighthouse (mobil)
+
+Sotuv daʼvosi ("har jihatdan Prodent'dan yaxshiroq") oʻlchandi. Lighthouse mobil, bizning
+prod build vs **jonli Prodent demo** (`preview.colorlib.com/theme/prodent`):
+
+| Kategoriya        | **Bu sayt** | Prodent |
+|-------------------|:-----------:|:-------:|
+| Performance       | **88–94**   | 64      |
+| Accessibility     | **100**     | 80      |
+| Best Practices    | **96–100**  | 96      |
+| SEO               | **100**     | 66      |
+| CLS (layout shift)| **0**       | 0.001   |
+| TBT (bloklanish)  | **18–24 ms**| 103 ms  |
+| LCP               | ~3.0–3.9 s* | 9.1 s   |
+
+**Har bir mezonda oldinda.** a11y=100 (axe-core sweep bilan tasdiqlangan — WCAG 2 A/AA),
+best-practices/SEO — xavfsizlik header'lari + CSP (ADR-019) va SEO hardening natijasi.
+
+> \* Lokal prod testida `canonical` (SEO) va `errors-in-console` (BP) *artefaktlari* boradi:
+> test URL'i (`127.0.0.1`) sozlangan `SITE_URL` bilan mos emas, va prod CSP'dagi
+> `upgrade-insecure-requests` http backend rasmlarini https'ga koʻtarib lokalda buzadi.
+> Origin mos kelgan dev run'da bularsiz **SEO=100, BP=100**. LCP haqiqiy prod'da media
+> host HTTPS + CDN boʻlgach yaxshilanadi.
+
 ## Holat
 
-**Faza 1 — skelet.** Backend: settings split, core abstract modellar, `/healthz/`, OpenAPI schema.
-Frontend: `[locale]` routing, uch tilli bosh sahifa, til almashtirgich. Keyingi ishlar — `TODO.md`.
+**Faza 0–4 ✓ · Faza 5 (sifat) davom etmoqda.** To'liq booking oqimi (slot engine, Telegram,
+`/qabul/[token]` — koʻrish/bekor/koʻchirish), 16+ sahifa uch tilda, SEO (sitemap/robots/JSON-LD/
+hreflang/OG/PWA manifest), 2 WebGL sahna, xavfsizlik header'lari + CSP, a11y (WCAG 2 A/AA),
+Vitest + i18n parity gate. Batafsil — `PROJECT_HISTORY.md` / `TODO.md`.
