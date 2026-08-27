@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/Card";
 import { Avatar } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/Reveal";
 
 const LANG: Record<string, string> = { uz: "OʻZ", ru: "РУ", en: "EN", tr: "TR" };
 
@@ -20,6 +21,7 @@ export async function Doctors({ doctors }: { doctors: Doctor[] }) {
         title={t("doctors")}
         action={<ButtonLink href="/shifokorlar" variant="secondary">{td("title")}</ButtonLink>}
       />
+      <Reveal>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {doctors.slice(0, 6).map((d) => (
           <Link key={d.id} href={{ pathname: "/shifokorlar/[slug]", params: { slug: d.slug ?? "" } }}>
@@ -37,6 +39,7 @@ export async function Doctors({ doctors }: { doctors: Doctor[] }) {
           </Link>
         ))}
       </div>
+      </Reveal>
     </Section>
   );
 }
