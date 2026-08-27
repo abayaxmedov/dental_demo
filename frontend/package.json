@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit",
     "lint:colors": "bash scripts/lint-colors.sh",
     "test:messages": "node scripts/check-messages.mjs",
-    "test": "npm run typecheck && npm run lint:colors && npm run test:messages"
+    "test:unit": "vitest run",
+    "test:watch": "vitest",
+    "test": "npm run typecheck && npm run lint:colors && npm run test:messages && npm run test:unit"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",
@@ -31,6 +33,7 @@
     "eslint-config-next": "16.3.3",
     "openapi-typescript": "^7.13.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.11"
   }
 }
