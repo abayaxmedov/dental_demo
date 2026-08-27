@@ -27,7 +27,7 @@ export default async function FaqPage({ params }: { params: Params }) {
     <Section width="3xl">
       {faqs.length ? <JsonLd data={ld} /> : null}
       <Breadcrumbs items={[{ label: tc("home"), href: localePath("/", locale as never) }, { label: t("title") }]} />
-      <SectionHeading title={t("title")} lead={t("lead")} />
+      <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
       {faqs.length === 0 ? (
         <Empty title={t("title")} />
       ) : (

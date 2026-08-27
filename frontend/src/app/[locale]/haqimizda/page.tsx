@@ -37,7 +37,7 @@ export default async function AboutPage({ params }: { params: Params }) {
     <>
       <Section>
         <Breadcrumbs items={[{ label: tc("home"), href: localePath("/", locale as never) }, { label: t("about") }]} />
-        <SectionHeading title={t("about")} lead={settings?.tagline || undefined} />
+        <SectionHeading as="h1" title={t("about")} lead={settings?.tagline || undefined} />
         <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
           <div className="space-y-4 text-ink-muted leading-relaxed">
             {(settings?.about_short || "").split(/\n\n+/).filter(Boolean).map((p, i) => <p key={i}>{p}</p>)}

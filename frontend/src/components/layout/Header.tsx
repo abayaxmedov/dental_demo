@@ -27,8 +27,9 @@ export async function Header({ settings }: { settings: ClinicSettings | null }) 
 
   const [first, ...rest] = name.split(" ");
 
+  // Banner landmark'i layout'da (Topbar bilan birga) — bu yerda faqat sticky nav div'i.
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-surface/90 backdrop-blur">
+    <div className="sticky top-0 z-40 border-b border-line bg-surface/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5">
         <Link href="/" className="flex items-center gap-2">
           {logo ? (
@@ -67,6 +68,6 @@ export async function Header({ settings }: { settings: ClinicSettings | null }) 
           </nav>
         </details>
       </div>
-    </header>
+    </div>
   );
 }

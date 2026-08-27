@@ -39,7 +39,7 @@ export function ManageAppointment({ token }: { token: string }) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-20 text-slate-400">
+      <div className="flex items-center justify-center py-20 text-ink-subtle">
         <Loader2 className="h-6 w-6 animate-spin" />
       </div>
     );
@@ -47,10 +47,10 @@ export function ManageAppointment({ token }: { token: string }) {
 
   if (!appt) {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center">
-        <XCircle className="mx-auto mb-3 h-10 w-10 text-slate-300" />
-        <h1 className="font-display text-xl font-bold text-slate-900">{t("notFound")}</h1>
-        <p className="mt-2 text-sm text-slate-500">{t("notFoundHint")}</p>
+      <div className="rounded-2xl border border-line bg-surface p-8 text-center">
+        <XCircle className="mx-auto mb-3 h-10 w-10 text-ink-subtle" />
+        <h1 className="font-display text-xl font-bold text-ink">{t("notFound")}</h1>
+        <p className="mt-2 text-sm text-ink-muted">{t("notFoundHint")}</p>
         <a href={`/${locale}`} className="mt-5 inline-block text-sm font-semibold text-brand">
           {t("back")}
         </a>
@@ -62,14 +62,14 @@ export function ManageAppointment({ token }: { token: string }) {
   const cancelled = appt.status.startsWith("cancelled");
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-8">
+    <div className="rounded-2xl border border-line bg-surface p-8">
       <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-extrabold text-slate-900">{t("title")}</h1>
+        <h1 className="font-display text-2xl font-extrabold text-ink">{t("title")}</h1>
         <span
           className={
             "rounded-full px-3 py-1 text-xs font-semibold " +
             (cancelled
-              ? "bg-slate-100 text-slate-500"
+              ? "bg-slate-100 text-ink-muted"
               : appt.status === "confirmed"
                 ? "bg-brand/10 text-brand"
                 : "bg-amber-100 text-amber-700")
@@ -142,7 +142,7 @@ export function ManageAppointment({ token }: { token: string }) {
             </button>
             <button
               onClick={() => setShowCancel(false)}
-              className="rounded-full px-4 py-2 text-sm font-medium text-slate-500"
+              className="rounded-full px-4 py-2 text-sm font-medium text-ink-muted"
             >
               {t("back")}
             </button>
@@ -151,7 +151,7 @@ export function ManageAppointment({ token }: { token: string }) {
       )}
 
       {cancelled && (
-        <p className="mt-6 rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-500">{t("cancelled")}</p>
+        <p className="mt-6 rounded-xl bg-surface-muted px-4 py-3 text-sm text-ink-muted">{t("cancelled")}</p>
       )}
     </div>
   );
@@ -159,9 +159,9 @@ export function ManageAppointment({ token }: { token: string }) {
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex justify-between gap-4 border-b border-slate-100 pb-3">
-      <span className="text-slate-400">{label}</span>
-      <span className="text-right font-medium text-slate-900">{value}</span>
+    <div className="flex justify-between gap-4 border-b border-line pb-3">
+      <span className="text-ink-subtle">{label}</span>
+      <span className="text-right font-medium text-ink">{value}</span>
     </div>
   );
 }

@@ -34,7 +34,7 @@ export default async function ContactPage({ params }: { params: Params }) {
   return (
     <Section>
       <Breadcrumbs items={[{ label: tc("home"), href: localePath("/", locale as never) }, { label: t("title") }]} />
-      <SectionHeading title={t("title")} lead={t("lead")} />
+      <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
       <div className="grid gap-10 lg:grid-cols-2">
         <div className="space-y-6">
           {settings?.address ? (

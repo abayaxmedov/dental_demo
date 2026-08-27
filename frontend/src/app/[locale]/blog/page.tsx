@@ -30,7 +30,7 @@ export default async function BlogPage({ params, searchParams }: { params: Param
   return (
     <Section>
       <Breadcrumbs items={[{ label: tc("home"), href: localePath("/", locale as never) }, { label: t("title") }]} />
-      <SectionHeading title={t("title")} lead={t("lead")} />
+      <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
       <form className="mb-8 max-w-md" action="" method="get">
         <input name="q" defaultValue={q ?? ""} placeholder={t("search")} aria-label={t("search")}
           className="w-full rounded-full border border-line px-5 py-2.5 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20" />

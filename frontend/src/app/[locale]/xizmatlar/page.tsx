@@ -34,7 +34,7 @@ export default async function ServicesPage({ params, searchParams }: { params: P
   return (
     <Section>
       <Breadcrumbs items={[{ label: tc("home"), href: localePath("/", locale as never) }, { label: t("title") }]} />
-      <SectionHeading title={t("title")} lead={t("lead")} />
+      <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
 
       {!category ? (
         <ToothMapSection

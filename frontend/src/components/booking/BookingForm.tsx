@@ -252,11 +252,11 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
       <div aria-live="polite">
         <span className="mb-1.5 block text-sm font-medium text-slate-700">{t("time")}</span>
         {loadingSlots ? (
-          <p className="flex items-center gap-2 py-4 text-sm text-slate-400">
+          <p className="flex items-center gap-2 py-4 text-sm text-ink-subtle">
             <Loader2 className="h-4 w-4 animate-spin" /> {t("loadingSlots")}
           </p>
         ) : !activeDay || activeDay.slots.length === 0 ? (
-          <p className="py-4 text-sm text-slate-400">
+          <p className="py-4 text-sm text-ink-subtle">
             {activeDay?.closed_reason === "clinic_closed" ? t("closedDay") : t("noSlots")}
           </p>
         ) : (
@@ -264,7 +264,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
             {(["morning", "afternoon", "evening"] as const).map((part) =>
               buckets && buckets[part].length ? (
                 <div key={part}>
-                  <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-slate-400">
+                  <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-ink-subtle">
                     {t(part)}
                   </span>
                   <div className="flex flex-wrap gap-2">
@@ -410,7 +410,7 @@ function SuccessCard({
       <h3 className="font-display text-2xl font-extrabold text-slate-900">{t("title")}</h3>
       <p className="mt-2 text-slate-700">{when}</p>
       <div className="mt-5 inline-block rounded-xl border-2 border-dashed border-brand/40 px-6 py-3">
-        <span className="block text-xs uppercase tracking-wide text-slate-400">{t("code")}</span>
+        <span className="block text-xs uppercase tracking-wide text-ink-subtle">{t("code")}</span>
         <span className="font-mono text-xl font-bold tracking-widest text-slate-900">
           {result.code}
         </span>
@@ -426,7 +426,7 @@ function SuccessCard({
         >
           {t("manage")}
         </a>
-        <p className="mt-2 text-xs text-slate-400">{t("manageHint")}</p>
+        <p className="mt-2 text-xs text-ink-subtle">{t("manageHint")}</p>
       </div>
     </div>
   );

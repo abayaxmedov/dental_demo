@@ -29,7 +29,7 @@ export default async function ReviewsPage({ params }: { params: Params }) {
   return (
     <Section>
       <Breadcrumbs items={[{ label: tc("home"), href: localePath("/", locale as never) }, { label: t("title") }]} />
-      <SectionHeading title={t("title")} lead={t("lead")} />
+      <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
       {summary && summary.total > 0 ? (
         <div className="mb-8 flex items-center gap-4 rounded-2xl border border-line bg-surface-muted p-5">
           <span className="font-display text-4xl font-extrabold text-ink">{summary.average}</span>

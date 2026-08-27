@@ -72,8 +72,10 @@ export default async function LocaleLayout({
             >
               Asosiy kontentga oʻtish
             </a>
-            <Topbar settings={settings} locale={locale} />
-            <Header settings={settings} />
+            <header>
+              <Topbar settings={settings} locale={locale} />
+              <Header settings={settings} />
+            </header>
             <main id="main" tabIndex={-1}>
               {children}
             </main>

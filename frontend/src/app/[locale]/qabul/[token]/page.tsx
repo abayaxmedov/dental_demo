@@ -15,10 +15,10 @@ export default async function ManagePage({
   const { locale, token } = await params;
   setRequestLocale(locale);
   return (
-    <main className="min-h-dvh bg-slate-50">
+    <div className="min-h-dvh bg-surface-muted">
       <div className="mx-auto max-w-xl px-4 py-16">
         <ManageAppointment token={token} />
       </div>
-    </main>
+    </div>
   );
 }

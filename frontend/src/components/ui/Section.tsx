@@ -37,12 +37,16 @@ export function SectionHeading({
   title,
   lead,
   action,
+  as = "h2",
 }: {
   eyebrow?: string;
   title: string;
   lead?: string;
   action?: ReactNode;
+  /** Sahifaning yuqori sarlavhasi `as="h1"` boʻlishi shart (a11y: har sahifa 1 ta h1). */
+  as?: "h1" | "h2";
 }) {
+  const Heading = as;
   return (
     <div className="mb-10 flex flex-col gap-4 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
       <div>
@@ -51,9 +55,9 @@ export function SectionHeading({
             {eyebrow}
           </p>
         ) : null}
-        <h2 className="font-display text-3xl font-extrabold leading-tight tracking-[-0.02em] text-ink sm:text-4xl lg:text-[2.75rem]">
+        <Heading className="font-display text-3xl font-extrabold leading-tight tracking-[-0.02em] text-ink sm:text-4xl lg:text-[2.75rem]">
           {title}
-        </h2>
+        </Heading>
         {lead ? <p className="mt-3 max-w-2xl text-ink-muted">{lead}</p> : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}

@@ -41,7 +41,7 @@ export async function Topbar({
   const hours = summariseHours(settings?.working_hours, locale) ?? t("hours");
 
   return (
-    <div className="border-b border-slate-100 bg-slate-50 text-sm text-slate-600">
+    <div className="border-b border-line bg-surface-muted text-sm text-ink-muted">
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-2 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
           <span className="inline-flex items-center gap-1.5">
@@ -56,7 +56,7 @@ export async function Topbar({
         <div className="flex items-center gap-4">
           <a
             href={telHref(phone)}
-            className="inline-flex items-center gap-1.5 font-semibold text-slate-800 hover:text-brand"
+            className="inline-flex items-center gap-1.5 font-semibold text-ink hover:text-brand"
           >
             <Phone className="h-4 w-4 shrink-0 text-brand" aria-hidden />
             {formatPhone(phone)}

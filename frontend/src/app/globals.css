@@ -20,13 +20,16 @@
   --brand-700: color-mix(in oklab, var(--brand) 72%, black);
 
   --accent-100: color-mix(in oklab, var(--accent) 18%, white);
-  --accent-700: color-mix(in oklab, var(--accent) 70%, black);
+  /* 70% → 60%: promo Badge (accent-700 on accent-100) kontrastini oshirish (a11y).
+     DIQQAT: foiz = accent ulushi → KAM foiz = koʻproq qora = QORAROQ = yuqori kontrast. */
+  --accent-700: color-mix(in oklab, var(--accent) 60%, black);
 
   /* neytral semantik tokenlar */
   --surface-muted: #f8fafc; /* slate-50 — seksiya almashinuvi */
   --line: #e2e8f0; /* slate-200 — kartalar chegarasi */
-  --ink-muted: #475569; /* slate-600 — asosiy matn */
-  --ink-subtle: #94a3b8; /* slate-400 — meta */
+  --ink-muted: #475569; /* slate-600 — asosiy matn (≈7:1 oq ustida) */
+  --ink-subtle: #64748b; /* slate-500 — meta. slate-400 (#94a3b8) WCAG AA'dan yiqilardi
+                            (2.6:1); slate-500 = 4.8:1 ≥ 4.5 (a11y sweep, ADR-019 yonida) */
 }
 
 @theme inline {

@@ -32,7 +32,7 @@ export async function Footer({
             {settings?.about_short}
           </p>
           {settings?.license_text ? (
-            <p className="mt-4 text-xs text-slate-500">{settings.license_text}</p>
+            <p className="mt-4 text-xs text-slate-400">{settings.license_text}</p>
           ) : null}
         </div>
 
@@ -73,7 +73,7 @@ export async function Footer({
             {settings?.working_hours?.map((h) => (
               <li key={h.weekday} className="flex justify-between gap-4">
                 <span className="text-slate-400">{names[h.weekday]}</span>
-                <span className={h.is_closed ? "text-slate-500" : "text-slate-200"}>
+                <span className={h.is_closed ? "text-slate-400" : "text-slate-200"}>
                   {h.is_closed ? h.note || "—" : `${hhmm(h.opens)}–${hhmm(h.closes)}`}
                 </span>
               </li>
@@ -83,7 +83,7 @@ export async function Footer({
       </div>
 
       <div className="border-t border-slate-800">
-        <div className="mx-auto max-w-6xl px-4 py-5 text-xs text-slate-500">
+        <div className="mx-auto max-w-6xl px-4 py-5 text-xs text-slate-400">
           © {new Date().getFullYear()} {settings?.legal_entity_name ?? settings?.name}
         </div>
       </div>

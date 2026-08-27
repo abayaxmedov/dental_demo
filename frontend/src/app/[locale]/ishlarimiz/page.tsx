@@ -27,7 +27,7 @@ export default async function CasesPage({ params }: { params: Params }) {
   return (
     <Section>
       <Breadcrumbs items={[{ label: tc("home"), href: localePath("/", locale as never) }, { label: t("title") }]} />
-      <SectionHeading title={t("title")} lead={t("lead")} />
+      <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
       {cases.length === 0 ? (
         <Empty title={t("title")} />
       ) : (

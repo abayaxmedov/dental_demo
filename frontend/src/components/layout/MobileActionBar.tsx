@@ -15,7 +15,8 @@ export function MobileActionBar({ settings }: { settings: ClinicSettings | null 
 
   return (
     <>
-      <div
+      <nav
+        aria-label="Tezkor amallar"
         className="fixed inset-x-0 bottom-0 z-50 grid border-t border-line bg-surface/95 backdrop-blur md:hidden"
         style={{
           gridTemplateColumns: `repeat(${items.length}, 1fr)`,
@@ -32,7 +33,7 @@ export function MobileActionBar({ settings }: { settings: ClinicSettings | null 
             {it.label}
           </a>
         ))}
-      </div>
+      </nav>
       {/* spacer — panel footer'ni yopmasin (CLS 0) */}
       <div className="h-14 md:hidden" aria-hidden />
     </>
