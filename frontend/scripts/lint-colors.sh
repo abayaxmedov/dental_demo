@@ -8,8 +8,8 @@ if grep -rEn "(${PREFIX})-(${PALETTE})-[0-9]" src/app src/components 2>/dev/null
   echo "✗ Off-brand rang literal topildi — token ishlating (bg-brand-600, text-accent-700)."
   exit 1
 fi
-# xom hex (globals.css dan tashqari)
-if grep -rEn "#[0-9a-fA-F]{3,8}" src/app src/components --include="*.tsx" 2>/dev/null; then
+# xom hex .tsx da (globals.css va three/ 3D materiallaridan tashqari)
+if grep -rEn "#[0-9a-fA-F]{3,8}" src/app src/components --include="*.tsx" --exclude-dir=three 2>/dev/null; then
   echo "✗ Xom hex rang topildi .tsx da — token ishlating."
   exit 1
 fi

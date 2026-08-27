@@ -2,7 +2,8 @@ import { getTranslations } from "next-intl/server";
 import { Phone, CalendarCheck } from "lucide-react";
 import type { ClinicSettings } from "@/lib/api";
 import { telHref } from "@/lib/format";
-import { ImageFrame } from "@/components/ui/ImageFrame";
+import Image from "next/image";
+import { SceneGuard } from "@/components/three/SceneGuard";
 
 export async function Hero({ settings }: { settings: ClinicSettings | null }) {
   const t = await getTranslations("hero");
@@ -39,14 +40,21 @@ export async function Hero({ settings }: { settings: ClinicSettings | null }) {
           </div>
         </div>
         <div className="lg:pl-6">
-          <ImageFrame
-            image={settings?.hero_image}
-            alt={settings?.name ?? "Oq Marvarid Dental"}
-            ratio="4/3"
-            priority
-            sizes="(min-width:1024px) 40rem, 100vw"
-            className="shadow-xl"
-          />
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-brand-100 to-brand-50 shadow-xl">
+            {/* Poster — har doim LCP elementi (fetchpriority high) */}
+            {settings?.hero_image?.src ? (
+              <Image
+                src={settings.hero_image.src}
+                alt={settings?.name ?? "Oq Marvarid Dental"}
+                fill
+                priority
+                sizes="(min-width:1024px) 40rem, 100vw"
+                className="object-cover"
+              />
+            ) : null}
+            {/* 3D tish — faqat qodir desktop'da, LCP'dan keyin mount boʻladi (ADR-011) */}
+            <SceneGuard />
+          </div>
         </div>
       </div>
     </section>
