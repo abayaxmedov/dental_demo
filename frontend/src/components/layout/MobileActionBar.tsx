@@ -20,7 +20,7 @@ export function MobileActionBar({ settings }: { settings: ClinicSettings | null 
         className="fixed inset-x-0 bottom-0 z-40 grid border-t border-line bg-surface/95 backdrop-blur lg:hidden"
         style={{
           gridTemplateColumns: `repeat(${items.length}, 1fr)`,
-          // env(safe-area-inset-bottom) OLIB TASHLANDI: viewport-fit=cover oʻrnatilmagan,
+          // Xavfsiz-zona pastki paddingi OLIB TASHLANDI: viewport-fit=cover oʻrnatilmagan,
           // shuning uchun u 0 edi (oʻlik kod, T-RESP-06 / AUDIT).
         }}
       >

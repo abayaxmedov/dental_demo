@@ -12,7 +12,8 @@
     "test:messages": "node scripts/check-messages.mjs",
     "test:unit": "vitest run",
     "test:watch": "vitest",
-    "test": "npm run typecheck && npm run lint:colors && npm run test:messages && npm run test:unit"
+    "test": "npm run typecheck && npm run lint:colors && npm run lint:responsive && npm run test:messages && npm run test:unit",
+    "lint:responsive": "node scripts/lint-responsive.mjs"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",
