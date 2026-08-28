@@ -3,7 +3,12 @@
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
-import { fetchSlots, rescheduleAppointment, type ApiDay } from "@/lib/api";
+import {
+  fetchSlots,
+  rescheduleAppointment,
+  type ApiDay,
+  type PublicAppointment,
+} from "@/lib/api";
 import { formatDayChip } from "@/lib/format";
 
 /** Qabulni boshqa vaqtga koʻchirish — slot picker + reschedule chaqiruvi. */
@@ -12,11 +17,14 @@ export function RescheduleFlow({
   serviceId,
   doctorId,
   onDone,
+  onBack,
 }: {
   token: string;
   serviceId: number | null;
   doctorId: number | null;
-  onDone: (startsAt: string) => void;
+  /** Serverdan kelgan TOʻLIQ qabul — can_reschedule/can_cancel/status ham yangilanadi (T-FIX-10). */
+  onDone: (appt: PublicAppointment) => void;
+  onBack: () => void;
 }) {
   const t = useTranslations("manage");
   const locale = useLocale();
@@ -41,10 +49,28 @@ export function RescheduleFlow({
   async function pick(startUtc: string) {
     setSubmitting(true);
     setErr(null);
-    const r = await rescheduleAppointment(token, startUtc, locale);
-    setSubmitting(false);
-    if (r.ok) onDone(r.data.starts_at);
-    else setErr(r.problem.detail || t("noSlots"));
+    try {
+      const r = await rescheduleAppointment(token, startUtc, locale);
+      if (r.ok) {
+        onDone(r.data);
+        return;
+      }
+      const p = r.problem;
+      if (p.code === "network_error") {
+        setErr(t("networkError"));
+      } else if (p.available?.days) {
+        // Slot poyga natijasida band boʻlgan — backend YANGI slotlarni ham qaytaradi,
+        // shuning uchun eski roʻyxatni koʻrsatib turmaymiz (T-FIX-10).
+        setDays(p.available.days);
+        const first = p.available.days.findIndex((d) => d.slots.length > 0);
+        setDayIdx(first >= 0 ? first : 0);
+        setErr(p.detail || t("slotTaken"));
+      } else {
+        setErr(p.detail || t("noSlots"));
+      }
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (loading)
@@ -105,7 +131,19 @@ export function RescheduleFlow({
           <Loader2 className="h-4 w-4 animate-spin" /> …
         </p>
       ) : null}
-      {err ? <p className="mt-3 text-sm text-red-600">{err}</p> : null}
+      {err ? (
+        <p className="mt-3 text-sm text-red-600" role="alert">
+          {err}
+        </p>
+      ) : null}
+      <button
+        type="button"
+        onClick={onBack}
+        disabled={submitting}
+        className="mt-4 min-h-11 rounded-full px-4 py-2 text-sm font-medium text-ink-muted hover:text-brand disabled:opacity-50"
+      >
+        {t("back")}
+      </button>
     </div>
   );
 }

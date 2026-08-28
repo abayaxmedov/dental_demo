@@ -17,6 +17,7 @@ export function ManageAppointment({ token }: { token: string }) {
   const [appt, setAppt] = useState<PublicAppointment | null>(null);
   const [loading, setLoading] = useState(true);
   const [cancelling, setCancelling] = useState(false);
+  const [cancelErr, setCancelErr] = useState<string | null>(null);
   const [reason, setReason] = useState("");
   const [showCancel, setShowCancel] = useState(false);
   const [showResched, setShowResched] = useState(false);
@@ -29,11 +30,22 @@ export function ManageAppointment({ token }: { token: string }) {
 
   async function doCancel() {
     setCancelling(true);
-    const r = await cancelAppointment(token, reason);
-    setCancelling(false);
-    if (r.ok) {
-      setAppt((a) => (a ? { ...a, status: "cancelled_by_patient", can_cancel: false, can_reschedule: false } : a));
-      setShowCancel(false);
+    setCancelErr(null);
+    try {
+      const r = await cancelAppointment(token, reason);
+      if (r.ok) {
+        setAppt((a) =>
+          a ? { ...a, status: "cancelled_by_patient", can_cancel: false, can_reschedule: false } : a,
+        );
+        setShowCancel(false);
+        return;
+      }
+      // Avval bekor qilish jimgina yiqilardi — bemor natijani bilmasdi (T-FIX-09).
+      setCancelErr(
+        r.problem.code === "network_error" ? t("networkError") : r.problem.detail || t("cancelFailed"),
+      );
+    } finally {
+      setCancelling(false);
     }
   }
 
@@ -114,10 +126,13 @@ export function ManageAppointment({ token }: { token: string }) {
           token={token}
           serviceId={appt.service_id ?? null}
           doctorId={appt.doctor_id ?? null}
-          onDone={(startsAt) => {
-            setAppt((a) => (a ? { ...a, starts_at: startsAt } : a));
+          onDone={(fresh) => {
+            // TOʻLIQ obyektni olamiz: can_reschedule/can_cancel/status/ends_at ham yangilanadi,
+            // aks holda 3-marta koʻchirgandan keyin tugma qolib, 4-urinish 409 berardi (T-FIX-10).
+            setAppt(fresh);
             setShowResched(false);
           }}
+          onBack={() => setShowResched(false)}
         />
       )}
 
@@ -147,6 +162,11 @@ export function ManageAppointment({ token }: { token: string }) {
               {t("back")}
             </button>
           </div>
+          {cancelErr ? (
+            <p className="mt-3 text-sm font-medium text-red-700" role="alert">
+              {cancelErr}
+            </p>
+          ) : null}
         </div>
       )}
 

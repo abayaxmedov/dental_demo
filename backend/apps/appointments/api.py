@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from datetime import date, timedelta
 
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
 from django.utils import timezone
 from drf_spectacular.types import OpenApiTypes
@@ -278,7 +279,13 @@ class SlotsView(APIView):
 
         exclude_id = None
         if token := p.get("exclude"):
-            appt = Appointment.objects.filter(cancel_token=token).first()
+            # UUID boʻlmagan qiymat `filter(cancel_token=…)` da ValidationError beradi →
+            # ilgari 500 qaytarardi. Reschedule UI aynan shu parametrni yuboradi, shuning
+            # uchun yaroqsiz token jimgina eʼtiborsiz qoldiriladi (AUDIT T-FIX-11).
+            try:
+                appt = Appointment.objects.filter(cancel_token=token).first()
+            except (DjangoValidationError, ValueError, TypeError):
+                appt = None
             exclude_id = appt.pk if appt else None
 
         res = available_slots(

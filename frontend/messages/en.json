@@ -99,7 +99,10 @@
     "noSlots": "No free times",
     "rescheduled": "Appointment moved",
     "confirm": "Confirm",
-    "loadingSlots": "Loading…"
+    "loadingSlots": "Loading…",
+    "networkError": "Connection problem. Check your internet and try again.",
+    "cancelFailed": "Could not cancel. Please try again or call us.",
+    "slotTaken": "That time was just taken — please pick another."
   },
   "pages": {
     "home": "Home",

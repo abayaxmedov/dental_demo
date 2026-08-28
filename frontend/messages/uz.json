@@ -99,7 +99,10 @@
     "noSlots": "Boʻsh vaqt yoʻq",
     "rescheduled": "Qabul koʻchirildi",
     "confirm": "Tasdiqlash",
-    "loadingSlots": "Yuklanmoqda…"
+    "loadingSlots": "Yuklanmoqda…",
+    "networkError": "Ulanishda xatolik. Internetni tekshirib, qayta urinib koʻring.",
+    "cancelFailed": "Bekor qilib boʻlmadi. Qayta urinib koʻring yoki qoʻngʻiroq qiling.",
+    "slotTaken": "Bu vaqtni kimdir band qildi — boshqa vaqtni tanlang."
   },
   "pages": {
     "home": "Bosh sahifa",

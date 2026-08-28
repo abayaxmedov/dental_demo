@@ -209,15 +209,35 @@ async function clientFetch<T>(
   init: RequestInit = {},
   locale?: string,
 ): Promise<{ ok: true; data: T } | { ok: false; problem: Problem }> {
-  const res = await fetch(`${CLIENT_BASE}/api/v1${path}`, {
-    ...init,
-    headers: {
-      "Content-Type": "application/json",
-      ...(locale ? { "Accept-Language": locale } : {}),
-      ...(init.headers ?? {}),
-    },
-  });
-  if (res.ok) return { ok: true, data: (await res.json()) as T };
+  // Tarmoq uzilishi HECH QACHON exception sifatida chiqmasligi kerak: chaqiruvchi
+  // `await` dan keyin `setSubmitting(false)` qiladi, shuning uchun throw bo'lsa forma
+  // abadiy muzlab qolardi — spinner, xabar yo'q, retry yo'q (AUDIT T-FIX-09).
+  let res: Response;
+  try {
+    res = await fetch(`${CLIENT_BASE}/api/v1${path}`, {
+      ...init,
+      headers: {
+        "Content-Type": "application/json",
+        ...(locale ? { "Accept-Language": locale } : {}),
+        ...(init.headers ?? {}),
+      },
+    });
+  } catch {
+    return {
+      ok: false,
+      problem: { type: "", title: "", status: 0, detail: "", code: "network_error" },
+    };
+  }
+  if (res.ok) {
+    try {
+      return { ok: true, data: (await res.json()) as T };
+    } catch {
+      return {
+        ok: false,
+        problem: { type: "", title: "", status: res.status, detail: "", code: "bad_response" },
+      };
+    }
+  }
   let problem: Problem;
   try {
     problem = (await res.json()) as Problem;

@@ -238,6 +238,37 @@ def test_double_cancel_returns_already_cancelled(client, setup):
     assert r.status_code == 409 and r.json()["code"] == "already_cancelled"
 
 
+# ── Slots: exclude parametri (AUDIT-2026-08-29 / T-FIX-11) ──
+
+
+@pytest.mark.parametrize("bad", ["not-a-uuid", "123", "' OR 1=1", ""])
+def test_slots_invalid_exclude_does_not_500(client, setup, bad):
+    """Reschedule UI aynan shu parametrni yuboradi — yaroqsiz token 500 bermasligi kerak."""
+    r = client.get(f"/api/v1/appointments/slots/?exclude={bad}")
+    assert r.status_code == 200, r.content[:200]
+
+
+def test_slots_valid_exclude_frees_own_slot(client, setup):
+    doc, svc = setup
+    ct = post(client, payload(doc, svc)).json()["cancel_token"]
+    appt = Appointment.objects.get(cancel_token=ct)
+    day = appt.starts_at.astimezone(TZ).date().isoformat()
+
+    def slots_on(day_str, exclude=None):
+        url = f"/api/v1/appointments/slots/?doctor={doc.id}&service={svc.id}"
+        if exclude:
+            url += f"&exclude={exclude}"
+        data = client.get(url).json()
+        for d in data["days"]:
+            if d["date"] == day_str:
+                return {s["start_utc"] for s in d["slots"]}
+        return set()
+
+    taken = slots_on(day)
+    freed = slots_on(day, exclude=ct)
+    assert len(freed) > len(taken)  # o'z izi bo'shadi
+
+
 # ── Public retrieve (bemor token orqali ko'radi) ──
 
 
