@@ -152,6 +152,17 @@ class Command(BaseCommand):
                 p = assets_dir / p
             if not p.is_file():
                 raise CommandError(f"`assets.{field}` fayli topilmadi: {p}")
+            # HAQIQATAN rasmmi? `full_clean` ASSET_FIELDS ni oʻtkazib yuboradi, shuning uchun
+            # buzuq/notoʻgʻri turdagi fayl jimgina saytga tushib, logotipni sindirardi (T-FIX-18).
+            try:
+                from PIL import Image, UnidentifiedImageError
+
+                with Image.open(p) as im:
+                    im.verify()
+            except UnidentifiedImageError as exc:
+                raise CommandError(f"`assets.{field}` rasm emas: {p}") from exc
+            except OSError as exc:
+                raise CommandError(f"`assets.{field}` buzuq rasm: {p} ({exc})") from exc
             asset_paths[field] = p
 
         if not updates and not asset_paths:

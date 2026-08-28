@@ -5,7 +5,11 @@ export default async function NotFound() {
   const t = await getTranslations("nav");
   return (
     <div className="mx-auto flex max-w-xl flex-col items-center px-4 py-24 text-center">
-      <p className="font-display text-7xl font-extrabold text-brand-200">404</p>
+      {/* Dekorativ raqam — matn sifatida oʻqilmaydi (h1 haqiqiy xabarni beradi).
+          `aria-hidden` + kuchaytirilgan rang: 1.47:1 kontrast axe da yiqilardi (T-FIX-18). */}
+      <p className="font-display text-7xl font-extrabold text-brand-400" aria-hidden="true">
+        404
+      </p>
       <h1 className="mt-4 font-display text-2xl font-bold text-ink">Sahifa topilmadi</h1>
       <p className="mt-2 text-ink-muted">
         Siz qidirgan sahifa mavjud emas yoki koʻchirilgan.

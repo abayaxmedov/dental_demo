@@ -26,7 +26,7 @@ export default async function StyleGuide({ params }: { params: Params }) {
   setRequestLocale(locale);
   return (
     <Section>
-      <SectionHeading eyebrow="Ichki" title="Style guide" lead="Dizayn tokenlari va komponentlar (klinikaga koʻrsatilmaydi)." />
+      <SectionHeading as="h1" eyebrow="Ichki" title="Style guide" lead="Dizayn tokenlari va komponentlar (klinikaga koʻrsatilmaydi)." />
       <div className="space-y-12">
         <div>
           <h2 className="mb-3 font-display text-xl font-bold text-ink">Ranglar</h2>
