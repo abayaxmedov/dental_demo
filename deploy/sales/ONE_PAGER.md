@@ -15,7 +15,7 @@
 | Bemor vaqtni oʻzgartirmoqchi | Bemor **oʻzi** koʻchiradi/bekor qiladi — administratorsiz |
 | Google'da koʻrinmaysiz | SEO tayyor: sitemap, hreflang, structured data, tez yuklanish |
 | Oʻzbek + rus mijozlar | **Uch til** (oʻzbek/rus/ingliz) — bitta sayt |
-| Raqobatchi sayti chиройliroq | **3D animatsiya** + Prodent shablonidan yuqori Lighthouse balli |
+| Raqobatchi sayti chiroyliroq | **3D animatsiya** + Prodent shablonidan yuqori Lighthouse balli |
 
 ## Nima ichida
 

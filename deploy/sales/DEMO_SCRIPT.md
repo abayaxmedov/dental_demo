@@ -67,7 +67,7 @@ E'tirozlar uchun pastga qarang.
 |---|---|
 | "Qimmat" | "Bir bemor implant = paket narxidan koʻp. Sayt oyiga bir necha qabul keltirsa qoplanadi." |
 | "Menda Instagram bor" | "Instagram — reklama, sayt — qabul + Google'da topilish. Sayt Instagram'ni bosh sahifada koʻrsatadi." |
-| "Oʻzim boshqara olamanmi?" | "Ha — admin panel oddiy, video qoʻllanma bор. Start paketi aynan shuning uchun." |
+| "Oʻzim boshqara olamanmi?" | "Ha — admin panel oddiy, video qoʻllanma bor. Start paketi aynan shuning uchun." |
 | "Onlayn toʻlov bormi?" | "Payme/Click qoʻshsa boʻladi — alohida faza sifatida hujjatlashtirilgan." |
 | "Ma'lumot xavfsizmi?" | "Ha — mahalliy hosting, HTTPS, spam himoyasi, muntazam backup." |
 

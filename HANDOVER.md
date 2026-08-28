@@ -46,7 +46,7 @@ ishlating yoki oʻzgarish 5 daqiqagacha kutadi.
 ### 1.2 Namuna rasmlarni almashtirish  ⚠️ HUQUQIY
 Demo'dagi rasmlar **CC0 namuna** — ba'zilarida odam yuzi bor. Ishga tushirishdan oldin:
 - Shifokor portretlari, klinika/ishlar (before/after) rasmlarini **oʻz rasmlaringiz** bilan almashtiring.
-- Model release (rasmga tushган odamning yozma roziligi) boʻlishi shart.
+- Model release (rasmga tushgan odamning yozma roziligi) boʻlishi shart.
 - Litsenziyalar — `ASSETS_LICENSES.md`.
 
 ### 1.3 Namuna litsenziya matnini almashtirish
