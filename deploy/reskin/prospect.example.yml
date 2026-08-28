@@ -64,13 +64,23 @@ flags:
   booking_enabled: true
 
 meta:
-  default_meta_title: "Smile Line Dental — Toshkent stomatologiyasi"
-  default_meta_description: "Implantatsiya, estetik stomatologiya, ortodontiya. Onlayn qabul."
+  # SEO — har til uchun alohida yozilgani maʼqul (Google/Yandex til boʻyicha indekslaydi).
+  default_meta_title:
+    uz: "Smile Line Dental — Toshkentda stomatologiya"
+    ru: "Smile Line Dental — стоматология в Ташкенте"
+    en: "Smile Line Dental — dentistry in Tashkent"
+  default_meta_description:
+    uz: "Implantatsiya, estetik stomatologiya, ortodontiya. Onlayn qabulga yoziling."
+    ru: "Имплантация, эстетическая стоматология, ортодонтия. Онлайн-запись."
+    en: "Implants, cosmetic dentistry, orthodontics. Book online."
 
-# Rasm assetlari (ixtiyoriy) — mavjud fayllar boʻlishi shart, aks holda buyruq toʻxtaydi.
-assets:
-  logo: "logo.png"
-  # logo_dark: "logo-dark.png"
-  favicon: "favicon.png"
-  hero_image: "hero.jpg"
-  og_image: "og.png"
+# Rasm assetlari — ATAYLAB izohga olingan, shunda BU FAYL qutidan chiqib ishlaydi
+# (`make reskin CONFIG=deploy/reskin/prospect.example.yml ARGS=--dry-run`).
+# Prospekt rasmlarini shu papkaga (yoki --assets-dir bilan boshqa papkaga) qoʻyib,
+# kerakli qatorlarni oching. Fayl topilmasa buyruq ataylab toʻxtaydi.
+# assets:
+#   logo: "logo.png"
+#   logo_dark: "logo-dark.png"
+#   favicon: "favicon.png"
+#   hero_image: "hero.jpg"
+#   og_image: "og.png"

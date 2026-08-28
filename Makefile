@@ -43,8 +43,12 @@ be-test:
 	cd backend && .venv/bin/python -m pytest || true
 be-schema:
 	cd backend && .venv/bin/python manage.py spectacular --file schema.yml
+# $(abspath …) SHART: retsept `cd backend` qiladi, shuning uchun repo ildizidan berilgan
+# nisbiy yoʻl aks holda buziladi (AUDIT-2026-08-29 / T-FIX-03).
 reskin:
-	cd backend && .venv/bin/python manage.py reskin --config $(CONFIG) $(ARGS)
+	@test -n "$(CONFIG)" || { echo "Ishlatish: make reskin CONFIG=prospect.yml [ARGS=--dry-run]"; exit 2; }
+	@test -f "$(CONFIG)" || { echo "Config topilmadi: $(CONFIG)"; exit 2; }
+	cd backend && .venv/bin/python manage.py reskin --config "$(abspath $(CONFIG))" $(ARGS)
 
 # --- frontend ---
 fe-install:
