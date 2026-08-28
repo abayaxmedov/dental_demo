@@ -55,6 +55,11 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
   const [days, setDays] = useState<ApiDay[]>([]);
   const [dayIdx, setDayIdx] = useState(0);
   const [slot, setSlot] = useState<ApiSlot | null>(null);
+  // Tanlangan kun chipini koʻrinishga suramiz — klinika bir necha kun yopiq boʻlsa,
+  // birinchi boʻsh kun oʻngda qolib, bemor faqat greyed chiplarni koʻrardi (T-RESP-08).
+  useEffect(() => {
+    dayRefs.current[dayIdx]?.scrollIntoView({ inline: "center", block: "nearest" });
+  }, [dayIdx]);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [bookingEnabled, setBookingEnabled] = useState(true);
 
@@ -240,7 +245,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
           chiplar bosilaverardi va yorliq kontrasti 1.42:1 edi (AUDIT T-FIX-12).
         */}
         <div
-          className="flex gap-2 overflow-x-auto pb-2"
+          className="flex snap-x snap-mandatory gap-2 overflow-x-auto overscroll-x-contain pb-2"
           role="radiogroup"
           aria-label={t("day")}
           onKeyDown={(e) => {
@@ -273,7 +278,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
                   setSlot(null);
                 }}
                 className={
-                  "flex min-h-11 min-w-[64px] shrink-0 flex-col items-center justify-center rounded-xl border px-3 py-2 text-xs transition " +
+                  "flex min-h-11 min-w-[64px] shrink-0 snap-start flex-col items-center justify-center rounded-xl border px-3 py-2 text-xs transition " +
                   (i === dayIdx
                     ? "border-brand bg-brand text-white"
                     : disabled

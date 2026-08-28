@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import {
@@ -30,6 +30,11 @@ export function RescheduleFlow({
   const locale = useLocale();
   const [days, setDays] = useState<ApiDay[]>([]);
   const [dayIdx, setDayIdx] = useState(0);
+  const dayRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  // Tanlangan kun chipini koʻrinishga suramiz (T-RESP-08).
+  useEffect(() => {
+    dayRefs.current[dayIdx]?.scrollIntoView({ inline: "center", block: "nearest" });
+  }, [dayIdx]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -84,7 +89,7 @@ export function RescheduleFlow({
   return (
     <div className="mt-6 rounded-xl border border-line bg-surface-muted p-5">
       <p className="mb-3 font-medium text-ink">{t("rescheduleTitle")}</p>
-      <div className="mb-3 flex gap-2 overflow-x-auto pb-1">
+      <div className="mb-3 flex snap-x snap-mandatory gap-2 overflow-x-auto overscroll-x-contain pb-1">
         {days.map((d, i) => {
           const disabled = d.slots.length === 0;
           const { wd, dm } = formatDayChip(d.date, locale);
@@ -92,10 +97,13 @@ export function RescheduleFlow({
             <button
               key={d.date}
               type="button"
+              ref={(el) => {
+                dayRefs.current[i] = el;
+              }}
               disabled={disabled}
               onClick={() => setDayIdx(i)}
               className={
-                "flex min-h-11 min-w-[60px] shrink-0 flex-col items-center rounded-lg border px-2.5 py-1.5 text-xs " +
+                "flex min-h-11 min-w-[60px] shrink-0 snap-start flex-col items-center rounded-lg border px-2.5 py-1.5 text-xs " +
                 (i === dayIdx
                   ? "border-brand bg-brand text-white"
                   : disabled
