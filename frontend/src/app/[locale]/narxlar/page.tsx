@@ -50,16 +50,17 @@ export default async function PricesPage({ params }: { params: Params }) {
           {[...byCat.entries()].map(([slug, items]) => (
             <div key={slug}>
               <h2 className="mb-4 font-display text-xl font-bold text-ink">{catTitle.get(slug) ?? slug}</h2>
-              <div className="overflow-hidden rounded-2xl border border-line">
+              {/* overflow-x-auto: uzun narx 320px'da kesilmasin, scroll qilinsin (T-RESP-01) */}
+              <div className="overflow-x-auto overscroll-x-contain rounded-2xl border border-line">
                 <table className="w-full text-sm">
                   <tbody>
                     {items.map((p) => (
                       <tr key={p.id} className="border-b border-line last:border-0">
-                        <td className="px-4 py-3.5 text-ink">
+                        <td className="px-3 py-3.5 text-ink sm:px-4">
                           {p.title}
                           {p.is_promo ? <span className="ml-2"><Badge tone="promo">{p.promo_note || "Aksiya"}</Badge></span> : null}
                         </td>
-                        <td className="whitespace-nowrap px-4 py-3.5 text-right font-semibold text-ink">
+                        <td className="whitespace-nowrap px-3 py-3.5 text-right font-semibold text-ink sm:px-4">
                           {t("from")} {formatSum(p.price_from, locale)} {p.currency === "UZS" ? "soʻm" : p.currency}
                         </td>
                       </tr>

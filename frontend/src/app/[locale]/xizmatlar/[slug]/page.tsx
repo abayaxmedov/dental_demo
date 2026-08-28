@@ -86,13 +86,13 @@ export default async function ServiceDetail({ params }: { params: Params }) {
       {s.body ? <div className="mt-8"><Prose text={s.body} /></div> : null}
 
       {prices.length ? (
-        <div className="mt-10 overflow-hidden rounded-2xl border border-line">
+        <div className="mt-10 overflow-x-auto overscroll-x-contain rounded-2xl border border-line">
           <table className="w-full text-sm">
             <tbody>
               {prices.map((p) => (
                 <tr key={p.id} className="border-b border-line last:border-0">
-                  <td className="px-4 py-3.5 text-ink">{p.title}</td>
-                  <td className="whitespace-nowrap px-4 py-3.5 text-right font-semibold text-ink">
+                  <td className="px-3 py-3.5 text-ink sm:px-4">{p.title}</td>
+                  <td className="whitespace-nowrap px-3 py-3.5 text-right font-semibold text-ink sm:px-4">
                     {formatSum(p.price_from, locale)} {p.currency === "UZS" ? "soʻm" : p.currency}
                   </td>
                 </tr>

@@ -58,7 +58,7 @@ export default async function ContactPage({ params }: { params: Params }) {
               <Clock className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden />
               <div>
                 <p className="font-semibold text-ink">{t("hours")}</p>
-                <table className="mt-1 text-sm text-ink-muted">
+                <table className="mt-1 w-full max-w-xs text-sm text-ink-muted">
                   <tbody>
                     {hours.map((h) => (
                       <tr key={h.weekday}><td className="pr-4">{days[h.weekday]}</td><td>{h.is_closed ? "—" : `${h.opens?.slice(0, 5)}–${h.closes?.slice(0, 5)}`}</td></tr>

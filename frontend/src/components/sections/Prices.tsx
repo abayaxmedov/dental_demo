@@ -19,12 +19,14 @@ export async function Prices({
   return (
     <Section id="narxlar" tone="muted" width="4xl">
       <SectionHeading title={t("prices")} />
-      <div className="overflow-hidden rounded-2xl border border-line bg-surface">
+      {/* overflow-x-auto (overflow-hidden EMAS): 320px'da uzun narx kesilib yo'qolmasin,
+          scroll qilinsin (T-RESP-01). Naqsh: media-litsenziyalar/page.tsx. */}
+      <div className="overflow-x-auto overscroll-x-contain rounded-2xl border border-line bg-surface">
         <table className="w-full text-left text-sm">
           <tbody className="divide-y divide-line">
             {rows.map((p) => (
               <tr key={p.id} className="transition hover:bg-surface-muted">
-                <td className="px-5 py-4">
+                <td className="px-3 py-4 sm:px-5">
                   <span className="font-medium text-ink">{p.title}</span>
                   {p.is_promo && p.promo_note ? (
                     <span className="ml-2">
@@ -35,7 +37,7 @@ export async function Prices({
                     <span className="ml-2 text-xs text-ink-subtle">/ {p.unit}</span>
                   ) : null}
                 </td>
-                <td className="whitespace-nowrap px-5 py-4 text-right font-semibold text-ink">
+                <td className="whitespace-nowrap px-3 py-4 text-right font-semibold text-ink sm:px-5">
                   {Number(p.price_from) === 0 ? (
                     <span className="text-brand">—</span>
                   ) : (
