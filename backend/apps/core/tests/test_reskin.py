@@ -133,3 +133,27 @@ def test_reskin_missing_asset_file_errors(tmp_path):
 def test_reskin_missing_config_errors():
     with pytest.raises(CommandError, match="topilmadi"):
         call_command("reskin", config="/nonexistent/prospect.yml")
+
+
+# ── Rang validatori (AUDIT-2026-08-29 / T-FIX-05) ──
+# Regressiya: rang maydonlarida validator yoʻq edi, admin `teal` yozsa `<html style>` ga
+# xom injeksiya qilinib butun `bg-brand` CTA'lari koʻrinmas boʻlib qolardi.
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("bad", ["teal", "0E7C86", "#0E7C8", "a;zoom:9", "red;x:1", ""])
+def test_colour_fields_reject_non_hex(bad):
+    from django.core.exceptions import ValidationError
+
+    s = ClinicSettings.load()
+    s.brand_color = bad
+    with pytest.raises(ValidationError):
+        s.full_clean()
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("good", ["#0E7C86", "#0e7c86", "#fff", "#FFFA", "#0E7C86FF"])
+def test_colour_fields_accept_hex(good):
+    s = ClinicSettings.load()
+    s.brand_color = good
+    s.full_clean()  # xato bo'lmasligi kerak

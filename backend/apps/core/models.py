@@ -5,6 +5,7 @@ Tarjima qilinadigan maydonlar translation.py da roʻyxatdan oʻtadi (modeltransl
 """
 
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from django.db import models
 
 
@@ -52,6 +53,15 @@ class FontPair(models.TextChoices):
     PLAYFAIR_INTER = "playfair_inter", "Playfair + Inter"
 
 
+# Rang maydonlari `<html style="--brand:…">` ga XOM injeksiya qilinadi (layout.tsx, ADR-004).
+# Validator boʻlmasa admin `teal` yoki `0E7C86` (# siz) yozsa butun `bg-brand` CTA'lari
+# koʻrinmas boʻlib qolardi, xatolik xabarisiz (AUDIT-2026-08-29 / T-FIX-05).
+HEX_COLOR_VALIDATOR = RegexValidator(
+    regex=r"^#(?:[0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+    message="Hex rang boʻlishi kerak: #RGB, #RGBA, #RRGGBB yoki #RRGGBBAA (masalan #0E7C86).",
+)
+
+
 class ClinicSettings(SingletonModel):
     """Sayt sozlamalari — brending data (kod emas). reskin (ADR-012) shu yerni yozadi."""
 
@@ -68,10 +78,10 @@ class ClinicSettings(SingletonModel):
     og_image = models.ImageField("OG rasm (default)", upload_to="og/", blank=True, null=True)
 
     # Ranglar (ADR-004: CSS custom property sifatida frontend'ga uzatiladi)
-    brand_color = models.CharField("brand rang", max_length=9, default="#0E7C86")
-    accent_color = models.CharField("accent rang", max_length=9, default="#F2A65A")
-    ink_color = models.CharField("matn rangi", max_length=9, default="#0F172A")
-    surface_color = models.CharField("fon rangi", max_length=9, default="#FFFFFF")
+    brand_color = models.CharField("brand rang", max_length=9, default="#0E7C86", validators=[HEX_COLOR_VALIDATOR])
+    accent_color = models.CharField("accent rang", max_length=9, default="#F2A65A", validators=[HEX_COLOR_VALIDATOR])
+    ink_color = models.CharField("matn rangi", max_length=9, default="#0F172A", validators=[HEX_COLOR_VALIDATOR])
+    surface_color = models.CharField("fon rangi", max_length=9, default="#FFFFFF", validators=[HEX_COLOR_VALIDATOR])
     font_pair = models.CharField(
         "shrift juftligi",
         max_length=32,

@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { getSiteSettings } from "@/lib/api";
 import { OG_LOCALE, SITE_URL } from "@/lib/seo";
-import { BRAND_THEME_COLOR } from "@/lib/theme";
+import { BRAND_THEME_COLOR, isHexColor } from "@/lib/theme";
 import { LocaleAlternatesProvider } from "@/components/layout/locale-alternates";
 import { Topbar } from "@/components/layout/Topbar";
 import { Header } from "@/components/layout/Header";
@@ -93,14 +93,18 @@ export default async function LocaleLayout({
   // sifatida injeksiya. globals.css `:root` defaultlarini ustma-ust bosadi (inline > stylesheet),
   // color-mix rampasi (`--brand-50…`) shu injeksiya qilingan `--brand`dan HOSILA boʻladi.
   // Shu tufayli `reskin` bitta hex oʻzgartirsa butun shkala moslashadi. SSR — FOUC yoʻq.
+  // Faqat HAQIQIY hex injeksiya qilinadi — yaroqsiz qiymat globals.css defaultini buzmasin
+  // (T-FIX-05: `;` bilan CSS qoʻshilishi yoki koʻrinmas CTA).
   const theme = settings?.theme;
-  const themeStyle = theme
-    ? ({
-        "--brand": theme.brand,
-        "--accent": theme.accent,
-        "--ink": theme.ink,
-        "--surface": theme.surface,
-      } as React.CSSProperties)
+  const themeVars: Record<string, string> = {};
+  if (theme) {
+    if (isHexColor(theme.brand)) themeVars["--brand"] = theme.brand;
+    if (isHexColor(theme.accent)) themeVars["--accent"] = theme.accent;
+    if (isHexColor(theme.ink)) themeVars["--ink"] = theme.ink;
+    if (isHexColor(theme.surface)) themeVars["--surface"] = theme.surface;
+  }
+  const themeStyle = Object.keys(themeVars).length
+    ? (themeVars as React.CSSProperties)
     : undefined;
 
   return (
