@@ -42,8 +42,11 @@
 | Accessibility | **100** | 80 |
 | SEO | **100** | 66 |
 | Layout barqarorligi (CLS) | **0** | 0.001 |
+| Bloklanish vaqti (TBT) | **18–24 ms** | 103 ms |
+| Best Practices | 96–100 | 96 |
 
-**Har mezonda oldinda** — batafsil `README.md`.
+**Beshta mezonda ishonchli oldinda, Best Practices boʻyicha kamida teng.**
+Oʻlchov usuli va izohlar — `README.md`.
 
 ---
 

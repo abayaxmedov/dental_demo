@@ -58,24 +58,36 @@ deploy/    nginx, systemd, cron, backup (Faza 1 oxiri)
 Sotuv daʼvosi ("har jihatdan Prodent'dan yaxshiroq") oʻlchandi. Lighthouse mobil, bizning
 prod build vs **jonli Prodent demo** (`preview.colorlib.com/theme/prodent`):
 
-| Kategoriya        | **Bu sayt** | Prodent |
-|-------------------|:-----------:|:-------:|
-| Performance       | **88–94**   | 64      |
-| Accessibility     | **100**     | 80      |
-| Best Practices    | **96–100**  | 96      |
-| SEO               | **100**     | 66      |
-| CLS (layout shift)| **0**       | 0.001   |
-| TBT (bloklanish)  | **18–24 ms**| 103 ms  |
-| LCP               | ~3.0–3.9 s* | 9.1 s   |
+Raqamlar **ikki xil run**dan olingan, shuning uchun ustunlar ajratilgan — bitta ustunga
+aralashtirish notoʻgʻri boʻlardi (bu avval shunday edi, audit tuzatdi):
 
-**Har bir mezonda oldinda.** a11y=100 (axe-core sweep bilan tasdiqlangan — WCAG 2 A/AA),
-best-practices/SEO — xavfsizlik header'lari + CSP (ADR-019) va SEO hardening natijasi.
+| Kategoriya         | Lokal **prod** build | Origin mos **dev** run | Prodent (jonli) |
+|--------------------|:--------------------:|:----------------------:|:---------------:|
+| Performance        | **88–94**            | 64¹                    | 64              |
+| Accessibility      | **100**              | **100**                | 80              |
+| Best Practices     | 96–100²              | **100**                | 96              |
+| SEO                | 92³                  | **100**                | 66              |
+| CLS (layout shift) | **0**                | —                      | 0.001           |
+| TBT (bloklanish)   | **18–24 ms**         | —                      | 103 ms          |
+| LCP                | ~3.0–3.9 s⁴          | —                      | 9.1 s           |
 
-> \* Lokal prod testida `canonical` (SEO) va `errors-in-console` (BP) *artefaktlari* boradi:
-> test URL'i (`127.0.0.1`) sozlangan `SITE_URL` bilan mos emas, va prod CSP'dagi
-> `upgrade-insecure-requests` http backend rasmlarini https'ga koʻtarib lokalda buzadi.
-> Origin mos kelgan dev run'da bularsiz **SEO=100, BP=100**. LCP haqiqiy prod'da media
-> host HTTPS + CDN boʻlgach yaxshilanadi.
+**Aniq xulosa:** Accessibility, SEO, CLS, TBT va LCP boʻyicha **ishonchli oldinda**;
+Performance boʻyicha sezilarli oldinda (88–94 vs 64); **Best Practices boshsahifada teng**
+(96 vs 96, xizmatlar sahifasida 100). Yaʼni "mutlaqo har bir mezonda oldinda" degan avvalgi
+daʼvo **notoʻgʻri** edi — BP da durang.
+
+> ¹ Dev build minifikatsiyasiz va HMR bilan ishlaydi — dev'dagi Performance balli oʻlchov
+> sifatida ahamiyatsiz, u yerda faqat a11y/BP/SEO ishonchli.
+> ² Lokal prod'da `errors-in-console`: prod CSP `upgrade-insecure-requests` http backend
+> rasmlarini https'ga koʻtaradi va lokalda ular yiqiladi. HTTPS media host'da yoʻqoladi.
+> ³ Lokal prod'da `canonical`: test URL (`127.0.0.1:PORT`) sozlangan `NEXT_PUBLIC_SITE_URL`
+> bilan mos emas. Haqiqiy domenda yoʻqoladi (origin mos dev run buni tasdiqlaydi: 100).
+> ⁴ LCP haqiqiy prod'da media host HTTPS + CDN boʻlgach yaxshilanadi.
+
+> ⚠️ **Loyihaning oʻz qabul mezoni** (`TODO.md`): Lighthouse mobil **≥ 95**/100/100/100.
+> Performance **88–94** — bu chiziqdan **past**, yaʼni band hali **yopilmagan**. Asosiy sabab
+> qodir desktopdagi 3D chunk emas (mobil uni yuklamaydi), balki media host va rasm
+> yetkazib berish — deploy (HTTPS + CDN) dan keyin qayta oʻlchanadi.
 
 ## Holat
 

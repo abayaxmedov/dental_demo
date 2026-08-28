@@ -17,7 +17,7 @@ Uch tilli (oʻzbek / rus / ingliz) stomatologiya sayti:
 - **Admin panel** (`/admin/`) — qabullar, murojaatlar (lead), xizmatlar, shifokorlar, narxlar, bloglar, sharhlar.
 - **Telegram xabarnoma** — har yangi qabul/murojaat klinikaning Telegram'iga tushadi.
 - **SEO tayyor** — Google/Yandex uchun sitemap, hreflang, structured data; Lighthouse mobil ballari
-  Prodent shablonidan har mezonda yuqori (`README.md`).
+  Prodent shablonidan sezilarli yuqori (tafsilot va oʻlchov usuli — `README.md`).
 - **3D** — bosh sahifada aylanuvchi tish, xizmatlar sahifasida bosiladigan tish xaritasi.
 
 ---
