@@ -144,7 +144,7 @@ export function ManageAppointment({ token }: { token: string }) {
             onChange={(e) => setReason(e.target.value)}
             placeholder={t("cancelReason")}
             rows={2}
-            className="mt-3 w-full rounded-lg border border-red-200 px-3 py-2 text-sm"
+            className="mt-3 w-full rounded-lg border border-red-200 px-3 py-2 text-base"
           />
           <div className="mt-3 flex gap-2">
             <button

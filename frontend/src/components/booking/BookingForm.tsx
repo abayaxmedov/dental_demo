@@ -201,7 +201,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
           id="bk-service"
           value={serviceId}
           onChange={(e) => setServiceId(Number(e.target.value))}
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-brand focus:ring-2 focus:ring-brand/20"
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 text-base focus:border-brand focus:ring-2 focus:ring-brand/20"
         >
           {services.map((s) => (
             <option key={s.id} value={s.id}>
@@ -220,7 +220,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
           id="bk-doctor"
           value={doctorId}
           onChange={(e) => setDoctorId(e.target.value ? Number(e.target.value) : "")}
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-brand focus:ring-2 focus:ring-brand/20"
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 text-base focus:border-brand focus:ring-2 focus:ring-brand/20"
         >
           <option value="">{t("anyDoctor")}</option>
           {doctors.map((d) => (
@@ -346,7 +346,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
             required
             minLength={2}
             placeholder={t("namePlaceholder")}
-            className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-brand focus:ring-2 focus:ring-brand/20"
+            className="w-full rounded-xl border border-slate-300 px-4 py-3 text-base focus:border-brand focus:ring-2 focus:ring-brand/20"
           />
         </div>
         <div>
@@ -359,7 +359,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
             value={phoneVal}
             onChange={(e) => setPhoneVal(e.target.value)}
             required
-            className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-brand focus:ring-2 focus:ring-brand/20"
+            className="w-full rounded-xl border border-slate-300 px-4 py-3 text-base focus:border-brand focus:ring-2 focus:ring-brand/20"
           />
         </div>
       </div>
@@ -373,7 +373,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           rows={2}
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm focus:border-brand focus:ring-2 focus:ring-brand/20"
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 text-base focus:border-brand focus:ring-2 focus:ring-brand/20"
         />
       </div>
 

@@ -33,7 +33,7 @@ export default async function BlogPage({ params, searchParams }: { params: Param
       <SectionHeading as="h1" title={t("title")} lead={t("lead")} />
       <form className="mb-8 max-w-md" action="" method="get">
         <input name="q" defaultValue={q ?? ""} placeholder={t("search")} aria-label={t("search")}
-          className="w-full rounded-full border border-line px-5 py-2.5 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20" />
+          className="w-full rounded-full border border-line px-5 py-2.5 text-base focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20" />
       </form>
       {posts.length === 0 ? (
         <Empty title={t("empty")} />
