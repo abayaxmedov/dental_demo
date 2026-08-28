@@ -138,6 +138,7 @@ export default async function ServiceDetail({ params }: { params: Params }) {
 }
 
 import { ImageFrame } from "@/components/ui/ImageFrame";
+import { CONTENT_4XL } from "@/lib/image-sizes";
 function ImageFrameBlock({ src, alt }: { src?: string; alt: string }) {
-  return <ImageFrame image={src ? { src } : null} alt={alt} ratio="16/9" sizes="(min-width:1024px) 56rem, 100vw" priority />;
+  return <ImageFrame image={src ? { src } : null} alt={alt} ratio="16/9" sizes={CONTENT_4XL} priority />;
 }

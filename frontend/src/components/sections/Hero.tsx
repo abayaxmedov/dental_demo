@@ -4,6 +4,7 @@ import type { ClinicSettings } from "@/lib/api";
 import { telHref } from "@/lib/format";
 import Image from "next/image";
 import { SceneGuard } from "@/components/three/SceneGuard";
+import { HALF } from "@/lib/image-sizes";
 
 export async function Hero({ settings }: { settings: ClinicSettings | null }) {
   const t = await getTranslations("hero");
@@ -49,7 +50,7 @@ export async function Hero({ settings }: { settings: ClinicSettings | null }) {
                 alt={settings?.name ?? "Oq Marvarid Dental"}
                 fill
                 priority
-                sizes="(min-width:1024px) 40rem, 100vw"
+                sizes={HALF}
                 className="hero-poster object-cover"
               />
             ) : null}

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { ImageLike } from "@/lib/api";
+import { CARD_3UP } from "@/lib/image-sizes";
 
 type Props = {
   image: ImageLike;
@@ -15,7 +16,7 @@ type Props = {
 export function ImageFrame({
   image,
   alt,
-  sizes = "(min-width: 1024px) 33vw, 100vw",
+  sizes = CARD_3UP,
   ratio = "4/3",
   priority = false,
   rounded = "rounded-2xl",

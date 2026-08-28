@@ -11,6 +11,7 @@ import { Prose } from "@/components/ui/Prose";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { SetLocaleHrefs } from "@/components/layout/locale-alternates";
+import { PROSE } from "@/lib/image-sizes";
 
 type Params = Promise<{ locale: string; slug: string }>;
 export const dynamicParams = true;
@@ -63,7 +64,7 @@ export default async function PostDetail({ params }: { params: Params }) {
         {p.author_name ? ` · ${p.author_name}` : ""}
         {p.reading_time ? ` · ${p.reading_time} ${t("readTime")}` : ""}
       </p>
-      {p.cover ? <div className="mt-6"><ImageFrame image={p.cover} alt={p.title} ratio="16/9" priority sizes="(min-width:768px) 48rem, 100vw" /></div> : null}
+      {p.cover ? <div className="mt-6"><ImageFrame image={p.cover} alt={p.title} ratio="16/9" priority sizes={PROSE} /></div> : null}
       {p.excerpt ? <p className="mt-6 text-lg font-medium text-ink-muted">{p.excerpt}</p> : null}
       {p.body ? <div className="mt-6"><Prose text={p.body} /></div> : null}
     </Section>

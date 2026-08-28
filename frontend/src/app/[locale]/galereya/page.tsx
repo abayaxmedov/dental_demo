@@ -6,6 +6,7 @@ import { Section, SectionHeading } from "@/components/ui/Section";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Empty } from "@/components/ui/Empty";
+import { CARD_3UP } from "@/lib/image-sizes";
 
 type Params = Promise<{ locale: string }>;
 
@@ -32,7 +33,7 @@ export default async function GalleryPage({ params }: { params: Params }) {
         <div className="columns-1 gap-4 sm:columns-2 md:columns-3 [&>*]:mb-4">
           {images.map((g) => (
             <figure key={g.id} className="break-inside-avoid">
-              <ImageFrame image={g.image} alt={g.alt || g.caption || t("title")} ratio="4/3" sizes="(min-width:1024px) 33vw, 100vw" />
+              <ImageFrame image={g.image} alt={g.alt || g.caption || t("title")} ratio="4/3" sizes={CARD_3UP} />
               {g.caption ? <figcaption className="mt-1.5 text-xs text-ink-subtle">{g.caption}</figcaption> : null}
             </figure>
           ))}

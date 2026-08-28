@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/Card";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Empty } from "@/components/ui/Empty";
+import { CARD_3UP } from "@/lib/image-sizes";
 
 type Params = Promise<{ locale: string }>;
 type Search = Promise<{ q?: string }>;
@@ -42,7 +43,7 @@ export default async function BlogPage({ params, searchParams }: { params: Param
           {posts.map((p) => (
             <Link key={p.id} href={{ pathname: "/blog/[slug]", params: { slug: p.slug ?? "" } }}>
               <Card interactive className="flex h-full flex-col overflow-hidden">
-                <ImageFrame image={p.cover} alt={p.title} ratio="16/9" rounded="" sizes="(min-width:1024px) 33vw, 100vw" />
+                <ImageFrame image={p.cover} alt={p.title} ratio="16/9" rounded="" sizes={CARD_3UP} />
                 <div className="flex flex-1 flex-col p-5">
                   <h2 className="font-display text-lg font-bold leading-snug text-ink">{p.title}</h2>
                   <p className="mt-2 line-clamp-2 flex-1 text-sm text-ink-muted">{p.excerpt}</p>

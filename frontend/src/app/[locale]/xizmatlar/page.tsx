@@ -10,6 +10,7 @@ import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Empty } from "@/components/ui/Empty";
 import { ToothMapSection } from "@/components/three/ToothMapSection";
+import { CARD_3UP } from "@/lib/image-sizes";
 
 type Params = Promise<{ locale: string }>;
 type Search = Promise<{ category?: string }>;
@@ -62,7 +63,7 @@ export default async function ServicesPage({ params, searchParams }: { params: P
           {services.map((s) => (
             <Link key={s.id} href={{ pathname: "/xizmatlar/[slug]", params: { slug: s.slug ?? "" } }}>
               <Card interactive className="flex h-full flex-col overflow-hidden">
-                <ImageFrame image={s.cover} alt={s.title} ratio="3/2" rounded="" sizes="(min-width:1024px) 33vw, 100vw" />
+                <ImageFrame image={s.cover} alt={s.title} ratio="3/2" rounded="" sizes={CARD_3UP} />
                 <div className="flex flex-1 flex-col p-5">
                   <h2 className="font-display text-lg font-bold text-ink">{s.title}</h2>
                   <p className="mt-2 line-clamp-2 flex-1 text-sm text-ink-muted">{s.excerpt}</p>

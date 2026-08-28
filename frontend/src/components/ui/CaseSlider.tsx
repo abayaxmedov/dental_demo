@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import type { ImageLike } from "@/lib/api";
+import { HALF } from "@/lib/image-sizes";
 
 /** Before/After slider — sudraladigan tutqich (pointer+touch+klaviatura), clip-path (CLS 0). */
 export function CaseSlider({
@@ -55,11 +56,11 @@ export function CaseSlider({
       }}
     >
       {after?.src ? (
-        <Image src={after.src} alt={`${alt} — ${afterLabel}`} fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
+        <Image src={after.src} alt={`${alt} — ${afterLabel}`} fill sizes={HALF} className="object-cover" />
       ) : null}
       <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
         {before?.src ? (
-          <Image src={before.src} alt={`${alt} — ${beforeLabel}`} fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
+          <Image src={before.src} alt={`${alt} — ${beforeLabel}`} fill sizes={HALF} className="object-cover" />
         ) : null}
       </div>
       <span className="absolute left-2 top-2 rounded bg-black/60 px-2 py-0.5 text-xs font-medium text-white">{beforeLabel}</span>

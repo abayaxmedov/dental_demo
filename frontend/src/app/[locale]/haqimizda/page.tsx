@@ -9,6 +9,7 @@ import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { ButtonLink } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
+import { HALF } from "@/lib/image-sizes";
 
 type Params = Promise<{ locale: string }>;
 
@@ -43,7 +44,7 @@ export default async function AboutPage({ params }: { params: Params }) {
             {(settings?.about_short || "").split(/\n\n+/).filter(Boolean).map((p, i) => <p key={i}>{p}</p>)}
             {settings?.license_text ? <p className="rounded-xl border border-line bg-surface-muted px-4 py-3 text-sm">{settings.license_text}</p> : null}
           </div>
-          {gallery[0] ? <ImageFrame image={gallery[0].image} alt={gallery[0].alt || t("about")} ratio="4/3" priority sizes="(min-width:1024px) 40rem, 100vw" /> : null}
+          {gallery[0] ? <ImageFrame image={gallery[0].image} alt={gallery[0].alt || t("about")} ratio="4/3" priority sizes={HALF} /> : null}
         </div>
       </Section>
 

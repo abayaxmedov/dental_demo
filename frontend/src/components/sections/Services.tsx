@@ -8,6 +8,7 @@ import { ImageFrame } from "@/components/ui/ImageFrame";
 import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { TiltCard } from "@/components/ui/TiltCard";
+import { CARD_3UP } from "@/lib/image-sizes";
 
 export async function Services({ services }: { services: Service[] }) {
   const t = await getTranslations("nav");
@@ -26,7 +27,7 @@ export async function Services({ services }: { services: Service[] }) {
             <Link key={s.id} href={{ pathname: "/xizmatlar/[slug]", params: { slug: s.slug ?? "" } }}>
               <TiltCard>
                 <Card interactive className="flex h-full flex-col overflow-hidden">
-              <ImageFrame image={s.cover} alt={s.title} ratio="3/2" rounded="" sizes="(min-width:1024px) 33vw, 100vw" />
+              <ImageFrame image={s.cover} alt={s.title} ratio="3/2" rounded="" sizes={CARD_3UP} />
               <div className="flex flex-1 flex-col p-5">
                 <h3 className="font-display text-lg font-bold text-ink">{s.title}</h3>
                 <p className="mt-2 line-clamp-2 flex-1 text-sm text-ink-muted">{s.excerpt}</p>
