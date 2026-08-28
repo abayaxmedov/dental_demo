@@ -40,6 +40,7 @@ export const routing = defineRouting({
       ru: "/politika-konfidentsialnosti",
       en: "/privacy-policy",
     },
+    "/media-litsenziyalar": "/media-litsenziyalar",
     "/qabul/[token]": "/qabul/[token]",
     "/style-guide": "/style-guide",
   },

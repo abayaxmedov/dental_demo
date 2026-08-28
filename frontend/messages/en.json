@@ -18,7 +18,8 @@
     "gallery": "Gallery",
     "reviews": "Reviews",
     "blog": "Blog",
-    "contact": "Contact"
+    "contact": "Contact",
+    "mediaCredits": "Media licences"
   },
   "hero": {
     "eyebrow": "Dentistry you can trust",
@@ -203,6 +204,18 @@
       "s3d": "The titanium implant is placed painlessly.",
       "s4t": "Result",
       "s4d": "A natural zirconia crown — a new smile."
+    },
+    "mediaCredits": {
+      "title": "Media licences",
+      "lead": "Sample images used on this site and their authors.",
+      "attrRequired": "Attribution required (CC BY)",
+      "attrFree": "No attribution required (CC0)",
+      "colFile": "File",
+      "colAuthor": "Author",
+      "colLicense": "Licence",
+      "colSource": "Source",
+      "source": "source",
+      "note": "These images are for the demo. The clinic should replace them with its own before launch (HANDOVER.md)."
     }
   }
 }

@@ -44,10 +44,17 @@ tugagach kesh avtomatik tozalanadi (`✓ Frontend keshi tozalandi`). Aks holda `
 ishlating yoki oʻzgarish 5 daqiqagacha kutadi.
 
 ### 1.2 Namuna rasmlarni almashtirish  ⚠️ HUQUQIY
-Demo'dagi rasmlar **CC0 namuna** — ba'zilarida odam yuzi bor. Ishga tushirishdan oldin:
-- Shifokor portretlari, klinika/ishlar (before/after) rasmlarini **oʻz rasmlaringiz** bilan almashtiring.
+Demo'dagi 28 ta namuna rasmning **14 tasi CC-BY** litsenziyasida — bu litsenziya **muallifni
+koʻrsatishni majbur qiladi**; qolgani CC0 (majburiyatsiz). Shuning uchun saytda
+`/media-litsenziyalar` sahifasi bor va u footer'dan havola qilingan — **uni oʻchirmang**,
+toki shu rasmlar saytda tursa.
+
+Ishga tushirishdan oldin:
+- Shifokor portretlari, klinika/ishlar (before/after) rasmlarini **oʻz rasmlaringiz** bilan almashtiring
+  (bu ayni paytda atributsiya majburiyatidan ham xalos qiladi).
 - Model release (rasmga tushgan odamning yozma roziligi) boʻlishi shart.
-- Litsenziyalar — `ASSETS_LICENSES.md`.
+- Toʻliq roʻyxat: saytda `/media-litsenziyalar`, repoda `ASSETS_LICENSES.md`.
+- Rasm almashtirilganda `manage.py check_asset_licenses` roʻyxat va sahifa sinxronligini tekshiradi.
 
 ### 1.3 Namuna litsenziya matnini almashtirish
 Footer'dagi litsenziya/yuridik matn namunaviy. `reskin` config'da `legal:` yoki admin'da

@@ -18,7 +18,8 @@
     "gallery": "Galereya",
     "reviews": "Sharhlar",
     "blog": "Blog",
-    "contact": "Aloqa"
+    "contact": "Aloqa",
+    "mediaCredits": "Media litsenziyalari"
   },
   "hero": {
     "eyebrow": "Ishonchli stomatologiya",
@@ -203,6 +204,18 @@
       "s3d": "Titan implant ogʻriqsiz oʻrnatiladi.",
       "s4t": "Natija",
       "s4d": "Tabiiy koʻrinishdagi sirkoniy toj — yangi tabassum."
+    },
+    "mediaCredits": {
+      "title": "Media litsenziyalari",
+      "lead": "Saytdagi namunaviy rasmlar va ularning mualliflari.",
+      "attrRequired": "Atributsiya majburiy (CC BY)",
+      "attrFree": "Atributsiya talab qilinmaydi (CC0)",
+      "colFile": "Fayl",
+      "colAuthor": "Muallif",
+      "colLicense": "Litsenziya",
+      "colSource": "Manba",
+      "source": "manba",
+      "note": "Bu rasmlar DEMO uchun. Klinika saytni ishga tushirishdan oldin ularni oʻz rasmlari bilan almashtirishi tavsiya etiladi (HANDOVER.md)."
     }
   }
 }

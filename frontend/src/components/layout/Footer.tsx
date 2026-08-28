@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { MapPin, Phone, Send } from "lucide-react";
 import type { ClinicSettings } from "@/lib/api";
 import { formatPhone, telHref } from "@/lib/format";
+import { Link } from "@/i18n/navigation";
 
 const WEEKDAYS: Record<string, string[]> = {
   uz: ["Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba", "Yakshanba"],
@@ -17,6 +18,7 @@ export async function Footer({
   locale: string;
 }) {
   const t = await getTranslations();
+  const tn = await getTranslations("nav");
   const names = WEEKDAYS[locale] ?? WEEKDAYS.uz;
   const phone = settings?.phone_primary ?? "+998712004040";
   const hhmm = (v: string | null | undefined) => (v ? v.slice(0, 5) : "");
@@ -83,8 +85,12 @@ export async function Footer({
       </div>
 
       <div className="border-t border-slate-800">
-        <div className="mx-auto max-w-6xl px-4 py-5 text-xs text-slate-400">
-          © {new Date().getFullYear()} {settings?.legal_entity_name ?? settings?.name}
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-5 text-xs text-slate-400">
+          <span>© {new Date().getFullYear()} {settings?.legal_entity_name ?? settings?.name}</span>
+          {/* CC-BY rasmlar muallifni koʻrsatishni HUQUQIY jihatdan talab qiladi (T-FIX-06). */}
+          <Link href="/media-litsenziyalar" className="hover:text-white">
+            {tn("mediaCredits")}
+          </Link>
         </div>
       </div>
     </footer>

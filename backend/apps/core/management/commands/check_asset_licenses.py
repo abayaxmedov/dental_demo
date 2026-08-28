@@ -14,6 +14,9 @@ from django.core.management.base import BaseCommand, CommandError
 ASSETS = Path(settings.BASE_DIR) / "apps" / "core" / "seed_assets"
 MANIFEST = ASSETS / "manifest.json"
 LICENSES_MD = Path(settings.BASE_DIR).parent / "ASSETS_LICENSES.md"
+# Saytda koʻrsatiladigan atributsiya (T-FIX-06). CC-BY muallifni koʻrsatishni HUQUQIY
+# jihatdan talab qiladi, shuning uchun bu fayl manifest bilan sinxron boʻlishi SHART.
+CREDITS_JSON = Path(settings.BASE_DIR).parent / "frontend" / "src" / "data" / "media-credits.json"
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".avif", ".svg"}
 REQUIRED = ("source_url", "author", "license")
 
@@ -33,6 +36,27 @@ class Command(BaseCommand):
             for p in ASSETS.rglob("*")
             if p.is_file() and p.suffix.lower() in IMAGE_EXTS
         )
+        # Saytdagi atributsiya sahifasi manifest bilan mos boʻlishi shart — aks holda
+        # CC-BY rasm kredit olmay qoladi (huquqiy) yoki mavjud boʻlmagan fayl koʻrsatiladi.
+        credits_problems: list[str] = []
+        if CREDITS_JSON.exists():
+            credits = {c["file"]: c for c in json.loads(CREDITS_JSON.read_text())}
+            man_files = set(manifest)
+            missing = sorted(man_files - set(credits))
+            extra = sorted(set(credits) - man_files)
+            for rel in missing:
+                credits_problems.append(f"{rel}: media-credits.json da yoʻq (saytda kredit olmaydi)")
+            for rel in extra:
+                credits_problems.append(f"{rel}: media-credits.json da bor, manifest.json da yoʻq")
+            for rel, c in credits.items():
+                row = manifest.get(rel)
+                if row and (row.get("author") or "—") != c.get("author"):
+                    credits_problems.append(
+                        f"{rel}: muallif mos emas (manifest={row.get('author')!r}, sahifa={c.get('author')!r})"
+                    )
+        else:
+            credits_problems.append("frontend/src/data/media-credits.json yoʻq — atributsiya sahifasi buziladi")
+
         problems: list[str] = []
         for rel in files:
             row = manifest.get(rel)
@@ -46,6 +70,7 @@ class Command(BaseCommand):
             if rel not in md_text:
                 problems.append(f"{rel}: ASSETS_LICENSES.md da yo'q")
 
+        problems += credits_problems
         if problems:
             for p in problems:
                 self.stderr.write(f"  ✗ {p}")
