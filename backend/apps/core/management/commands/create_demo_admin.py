@@ -8,6 +8,8 @@ HANDOVER.md: ishga tushirishdan OLDIN oʻchiring yoki parolini oʻzgartiring.
 
 from __future__ import annotations
 
+import os
+
 from django.conf import settings as dj_settings
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
@@ -31,9 +33,18 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **opts):
-        if not dj_settings.DEBUG and not opts["force"]:
+        # `settings.DEBUG` YETARLI EMAS: manage.py `DJANGO_SETTINGS_MODULE` ni
+        # `config.settings.dev` ga default qiladi, dev.py esa `DEBUG = True` ni qotirib
+        # yozgan. Yaʼni prod serverda `python manage.py create_demo_admin` desa gate
+        # aylanib oʻtilardi (AUDIT-2026-08-29 / T-FIX-16). Shuning uchun `.env` dagi
+        # XOM qiymatni ham tekshiramiz — u serverning haqiqiy niyatini koʻrsatadi
+        # (django-environ `read_env` uni os.environ ga yozadi).
+        raw_debug = os.environ.get("DEBUG", "")
+        raw_says_prod = raw_debug.strip().lower() in {"false", "0", "no", "off", ""}
+        if (not dj_settings.DEBUG or raw_says_prod) and not opts["force"]:
             raise CommandError(
-                "DEBUG=False — demo admin ishlab chiqarishda yaratilmaydi. "
+                "Demo admin ishlab chiqarishda yaratilmaydi "
+                f"(settings.DEBUG={dj_settings.DEBUG}, .env DEBUG={raw_debug!r}). "
                 "Rostdan xohlasangiz --force qoʻshing (tavsiya etilmaydi)."
             )
 

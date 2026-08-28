@@ -12,12 +12,16 @@ const media = new URL(`${MEDIA_URL}/media/**`);
 // bogʻlangan; origin'larni env'dan olamiz.
 const API_ORIGIN = new URL(process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000").origin;
 const MEDIA_ORIGIN = new URL(MEDIA_URL).origin;
-// headers() dev-server va prod-server'da SOʻROV vaqtida ishlaydi — bu yerda NODE_ENV
-// ishonchli (rasm bayrogʻidagi build-time qotish muammosi header'larga tegishli emas).
+// DIQQAT: `headers()` SOʻROV vaqtida emas, `next build`/`next dev` START vaqtida bir marta
+// hisoblanadi va natija build chiqishiga QOTIB qoladi (avvalgi izoh buning teskarisini
+// daʼvo qilardi — notoʻgʻri edi, AUDIT T-FIX-17). Amalda qiymatlar baribir toʻgʻri chiqadi,
+// chunki `next dev` NODE_ENV=development, `next build` esa production bilan ishlaydi va
+// sayt oʻzi build qilingan hostda serve qilinadi. Lekin OQIBATI bor: API/media origin va
+// NODE_ENV **build vaqtida** qotadi — env oʻzgarsa QAYTA BUILD kerak (deploy checklist).
 const isDev = process.env.NODE_ENV !== "production";
 
 // CSP — SSG bilan mos varianti. Nonce + `strict-dynamic` (Next hujjati tavsiyasi)
-// ATAYLAB ISHLATILMADI: u dinamik render talab qiladi va 117 static sahifani
+// ATAYLAB ISHLATILMADI: u dinamik render talab qiladi va 121 static sahifani
 // oʻldiradi (Lighthouse/ISR arxitekturasiga zid). Buning oʻrniga `'unsafe-inline'`
 // (SSG'da nonce yoʻq) + qolgan barcha yoʻnalishlar qatʼiy qulflangan. Kontent bizning
 // ishonchli backend'dan keladi va React default'da escape qiladi — XSS yuzasi past.

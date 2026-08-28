@@ -37,10 +37,10 @@ be-run:
 be-check:
 	cd backend && .venv/bin/python manage.py check
 be-lint:
-	cd backend && .venv/bin/python -m ruff check . || true
+	cd backend && .venv/bin/python -m ruff check .
 be-test:
 	cd backend && .venv/bin/python manage.py check_asset_licenses
-	cd backend && .venv/bin/python -m pytest || true
+	cd backend && .venv/bin/python -m pytest
 be-schema:
 	cd backend && .venv/bin/python manage.py spectacular --file schema.yml
 # ISR keshini tozalab, asosiy sahifalarni oldindan qizdiradi — QR bilan birinchi ochilish
