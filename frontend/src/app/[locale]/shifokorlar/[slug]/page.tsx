@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getDoctor, getSeoRoutes, getSiteSettings } from "@/lib/api";
-import { buildAlternates, localeHrefs, localePath, ogFor, SITE_URL } from "@/lib/seo";
+import { buildAlternates, localeHrefs, localePath, ogBase, ogFor, SITE_URL } from "@/lib/seo";
 import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { Section } from "@/components/ui/Section";
@@ -30,13 +30,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const d = await getDoctor(locale, slug);
+  // settings — og:site_name uchun; Next bir render ichida bir xil fetch'ni dedup qiladi.
+  const [d, settings] = await Promise.all([getDoctor(locale, slug), getSiteSettings(locale)]);
   if (!d) return {};
   return {
     title: d.meta_title || d.full_name,
     description: d.meta_description || d.bio?.slice(0, 160),
     alternates: buildAlternates({ pathname: "/shifokorlar/[slug]", slugsByLocale: d.alternates as never, currentLocale: locale as never }),
-    openGraph: { type: "profile", images: [ogFor(d)] },
+    openGraph: { ...ogBase(locale, settings?.name), type: "profile", images: [ogFor(d)] },
   };
 }
 

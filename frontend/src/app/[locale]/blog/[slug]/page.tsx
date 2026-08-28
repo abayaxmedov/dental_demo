@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getPost, getSeoRoutes } from "@/lib/api";
-import { buildAlternates, localeHrefs, localePath, ogFor } from "@/lib/seo";
+import { buildAlternates, localeHrefs, localePath, ogBase, ogFor } from "@/lib/seo";
 import { routing } from "@/i18n/routing";
 import { formatDate } from "@/lib/format";
 import { Section } from "@/components/ui/Section";
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     title: p.meta_title || p.title,
     description: p.meta_description || p.excerpt,
     alternates: buildAlternates({ pathname: "/blog/[slug]", slugsByLocale: p.alternates as never, currentLocale: locale as never }),
-    openGraph: { type: "article", images: [ogFor(p)], publishedTime: p.published_at ?? undefined },
+    openGraph: { ...ogBase(locale), type: "article", images: [ogFor(p)], publishedTime: p.published_at ?? undefined },
   };
 }
 

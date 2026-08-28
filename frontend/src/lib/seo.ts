@@ -51,6 +51,23 @@ export function localeHrefs(
   return out;
 }
 
+export const OG_LOCALE: Record<string, string> = { uz: "uz_UZ", ru: "ru_RU", en: "en_US" };
+
+/**
+ * `openGraph` uchun umumiy default'lar (siteName + locale).
+ *
+ * Next metadata'ni "shallow merge" qiladi va `openGraph`ni BUTUNLAY almashtiradi, shuning
+ * uchun oʻz `openGraph`ini bergan sahifa layout'dagi `siteName`/`locale`ni YOʻQOTADI.
+ * Shu helper ularni qaytaradi (AUDIT T-FIX-04). `title` ATAYLAB yoʻq — Next uni
+ * sahifaning oʻz `title`idan toʻldiradi.
+ */
+export function ogBase(locale: string, siteName?: string | null) {
+  return {
+    siteName: siteName || undefined,
+    locale: OG_LOCALE[locale] ?? "uz_UZ",
+  };
+}
+
 type Img = { src?: string | null } | null | undefined;
 type OgSource = { og_image?: Img; cover?: Img; photo?: Img };
 

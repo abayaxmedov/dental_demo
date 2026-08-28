@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Clock } from "lucide-react";
 import { getSeoRoutes, getService, getSiteSettings } from "@/lib/api";
-import { buildAlternates, localeHrefs, localePath, ogFor, SITE_URL } from "@/lib/seo";
+import { buildAlternates, localeHrefs, localePath, ogBase, ogFor, SITE_URL } from "@/lib/seo";
 import { routing } from "@/i18n/routing";
 import { formatSum } from "@/lib/format";
 import { Link } from "@/i18n/navigation";
@@ -27,13 +27,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const s = await getService(locale, slug);
+  // settings — og:site_name uchun; Next bir render ichida bir xil fetch'ni dedup qiladi.
+  const [s, settings] = await Promise.all([getService(locale, slug), getSiteSettings(locale)]);
   if (!s) return {};
   return {
     title: s.meta_title || s.title,
     description: s.meta_description || s.excerpt,
     alternates: buildAlternates({ pathname: "/xizmatlar/[slug]", slugsByLocale: s.alternates as never, currentLocale: locale as never }),
-    openGraph: { type: "article", images: [ogFor(s)] },
+    openGraph: { ...ogBase(locale, settings?.name), type: "article", images: [ogFor(s)] },
   };
 }
 
