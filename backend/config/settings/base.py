@@ -194,6 +194,11 @@ TELEGRAM_WEBHOOK_SECRET = env("TELEGRAM_WEBHOOK_SECRET", default="")
 # Callback tugmalari uchun sayt bazaviy URL'i (webhook yo'q bo'lsa tugmalar ko'rsatilmaydi).
 PUBLIC_BASE_URL = env("PUBLIC_BASE_URL", default="")
 
+# Frontend ISR purge (AUDIT T-FIX-02) — `reskin` va `make warm` shu endpointni chaqiradi.
+# Sir boʻlmasa chaqiruv ATAYLAB oʻtkazib yuboriladi (frontend ham 503 qaytaradi).
+FRONTEND_BASE_URL = env("FRONTEND_BASE_URL", default="http://127.0.0.1:3000")
+REVALIDATE_SECRET = env("REVALIDATE_SECRET", default="")
+
 # ---- Booking (Faza 2) ----
 BOOKING_MIN_LEAD_MINUTES = env.int("BOOKING_MIN_LEAD_MINUTES", default=120)  # 2 soat
 BOOKING_WINDOW_DAYS = env.int("BOOKING_WINDOW_DAYS", default=30)

@@ -35,6 +35,14 @@ make reskin CONFIG=prospect.yml
 qatorlarni toʻldiring. **Bitta brand rang** butun sayt rang shkalasini avtomatik moslaydi (ADR-004).
 Avval koʻrish uchun: `make reskin CONFIG=prospect.yml ARGS=--dry-run`.
 
+**Uch til:** matnli maydonlar (nom, shior, manzil, "biz haqimizda") uchala tilda ham yangilanadi.
+Oddiy matn yozsangiz — uchala tilga bir xil; `{uz:…, ru:…, en:…}` yozsangiz — har til alohida.
+Til berilmasa buyruq **ogohlantiradi** (rus sahifada eski matn qolib ketmasin).
+
+**Kesh:** `.env` dagi `REVALIDATE_SECRET` frontend `.env.local` bilan bir xil boʻlsa, reskin
+tugagach kesh avtomatik tozalanadi (`✓ Frontend keshi tozalandi`). Aks holda `make warm` ni
+ishlating yoki oʻzgarish 5 daqiqagacha kutadi.
+
 ### 1.2 Namuna rasmlarni almashtirish  ⚠️ HUQUQIY
 Demo'dagi rasmlar **CC0 namuna** — ba'zilarida odam yuzi bor. Ishga tushirishdan oldin:
 - Shifokor portretlari, klinika/ishlar (before/after) rasmlarini **oʻz rasmlaringiz** bilan almashtiring.

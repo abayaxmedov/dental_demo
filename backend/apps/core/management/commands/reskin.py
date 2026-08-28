@@ -206,9 +206,42 @@ class Command(BaseCommand):
                 f"{len(updates)} maydon, {len(asset_paths)} rasm."
             )
         )
-        self.stdout.write(
-            "Frontend keshi: `make warm` yoki ISR revalidate (300s) kutib turing."
-        )
+        self._purge_frontend_cache()
+
+    def _purge_frontend_cache(self) -> None:
+        """
+        Frontend ISR keshini darhol bekor qiladi (AUDIT T-FIX-02).
+
+        Busiz reskin natijasi saytda 5 daqiqagacha koʻrinmasdi (`revalidate: 300`) —
+        jonli demoda "reskin → sahifani yangilang" qadami aynan shu sababli yiqilardi.
+        DB allaqachon commit qilingan, shuning uchun bu yerdagi xato HECH QACHON
+        buyruqni yiqitmaydi — faqat operatorga nima qilish kerakligini aytadi.
+        """
+        import requests
+        from django.conf import settings as dj_settings
+
+        secret = getattr(dj_settings, "REVALIDATE_SECRET", "")
+        base = getattr(dj_settings, "FRONTEND_BASE_URL", "").rstrip("/")
+        if not secret or not base:
+            self.stdout.write(
+                self.style.WARNING(
+                    "⚠ Frontend keshi tozalanmadi: REVALIDATE_SECRET/FRONTEND_BASE_URL yoʻq.\n"
+                    "  Oʻrnatmasangiz oʻzgarish saytda ISR muddati (300 s) oʻtgach koʻrinadi."
+                )
+            )
+            return
+        url = f"{base}/api/revalidate"
+        try:
+            r = requests.post(url, headers={"x-revalidate-secret": secret}, timeout=5)
+        except requests.RequestException as exc:  # tarmoq/frontend oʻchiq
+            self.stdout.write(self.style.WARNING(f"⚠ Frontend keshi tozalanmadi ({url}): {exc}"))
+            return
+        if r.status_code == 200:
+            self.stdout.write(self.style.SUCCESS("✓ Frontend keshi tozalandi — oʻzgarish darhol koʻrinadi."))
+        else:
+            self.stdout.write(
+                self.style.WARNING(f"⚠ Frontend keshi tozalanmadi: HTTP {r.status_code} {r.text[:120]}")
+            )
 
     @staticmethod
     def _i18n_values(where: str, value: object, warnings: list[str]) -> dict[str, str]:

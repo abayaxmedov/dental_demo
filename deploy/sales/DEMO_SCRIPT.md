@@ -33,10 +33,17 @@ Bosh sahifani oching — **3D tishni** kutib turing (aylanadi). "Bu sizning raqo
 4. **Xizmatlar/Shifokorlar** — "hammasini oʻzingiz boshqarasiz."
 
 ## 4. Reskin — 30 soniyada sizniki (1.5 daq) — KUCHLI
-1. Terminalda: `make reskin CONFIG=prospect.yml ARGS=--dry-run` — oʻzgarishlar roʻyxatini koʻrsating.
-2. `make reskin CONFIG=prospect.yml` → sahifani yangilang.
-3. "Nom, rang, logotip — hammasi oʻzgardi. **Bitta rang** butun saytni moslaydi. Sizning klinikangiz
-   uchun 30 daqiqada tayyorlaymiz." (rangni prospekt brendiga oldindan sozlab qoʻying — taassurot kuchli.)
+> ⚙️ **Oldindan shart:** `REVALIDATE_SECRET` backend `.env` va frontend `.env.local` da BIR XIL
+> boʻlsin. Shunda `reskin` tugagach kesh avtomatik tozalanadi va oʻzgarish **darhol** koʻrinadi.
+> Buyruq chiqishida `✓ Frontend keshi tozalandi` qatorini koʻrishingiz shart — koʻrmasangiz
+> `make warm` ni ishlating (aks holda oʻzgarish ISR muddati, 5 daqiqagacha, kutadi).
+
+1. Terminalda: `make reskin CONFIG=prospect.yml ARGS=--dry-run` — oʻzgarishlar roʻyxatini koʻrsating
+   (til boʻyicha: `name_uz/ru/en`, `tagline_uz/ru/en` — "uch tilda ham almashadi" deb ayting).
+2. `make reskin CONFIG=prospect.yml` → `✓ Frontend keshi tozalandi` → sahifani yangilang.
+3. "Nom, rang, logotip — hammasi oʻzgardi, **uch tilda ham**. **Bitta rang** butun saytni moslaydi.
+   Sizning klinikangiz uchun 30 daqiqada tayyorlaymiz." (rangni prospekt brendiga oldindan sozlab
+   qoʻying — taassurot kuchli.)
 
 ## 5. Mobil + 3D (1 daq)
 1. **Telefonda** oching — pastdagi tezkor panel: Qoʻngʻiroq / Telegram / Manzil. "Mijoz bir bosishda

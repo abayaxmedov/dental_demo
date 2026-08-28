@@ -43,6 +43,12 @@ be-test:
 	cd backend && .venv/bin/python -m pytest || true
 be-schema:
 	cd backend && .venv/bin/python manage.py spectacular --file schema.yml
+# ISR keshini tozalab, asosiy sahifalarni oldindan qizdiradi — QR bilan birinchi ochilish
+# yoki reskin'dan keyingi jonli demo sovuq boʻlmasligi uchun (AUDIT-2026-08-29 / T-FIX-02).
+# FRONTEND_BASE_URL va REVALIDATE_SECRET — backend/.env dan yoki muhitdan.
+warm:
+	@bash scripts/warm.sh
+
 # $(abspath …) SHART: retsept `cd backend` qiladi, shuning uchun repo ildizidan berilgan
 # nisbiy yoʻl aks holda buziladi (AUDIT-2026-08-29 / T-FIX-03).
 reskin:
