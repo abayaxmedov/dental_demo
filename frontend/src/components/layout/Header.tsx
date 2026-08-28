@@ -44,7 +44,7 @@ export async function Header({ settings }: { settings: ClinicSettings | null }) 
 
         <nav className="hidden gap-4 text-sm font-medium md:flex lg:gap-7">
           {links.map((l) => (
-            <NavLink key={l.key} href={l.href}>
+            <NavLink key={l.key} href={l.href} className="inline-flex min-h-11 items-center">
               {t(l.key)}
             </NavLink>
           ))}

@@ -18,7 +18,8 @@ help:
 	@echo "  make fe-install    # frontend npm install"
 	@echo "  make fe-run        # Next.js dev server (:3000)"
 	@echo "  make fe-build      # Next.js production build"
-	@echo "  make fe-test       # typecheck + rang lint + i18n kalit parity"
+	@echo "  make fe-test       # typecheck + rang lint + responsive lint + i18n + unit"
+	@echo "  make fe-test-viewports  # brauzer viewport gate (server ishlab tursin)"
 	@echo "  make fe-types      # OpenAPI'dan TS tiplar (backend ishga tushgan boʻlsin)"
 
 # --- infra ---
@@ -65,5 +66,9 @@ fe-build:
 	cd frontend && npm run build
 fe-test:
 	cd frontend && npm run test
+# Brauzer viewport gate (T-RESP-10) — ALOHIDA: server kerak.
+# Talab: boshqa terminalda `make fe-run` (+ `make be-run`). BASE_URL/CHROME_PATH bilan sozlanadi.
+fe-test-viewports:
+	cd frontend && npm run test:viewports
 fe-types:
 	cd frontend && npx openapi-typescript http://localhost:8000/api/v1/schema/ -o src/lib/api-types.ts

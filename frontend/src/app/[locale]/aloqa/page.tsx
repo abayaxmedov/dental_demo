@@ -72,7 +72,7 @@ export default async function ContactPage({ params }: { params: Params }) {
           ) : null}
           {(settings?.yandex_maps_url || settings?.two_gis_url) ? (
             <a href={settings?.yandex_maps_url || settings?.two_gis_url || "#"} target="_blank" rel="noopener"
-              className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-ink hover:border-brand hover:text-brand">
+              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-5 text-sm font-semibold text-ink hover:border-brand hover:text-brand">
               {t("directions")}
             </a>
           ) : null}
