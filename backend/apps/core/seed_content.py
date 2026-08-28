@@ -136,6 +136,7 @@ DOCTOR_ALTS = {
 # ── Xizmat → cover fayl (faqat vetted rasmlar; qolgani fallback) ──
 SERVICE_COVERS = {
     "Ildiz kanali davolash": "services/ildiz-kanali-davolash.jpg",
+    "Professional gigiyena": "services/professional-gigiyena.jpg",
     "Suyak toʻqimasi tiklash": "services/suyak-toqimasi-tiklash.jpg",
     "Tishlarni oqartirish": "services/tishlarni-oqartirish.jpg",
     "Vinirlar": "services/vinirlar.jpg",
@@ -191,6 +192,7 @@ def demo_note(lang):
 
 # ── Galereya (image, category, alt, caption) ──
 GALLERY = [
+    ("gallery/clinic-1.jpg", "clinic", {"uz": "Zamonaviy operatorxona", "ru": "Современный кабинет", "en": "Modern operatory"}),
     ("gallery/clinic-4.jpg", "clinic", {"uz": "Davolash xonasi", "ru": "Кабинет", "en": "Treatment room"}),
     ("gallery/equipment-3.jpg", "equipment", {"uz": "Steril asboblar", "ru": "Стерильные инструменты", "en": "Sterile instruments"}),
     ("gallery/equipment-4.jpg", "equipment", {"uz": "Mikroskop", "ru": "Микроскоп", "en": "Microscope"}),

@@ -454,5 +454,41 @@
     "model_release": "n/a",
     "target": [],
     "bytes": 24770
+  },
+  "gallery/clinic-1.jpg": {
+    "path": "gallery/clinic-1.jpg",
+    "query": "dental chair unit",
+    "subject": "operatory",
+    "source_url": "https://commons.wikimedia.org/w/index.php?curid=164735259",
+    "direct_url": "",
+    "author": "Harrison Keely",
+    "author_url": "",
+    "license": "by 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "source": "wikimedia",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      1050
+    ],
+    "bytes": 281146
+  },
+  "services/professional-gigiyena.jpg": {
+    "path": "services/professional-gigiyena.jpg",
+    "query": "toothbrush toothpaste",
+    "subject": "hygiene",
+    "source_url": "https://commons.wikimedia.org/w/index.php?curid=91360345",
+    "direct_url": "",
+    "author": "Steve Buissinne",
+    "author_url": "",
+    "license": "cc0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "wikimedia",
+    "model_release": "n/a",
+    "target": [
+      1400,
+      933
+    ],
+    "bytes": 77950
   }
 }

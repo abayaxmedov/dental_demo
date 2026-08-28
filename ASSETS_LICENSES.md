@@ -30,6 +30,7 @@
 | `seed_assets/doctors/dilshod-raximov.jpg` | rasm | [link](https://stocksnap.io/photo/dentist-orthodontist-YXEEJ34DKF) | Michal Jarmoluk | CC0 1.0 | 2026-08-28 | none — demo only |
 | `seed_assets/doctors/kamola-ergasheva.jpg` | rasm | [link](https://www.rawpixel.com/image/4040207/photo-image-face-mask-public-domain) | U.S. Army | CC0 1.0 | 2026-08-28 | none — demo only |
 | `seed_assets/doctors/nigora-yusupova.jpg` | rasm | [link](https://www.flickr.com/photos/141436406@N04/49734557782) | homegets.com | BY 2.0 | 2026-08-28 | none — demo only |
+| `seed_assets/gallery/clinic-1.jpg` | rasm | [link](https://commons.wikimedia.org/w/index.php?curid=164735259) | Harrison Keely | BY 4.0 | 2026-08-29 | haqiqiy operatorxona (yuz yoʻq); attribution: Harrison Keely |
 | `seed_assets/gallery/clinic-4.jpg` | rasm | [link](https://commons.wikimedia.org/w/index.php?curid=196715621) | Shixart1985 | BY 2.0 | 2026-08-28 | n/a |
 | `seed_assets/gallery/equipment-3.jpg` | rasm | [link](https://commons.wikimedia.org/w/index.php?curid=196789451) | Shixart1985 | BY 2.0 | 2026-08-28 | n/a |
 | `seed_assets/gallery/equipment-4.jpg` | rasm | [link](https://www.flickr.com/photos/59923990@N05/16715002931) | Picturepest | BY 2.0 | 2026-08-28 | n/a |
@@ -40,6 +41,7 @@
 | `seed_assets/og/og-default.png` | logo/og | own work (dental_demo) | Oq Marvarid Dental (demo) | OWN / PROPRIETARY | 2026-08-28 | n/a |
 | `seed_assets/services/ildiz-kanali-davolash.jpg` | rasm | [link](https://commons.wikimedia.org/w/index.php?curid=196715621) | Shixart1985 | BY 2.0 | 2026-08-28 | n/a |
 | `seed_assets/services/suyak-toqimasi-tiklash.jpg` | rasm | [link](https://www.flickr.com/photos/46835425@N00/3382932340) | Inha Leex Hale | BY 2.0 | 2026-08-28 | n/a |
+| `seed_assets/services/professional-gigiyena.jpg` | rasm | [link](https://commons.wikimedia.org/w/index.php?curid=91360345) | Steve Buissinne | CC0 1.0 | 2026-08-29 | toothpaste/brush makro (yuz yoʻq) |
 | `seed_assets/services/tishlarni-oqartirish.jpg` | rasm | [link](https://www.flickr.com/photos/181893085@N08/48001506898) | piomodi | CC0 1.0 | 2026-08-28 | n/a |
 | `seed_assets/services/vinirlar.jpg` | rasm | [link](https://www.flickr.com/photos/91083986@N00/138741452) | Zak Greant | BY 2.0 | 2026-08-28 | n/a |
 
