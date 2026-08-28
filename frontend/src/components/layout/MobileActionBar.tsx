@@ -17,7 +17,7 @@ export function MobileActionBar({ settings }: { settings: ClinicSettings | null 
     <>
       <nav
         aria-label="Tezkor amallar"
-        className="fixed inset-x-0 bottom-0 z-50 grid border-t border-line bg-surface/95 backdrop-blur md:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 grid border-t border-line bg-surface/95 backdrop-blur md:hidden"
         style={{
           gridTemplateColumns: `repeat(${items.length}, 1fr)`,
           paddingBottom: "env(safe-area-inset-bottom)",

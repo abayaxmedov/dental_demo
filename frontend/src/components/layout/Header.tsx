@@ -5,6 +5,7 @@ import type { ClinicSettings } from "@/lib/api";
 import type { ComponentProps } from "react";
 import { Link } from "@/i18n/navigation";
 import { NavLink } from "./NavLink";
+import { CloseMenuOnNav } from "./CloseMenuOnNav";
 
 export async function Header({ settings }: { settings: ClinicSettings | null }) {
   const t = await getTranslations("nav");
@@ -29,7 +30,7 @@ export async function Header({ settings }: { settings: ClinicSettings | null }) 
 
   // Banner landmark'i layout'da (Topbar bilan birga) — bu yerda faqat sticky nav div'i.
   return (
-    <div className="sticky top-0 z-40 border-b border-line bg-surface/90 backdrop-blur">
+    <div className="sticky top-0 z-50 border-b border-line bg-surface/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5">
         <Link href="/" className="flex min-h-11 items-center gap-2">
           {logo ? (
@@ -50,12 +51,12 @@ export async function Header({ settings }: { settings: ClinicSettings | null }) 
         </nav>
 
         {/* Mobil menyu — JS'siz disclosure */}
-        <details className="relative md:hidden">
+        <details data-mobile-menu className="relative md:hidden">
           <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg text-ink [&::-webkit-details-marker]:hidden">
             <Menu className="h-6 w-6" aria-hidden />
             <span className="sr-only">Menyu</span>
           </summary>
-          <nav className="absolute right-0 z-50 mt-2 w-56 rounded-xl border border-line bg-surface p-2 shadow-lg">
+          <nav className="absolute right-0 z-50 mt-2 max-h-[70vh] w-56 overflow-y-auto overscroll-contain rounded-xl border border-line bg-surface p-2 shadow-lg">
             {links.map((l) => (
               <NavLink
                 key={l.key}
@@ -67,6 +68,7 @@ export async function Header({ settings }: { settings: ClinicSettings | null }) 
             ))}
           </nav>
         </details>
+        <CloseMenuOnNav />
       </div>
     </div>
   );
