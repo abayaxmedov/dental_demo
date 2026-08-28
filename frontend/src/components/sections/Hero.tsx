@@ -40,8 +40,9 @@ export async function Hero({ settings }: { settings: ClinicSettings | null }) {
           </div>
         </div>
         <div className="lg:pl-6">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-brand-100 to-brand-50 shadow-xl">
-            {/* Poster — har doim LCP elementi (fetchpriority high) */}
+          <div className="hero-stage relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-brand-100 to-brand-50 shadow-xl">
+            {/* Poster — mobil/zaif qurilmada LCP elementi. Qodir desktopda `globals.css`
+                uni YASHIRADI (3D toʻgʻridan-toʻgʻri chiqsin), SceneGuard yiqilsa qaytariladi. */}
             {settings?.hero_image?.src ? (
               <Image
                 src={settings.hero_image.src}
@@ -49,10 +50,10 @@ export async function Hero({ settings }: { settings: ClinicSettings | null }) {
                 fill
                 priority
                 sizes="(min-width:1024px) 40rem, 100vw"
-                className="object-cover"
+                className="hero-poster object-cover"
               />
             ) : null}
-            {/* 3D tish — faqat qodir desktop'da, LCP'dan keyin mount boʻladi (ADR-011) */}
+            {/* 3D tish — faqat qodir desktop'da, darhol mount boʻladi (ADR-011) */}
             <SceneGuard />
           </div>
         </div>

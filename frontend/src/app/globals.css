@@ -70,3 +70,33 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .hero-scene-in { animation: hero-fade 0.7s ease both; }
 }
+
+/*
+  Hero sahnasi — poster foto oʻrniga TOʻGʻRIDAN-TOʻGʻRI 3D tish.
+
+  Bu media query `useWebGLStatus` dagi uch shart bilan AYNAN bir xil boʻlishi shart.
+  Mos kelsa: poster koʻrsatilmaydi va stage foni HeroTooth foni bilan bir xil qilinadi —
+  shuning uchun sahna paydo boʻlganda rang sakramaydi, foydalanuvchi faqat tishni koʻradi.
+
+  CSS bilmaydigan shartlar (WebGL2 yoʻq / saveData / 2g) yoki chunk yiqilishi —
+  SceneGuard `html.hero-3d-failed` qoʻyadi va poster qaytariladi (boʻsh panel qolmaydi).
+*/
+@media (min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hero-stage {
+    background-image: linear-gradient(
+      to bottom right,
+      var(--brand-600),
+      var(--brand),
+      var(--brand-700)
+    );
+  }
+  .hero-stage .hero-poster {
+    visibility: hidden;
+  }
+  html.hero-3d-failed .hero-stage {
+    background-image: linear-gradient(to bottom right, var(--brand-100), var(--brand-50));
+  }
+  html.hero-3d-failed .hero-stage .hero-poster {
+    visibility: visible;
+  }
+}
