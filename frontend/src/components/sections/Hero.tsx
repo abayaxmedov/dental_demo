@@ -11,12 +11,12 @@ export async function Hero({ settings }: { settings: ClinicSettings | null }) {
 
   return (
     <section className="relative overflow-hidden border-b border-line bg-gradient-to-b from-brand-50 to-surface">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:py-20 lg:grid-cols-2 lg:py-24">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:py-20 md:grid-cols-2 lg:py-24">
         <div>
           <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-brand">
             {t("eyebrow")}
           </p>
-          <h1 className="font-display max-w-xl text-4xl font-extrabold leading-[1.08] tracking-[-0.02em] text-ink sm:text-5xl lg:text-6xl">
+          <h1 className="font-display max-w-xl text-4xl font-extrabold leading-[1.08] tracking-[-0.02em] text-ink sm:text-5xl md:text-4xl lg:text-6xl">
             {t("title")}
           </h1>
           <p className="mt-5 max-w-lg text-lg leading-relaxed text-ink-muted">
@@ -39,7 +39,7 @@ export async function Hero({ settings }: { settings: ClinicSettings | null }) {
             </a>
           </div>
         </div>
-        <div className="lg:pl-6">
+        <div className="md:pl-6">
           <div className="hero-stage relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br from-brand-100 to-brand-50 shadow-xl">
             {/* Poster — mobil/zaif qurilmada LCP elementi. Qodir desktopda `globals.css`
                 uni YASHIRADI (3D toʻgʻridan-toʻgʻri chiqsin), SceneGuard yiqilsa qaytariladi. */}

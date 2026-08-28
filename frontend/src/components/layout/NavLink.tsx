@@ -21,7 +21,7 @@ export function NavLink({
     <Link
       href={href}
       aria-current={active ? "page" : undefined}
-      className={`${className} ${active ? "text-brand" : "text-ink-muted hover:text-brand"}`}
+      className={`shrink-0 whitespace-nowrap ${className} ${active ? "text-brand" : "text-ink-muted hover:text-brand"}`}
     >
       {children}
     </Link>

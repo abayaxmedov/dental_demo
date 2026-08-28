@@ -32,17 +32,17 @@ export async function Header({ settings }: { settings: ClinicSettings | null }) 
   return (
     <div className="sticky top-0 z-50 border-b border-line bg-surface/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5">
-        <Link href="/" className="flex min-h-11 items-center gap-2">
+        <Link href="/" className="flex min-h-11 min-w-0 items-center gap-2">
           {logo ? (
             <Image src={logo} alt={name} width={140} height={38} className="h-9 w-auto" />
           ) : (
-            <span className="font-display text-xl font-extrabold tracking-tight text-brand">
+            <span className="truncate font-display text-xl font-extrabold tracking-tight text-brand">
               {first} <span className="text-ink">{rest.join(" ")}</span>
             </span>
           )}
         </Link>
 
-        <nav className="hidden gap-7 text-sm font-medium md:flex">
+        <nav className="hidden gap-4 text-sm font-medium md:flex lg:gap-7">
           {links.map((l) => (
             <NavLink key={l.key} href={l.href}>
               {t(l.key)}

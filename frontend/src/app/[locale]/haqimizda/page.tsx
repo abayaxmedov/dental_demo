@@ -38,7 +38,7 @@ export default async function AboutPage({ params }: { params: Params }) {
       <Section>
         <Breadcrumbs items={[{ label: tc("home"), href: localePath("/", locale as never) }, { label: t("about") }]} />
         <SectionHeading as="h1" title={t("about")} lead={settings?.tagline || undefined} />
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-8 md:grid-cols-2 md:items-center">
           <div className="space-y-4 text-ink-muted leading-relaxed">
             {(settings?.about_short || "").split(/\n\n+/).filter(Boolean).map((p, i) => <p key={i}>{p}</p>)}
             {settings?.license_text ? <p className="rounded-xl border border-line bg-surface-muted px-4 py-3 text-sm">{settings.license_text}</p> : null}
@@ -54,7 +54,7 @@ export default async function AboutPage({ params }: { params: Params }) {
       {doctors.length ? (
         <Section>
           <SectionHeading title={td("title")} action={<ButtonLink href="/shifokorlar" variant="secondary">{td("title")}</ButtonLink>} />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-4">
             {doctors.slice(0, 4).map((d) => (
               <Link key={d.id} href={{ pathname: "/shifokorlar/[slug]", params: { slug: d.slug ?? "" } }} className="flex flex-col items-center text-center">
                 <Avatar image={d.photo} name={d.full_name} size={88} />

@@ -25,7 +25,7 @@ export async function Footer({
 
   return (
     <footer id="aloqa" className="bg-slate-900 text-slate-300 scroll-mt-20">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:grid-cols-2 md:grid-cols-3">
         <div>
           <p className="font-display text-lg font-extrabold text-white">
             {settings?.name ?? "Oq Marvarid Dental"}

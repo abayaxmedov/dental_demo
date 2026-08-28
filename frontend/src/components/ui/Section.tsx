@@ -27,7 +27,7 @@ export function Section({
       id={id}
       className={`scroll-mt-20 border-b border-line ${bg} ${className}`}
     >
-      <div className={`mx-auto ${WIDTH[width]} px-4 py-16 sm:py-20 lg:py-24`}>{children}</div>
+      <div className={`mx-auto ${WIDTH[width]} px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24`}>{children}</div>
     </section>
   );
 }

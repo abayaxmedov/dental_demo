@@ -31,7 +31,7 @@ export default async function CasesPage({ params }: { params: Params }) {
       {cases.length === 0 ? (
         <Empty title={t("title")} />
       ) : (
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
           {cases.map((c) => (
             <Card key={c.id} className="overflow-hidden p-4">
               <CaseSlider before={c.image_before} after={c.image_after} beforeLabel={t("before")} afterLabel={t("after")} alt={c.title} />

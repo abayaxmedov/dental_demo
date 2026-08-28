@@ -17,10 +17,11 @@ export function MobileActionBar({ settings }: { settings: ClinicSettings | null 
     <>
       <nav
         aria-label="Tezkor amallar"
-        className="fixed inset-x-0 bottom-0 z-40 grid border-t border-line bg-surface/95 backdrop-blur md:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 grid border-t border-line bg-surface/95 backdrop-blur lg:hidden"
         style={{
           gridTemplateColumns: `repeat(${items.length}, 1fr)`,
-          paddingBottom: "env(safe-area-inset-bottom)",
+          // env(safe-area-inset-bottom) OLIB TASHLANDI: viewport-fit=cover oʻrnatilmagan,
+          // shuning uchun u 0 edi (oʻlik kod, T-RESP-06 / AUDIT).
         }}
       >
         {items.map((it) => (
@@ -35,7 +36,7 @@ export function MobileActionBar({ settings }: { settings: ClinicSettings | null 
         ))}
       </nav>
       {/* spacer — panel footer'ni yopmasin (CLS 0) */}
-      <div className="h-14 md:hidden" aria-hidden />
+      <div className="h-14 lg:hidden" aria-hidden />
     </>
   );
 }

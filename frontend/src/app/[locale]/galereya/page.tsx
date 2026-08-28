@@ -29,7 +29,7 @@ export default async function GalleryPage({ params }: { params: Params }) {
       {images.length === 0 ? (
         <Empty title={t("title")} />
       ) : (
-        <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
+        <div className="columns-1 gap-4 sm:columns-2 md:columns-3 [&>*]:mb-4">
           {images.map((g) => (
             <figure key={g.id} className="break-inside-avoid">
               <ImageFrame image={g.image} alt={g.alt || g.caption || t("title")} ratio="4/3" sizes="(min-width:1024px) 33vw, 100vw" />
