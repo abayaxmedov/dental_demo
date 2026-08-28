@@ -69,6 +69,21 @@ FIELD_MAP: dict[str, dict[str, str]] = {
 COLOR_FIELDS = {"brand_color", "accent_color", "ink_color", "surface_color"}
 ASSET_FIELDS = ("logo", "logo_dark", "favicon", "hero_image", "og_image")
 
+# modeltranslation'ga roʻyxatdan oʻtgan maydonlar (apps/core/translation.py bilan mos).
+# DIQQAT: bularga oddiy `setattr` faqat FAOL til ustunini yozadi — yaʼni rebrand qilingan
+# saytda ru/en da OLDINGI klinikaning matni qolib ketardi (audit topdi). Shuning uchun
+# bu yerda har til ustuni ANIQ yoziladi.
+TRANSLATED_FIELDS = {
+    "name",
+    "tagline",
+    "about_short",
+    "address",
+    "license_text",
+    "default_meta_title",
+    "default_meta_description",
+}
+LANGS = ("uz", "ru", "en")
+
 
 class Command(BaseCommand):
     help = "Prospekt config'i (YAML) bilan ClinicSettings'ni qayta brendlaydi (ADR-012)."
@@ -102,6 +117,7 @@ class Command(BaseCommand):
 
         # 1) Oddiy (rasm boʻlmagan) maydonlarni yigʻamiz + validatsiya
         updates: dict[str, object] = {}
+        i18n_warnings: list[str] = []
         for section, mapping in FIELD_MAP.items():
             src = cfg if section == "_root" else cfg.get(section) or {}
             if not isinstance(src, dict):
@@ -116,6 +132,10 @@ class Command(BaseCommand):
                     raise CommandError(
                         f"`theme.font_pair` nomaʼlum: {value!r} (ruxsat: {FontPair.values})"
                     )
+                if field in TRANSLATED_FIELDS:
+                    where = key if section == "_root" else f"{section}.{key}"
+                    updates[field] = self._i18n_values(where, value, i18n_warnings)
+                    continue
                 updates[field] = value
 
         # 2) Rasm assetlarini tekshiramiz (mavjudligini oldindan)
@@ -140,14 +160,23 @@ class Command(BaseCommand):
 
         settings = ClinicSettings.load()
 
-        # 3) Farqni chiqaramiz (before → after)
+        # 3) Farqni chiqaramiz (before → after) — tarjima maydonlari til boʻyicha
         self.stdout.write(self.style.MIGRATE_HEADING("Reskin — oʻzgarishlar:"))
         for field, new in updates.items():
+            if field in TRANSLATED_FIELDS:
+                for lang, text in new.items():  # type: ignore[union-attr]
+                    old = getattr(settings, f"{field}_{lang}")
+                    mark = "=" if str(old) == str(text) else "→"
+                    self.stdout.write(f"  {field}_{lang}: {old!r} {mark} {text!r}")
+                continue
             old = getattr(settings, field)
             mark = "=" if str(old) == str(new) else "→"
             self.stdout.write(f"  {field}: {old!r} {mark} {new!r}")
         for field, p in asset_paths.items():
             self.stdout.write(f"  {field}: <rasm> → {p.name}")
+
+        for w in i18n_warnings:
+            self.stdout.write(self.style.WARNING(f"  ⚠ {w}"))
 
         if dry:
             self.stdout.write(self.style.WARNING("\n--dry-run: hech narsa yozilmadi."))
@@ -156,6 +185,14 @@ class Command(BaseCommand):
         # 4) Transaksiyada qoʻllaymiz
         with transaction.atomic():
             for field, value in updates.items():
+                if field in TRANSLATED_FIELDS:
+                    # Tartib muhim (seed_demo.set_i18n bilan bir xil): avval bazaviy ustun —
+                    # modeltranslation uni faol tilga koʻchiradi — soʻng har bir til ustuni.
+                    if "uz" in value:  # type: ignore[operator]
+                        setattr(settings, field, value["uz"])  # type: ignore[index]
+                    for lang, text in value.items():  # type: ignore[union-attr]
+                        setattr(settings, f"{field}_{lang}", text)
+                    continue
                 setattr(settings, field, value)
             for field, p in asset_paths.items():
                 with p.open("rb") as fh:
@@ -172,3 +209,36 @@ class Command(BaseCommand):
         self.stdout.write(
             "Frontend keshi: `make warm` yoki ISR revalidate (300s) kutib turing."
         )
+
+    @staticmethod
+    def _i18n_values(where: str, value: object, warnings: list[str]) -> dict[str, str]:
+        """
+        Tarjima qilinadigan maydon qiymatini `{lang: matn}` ga keltiradi.
+
+        `"Smile Line"`            → uchala tilga bir xil yoziladi (nom/manzil odatda bir xil).
+        `{uz: …, ru: …, en: …}`   → har til alohida (tagline/about odatda farq qiladi).
+        Til berilmasa — u tildagi ESKI qiymat qoladi va ogohlantirish chiqadi, chunki aynan
+        shu holat "rebrand qildim, lekin ru sahifada eski klinika nomi qoldi" bugini beradi.
+        """
+        if isinstance(value, dict):
+            unknown = sorted(set(value) - set(LANGS))
+            if unknown:
+                raise CommandError(f"`{where}` nomaʼlum til kaliti: {unknown} (ruxsat: {list(LANGS)})")
+            if not value:
+                raise CommandError(f"`{where}` boʻsh map — matn yoki {{uz,ru,en}} kerak.")
+            out: dict[str, str] = {}
+            for lang, text in value.items():
+                if not isinstance(text, str):
+                    raise CommandError(f"`{where}.{lang}` matn boʻlishi kerak, {type(text).__name__} emas.")
+                out[lang] = text
+            missing = [lang for lang in LANGS if lang not in out]
+            if missing:
+                warnings.append(
+                    f"{where}: {', '.join(missing)} tili berilmadi — u tillarda ESKI qiymat qoladi."
+                )
+            return out
+        if not isinstance(value, str):
+            raise CommandError(
+                f"`{where}` matn yoki {{uz,ru,en}} map boʻlishi kerak, {type(value).__name__} emas."
+            )
+        return dict.fromkeys(LANGS, value)

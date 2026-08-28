@@ -7,9 +7,22 @@
 #   manage.py reskin --config prospect.yml --assets-dir ./prospect-assets
 #   manage.py reskin --config prospect.yml --dry-run     # avval koʻrish
 
+# ── Matnli maydonlar UCH TILLI ──
+# Ikki shakl mumkin:
+#   1) oddiy matn        → uchala tilga (uz/ru/en) bir xil yoziladi — nom, manzil uchun qulay;
+#   2) {uz:…, ru:…, en:…} → har til alohida — shior, "biz haqimizda" uchun.
+# Til berilmasa, u tildagi ESKI matn qoladi va buyruq ogohlantiradi (rebrand chala qolmasin).
 name: "Smile Line Dental"
-tagline: "Toshkentda zamonaviy va ogʻriqsiz stomatologiya"
-about_short: "10 yillik tajriba, xalqaro sertifikatli shifokorlar, raqamli diagnostika."
+
+tagline:
+  uz: "Toshkentda zamonaviy va ogʻriqsiz stomatologiya"
+  ru: "Современная и безболезненная стоматология в Ташкенте"
+  en: "Modern, painless dentistry in Tashkent"
+
+about_short:
+  uz: "10 yillik tajriba, xalqaro sertifikatli shifokorlar, raqamli diagnostika."
+  ru: "10 лет опыта, врачи с международными сертификатами, цифровая диагностика."
+  en: "10 years of experience, internationally certified dentists, digital diagnostics."
 
 theme:
   brand: "#0E7C86"      # asosiy — butun color-mix shkalasi shundan hosila (ADR-004)
