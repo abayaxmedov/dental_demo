@@ -48,7 +48,7 @@ export async function Footer({
               <span>{settings?.address}</span>
             </li>
             <li>
-              <a href={telHref(phone)} className="flex items-center gap-2 hover:text-white">
+              <a href={telHref(phone)} className="flex min-h-11 items-center gap-2 hover:text-white">
                 <Phone className="h-4 w-4 shrink-0 text-brand" aria-hidden />
                 {formatPhone(phone)}
               </a>
@@ -57,7 +57,7 @@ export async function Footer({
               <li>
                 <a
                   href={`https://t.me/${settings.telegram_username}`}
-                  className="flex items-center gap-2 hover:text-white"
+                  className="flex min-h-11 items-center gap-2 hover:text-white"
                 >
                   <Send className="h-4 w-4 shrink-0 text-brand" aria-hidden />@
                   {settings.telegram_username}
@@ -88,7 +88,7 @@ export async function Footer({
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-5 text-xs text-slate-400">
           <span>© {new Date().getFullYear()} {settings?.legal_entity_name ?? settings?.name}</span>
           {/* CC-BY rasmlar muallifni koʻrsatishni HUQUQIY jihatdan talab qiladi (T-FIX-06). */}
-          <Link href="/media-litsenziyalar" className="hover:text-white">
+          <Link href="/media-litsenziyalar" className="inline-flex min-h-11 items-center hover:text-white">
             {tn("mediaCredits")}
           </Link>
         </div>

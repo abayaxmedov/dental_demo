@@ -57,7 +57,7 @@ export function ContactForm() {
       <div aria-hidden className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
         <label>Referral<input tabIndex={-1} autoComplete="off" value={honey} onChange={(e) => setHoney(e.target.value)} /></label>
       </div>
-      <label className="flex items-start gap-2.5 text-sm text-ink-muted">
+      <label className="flex min-h-11 items-start gap-2.5 py-1.5 text-sm text-ink-muted">
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required className="mt-0.5 h-4 w-4 rounded border-line text-brand" />
         <span>{tb("consent")}</span>
       </label>

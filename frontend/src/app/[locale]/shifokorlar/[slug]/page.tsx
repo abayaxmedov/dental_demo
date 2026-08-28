@@ -101,7 +101,7 @@ export default async function DoctorDetail({ params }: { params: Params }) {
           <div className="flex flex-wrap gap-2">
             {d.services.map((s) => (
               <Link key={s.id} href={{ pathname: "/xizmatlar/[slug]", params: { slug: s.slug ?? "" } }}
-                className="rounded-full border border-line px-3 py-1.5 text-sm text-ink-muted hover:border-brand hover:text-brand">
+                className="inline-flex min-h-11 items-center rounded-full border border-line px-3 text-sm text-ink-muted hover:border-brand hover:text-brand">
                 {s.title}
               </Link>
             ))}

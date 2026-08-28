@@ -31,7 +31,7 @@ export async function Header({ settings }: { settings: ClinicSettings | null }) 
   return (
     <div className="sticky top-0 z-40 border-b border-line bg-surface/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex min-h-11 items-center gap-2">
           {logo ? (
             <Image src={logo} alt={name} width={140} height={38} className="h-9 w-auto" />
           ) : (
@@ -51,7 +51,7 @@ export async function Header({ settings }: { settings: ClinicSettings | null }) 
 
         {/* Mobil menyu — JS'siz disclosure */}
         <details className="relative md:hidden">
-          <summary className="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg text-ink [&::-webkit-details-marker]:hidden">
+          <summary className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg text-ink [&::-webkit-details-marker]:hidden">
             <Menu className="h-6 w-6" aria-hidden />
             <span className="sr-only">Menyu</span>
           </summary>
@@ -60,7 +60,7 @@ export async function Header({ settings }: { settings: ClinicSettings | null }) 
               <NavLink
                 key={l.key}
                 href={l.href}
-                className="block rounded-lg px-3 py-2.5 text-sm font-medium"
+                className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium"
               >
                 {t(l.key)}
               </NavLink>

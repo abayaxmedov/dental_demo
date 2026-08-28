@@ -22,7 +22,7 @@ export function LangSwitcher() {
       {routing.locales.map((loc) => {
         const active = loc === locale;
         const cls =
-          "rounded px-2 py-1 text-xs font-semibold transition " +
+          "inline-flex min-h-11 min-w-11 items-center justify-center rounded px-3 text-sm font-semibold transition " +
           (active ? "bg-brand-600 text-white" : "text-slate-500 hover:text-brand-700");
         if (hrefs?.[loc]) {
           return (

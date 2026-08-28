@@ -95,7 +95,7 @@ export function RescheduleFlow({
               disabled={disabled}
               onClick={() => setDayIdx(i)}
               className={
-                "flex min-w-[60px] shrink-0 flex-col items-center rounded-lg border px-2.5 py-1.5 text-xs " +
+                "flex min-h-11 min-w-[60px] shrink-0 flex-col items-center rounded-lg border px-2.5 py-1.5 text-xs " +
                 (i === dayIdx
                   ? "border-brand bg-brand text-white"
                   : disabled
@@ -117,7 +117,7 @@ export function RescheduleFlow({
               type="button"
               disabled={submitting}
               onClick={() => pick(s.start_utc)}
-              className="rounded-lg border border-line px-3 py-2 text-sm font-medium text-ink hover:border-brand hover:text-brand disabled:opacity-50"
+              className="min-h-11 rounded-lg border border-line px-3 py-2 text-sm font-medium text-ink hover:border-brand hover:text-brand disabled:opacity-50"
             >
               {s.label}
             </button>

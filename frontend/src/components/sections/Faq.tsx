@@ -12,7 +12,7 @@ export async function Faq({ faqs }: { faqs: FaqItem[] }) {
       <div className="divide-y divide-line rounded-2xl border border-line bg-surface">
         {faqs.slice(0, 8).map((f) => (
           <details key={f.id} className="group px-6 py-4">
-            <summary className="cursor-pointer list-none font-medium text-ink marker:hidden [&::-webkit-details-marker]:hidden">
+            <summary className="flex min-h-11 cursor-pointer list-none items-center font-medium text-ink marker:hidden [&::-webkit-details-marker]:hidden">
               <span className="flex items-start justify-between gap-4">
                 {f.question}
                 <span

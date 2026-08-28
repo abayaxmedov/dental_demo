@@ -56,7 +56,7 @@ export async function Topbar({
         <div className="flex items-center gap-4">
           <a
             href={telHref(phone)}
-            className="inline-flex items-center gap-1.5 font-semibold text-ink hover:text-brand"
+            className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-ink hover:text-brand"
           >
             <Phone className="h-4 w-4 shrink-0 text-brand" aria-hidden />
             {formatPhone(phone)}

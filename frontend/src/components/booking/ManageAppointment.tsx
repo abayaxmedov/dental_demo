@@ -105,7 +105,7 @@ export function ManageAppointment({ token }: { token: string }) {
           {appt.can_reschedule && (
             <button
               onClick={() => setShowResched(true)}
-              className="rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
+              className="inline-flex min-h-11 items-center rounded-full bg-brand px-5 text-sm font-semibold text-white hover:opacity-90"
             >
               {t("reschedule")}
             </button>
@@ -113,7 +113,7 @@ export function ManageAppointment({ token }: { token: string }) {
           {appt.can_cancel && (
             <button
               onClick={() => setShowCancel(true)}
-              className="rounded-full border border-red-200 px-5 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50"
+              className="inline-flex min-h-11 items-center rounded-full border border-red-200 px-5 text-sm font-semibold text-red-600 hover:bg-red-50"
             >
               {t("cancel")}
             </button>
@@ -150,14 +150,14 @@ export function ManageAppointment({ token }: { token: string }) {
             <button
               onClick={doCancel}
               disabled={cancelling}
-              className="inline-flex items-center gap-2 rounded-full bg-red-600 px-5 py-2 text-sm font-semibold text-white disabled:opacity-50"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-red-600 px-5 text-sm font-semibold text-white disabled:opacity-50"
             >
               {cancelling && <Loader2 className="h-4 w-4 animate-spin" />}
               {t("cancel")}
             </button>
             <button
               onClick={() => setShowCancel(false)}
-              className="rounded-full px-4 py-2 text-sm font-medium text-ink-muted"
+              className="inline-flex min-h-11 items-center rounded-full px-4 text-sm font-medium text-ink-muted"
             >
               {t("back")}
             </button>

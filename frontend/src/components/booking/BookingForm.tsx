@@ -316,7 +316,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
                         aria-pressed={slot?.start_utc === s.start_utc}
                         onClick={() => setSlot(s)}
                         className={
-                          "min-w-[64px] rounded-lg border px-3 py-2 text-sm font-medium transition " +
+                          "min-h-11 min-w-[64px] rounded-lg border px-3 py-2 text-sm font-medium transition " +
                           (slot?.start_utc === s.start_utc
                             ? "border-brand bg-brand text-white"
                             : "border-slate-300 text-slate-700 hover:border-brand hover:text-brand")
@@ -391,7 +391,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
       </div>
 
       {/* Rozilik */}
-      <label className="flex items-start gap-2.5 text-sm text-slate-600">
+      <label className="flex min-h-11 items-start gap-2.5 py-1.5 text-sm text-slate-600">
         <input
           type="checkbox"
           checked={consent}

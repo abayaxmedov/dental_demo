@@ -44,12 +44,12 @@ export default async function ServicesPage({ params, searchParams }: { params: P
       ) : null}
 
       <div className="mb-8 flex flex-wrap gap-2">
-        <Link href="/xizmatlar" className={`rounded-full border px-4 py-2 text-sm font-medium ${!category ? "border-brand bg-brand text-white" : "border-line text-ink-muted hover:border-brand"}`}>
+        <Link href="/xizmatlar" className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium ${!category ? "border-brand bg-brand text-white" : "border-line text-ink-muted hover:border-brand"}`}>
           {t("all")}
         </Link>
         {categories.map((c) => (
           <Link key={c.id} href={{ pathname: "/xizmatlar", query: { category: c.slug } }}
-            className={`rounded-full border px-4 py-2 text-sm font-medium ${category === c.slug ? "border-brand bg-brand text-white" : "border-line text-ink-muted hover:border-brand"}`}>
+            className={`inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium ${category === c.slug ? "border-brand bg-brand text-white" : "border-line text-ink-muted hover:border-brand"}`}>
             {c.title}
           </Link>
         ))}
