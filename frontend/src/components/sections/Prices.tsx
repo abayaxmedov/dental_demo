@@ -42,11 +42,11 @@ export async function Prices({
                     <span className="text-brand">—</span>
                   ) : (
                     <>
-                      <span className="text-xs font-normal text-ink-subtle">
+                      <span className="text-sm font-normal text-ink-subtle">
                         {p.qualifier}{" "}
                       </span>
                       {formatSum(p.price_from, locale)}
-                      <span className="ml-1 text-xs font-normal text-ink-subtle">
+                      <span className="ml-1 text-sm font-normal text-ink-subtle">
                         {p.currency}
                       </span>
                     </>
