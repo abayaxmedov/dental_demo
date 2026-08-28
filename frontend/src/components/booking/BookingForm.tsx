@@ -49,6 +49,8 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
   const locale = useLocale();
 
   const [serviceId, setServiceId] = useState<number | "">(services[0]?.id ?? "");
+  // Kun tasmasi klaviatura navigatsiyasi uchun (T-FIX-12).
+  const dayRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [doctorId, setDoctorId] = useState<number | "">("");
   const [days, setDays] = useState<ApiDay[]>([]);
   const [dayIdx, setDayIdx] = useState(0);
@@ -100,6 +102,22 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
       });
     return () => ac.abort();
   }, [serviceId, doctorId]);
+
+  /** Strelka/Home/End bilan faqat BOʻSH kunlar orasida harakat (APG radiogroup, T-FIX-12). */
+  function moveDay(dir: 1 | -1 | "home" | "end") {
+    const open = days.map((d, i) => (d.slots.length ? i : -1)).filter((i) => i >= 0);
+    if (!open.length) return;
+    let next: number;
+    if (dir === "home") next = open[0];
+    else if (dir === "end") next = open[open.length - 1];
+    else {
+      const pos = open.indexOf(dayIdx);
+      next = pos === -1 ? open[0] : open[(pos + dir + open.length) % open.length];
+    }
+    setDayIdx(next);
+    setSlot(null);
+    dayRefs.current[next]?.focus();
+  }
 
   async function refreshSlotsFrom(available?: { days: ApiDay[] }) {
     if (available?.days?.length) {
@@ -216,7 +234,26 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
       {/* Kun tasmasi */}
       <div>
         <span className="mb-1.5 block text-sm font-medium text-slate-700">{t("day")}</span>
-        <div className="flex gap-2 overflow-x-auto pb-2" role="radiogroup" aria-label={t("day")}>
+        {/*
+          APG radiogroup: bitta tab stop (roving tabindex) + strelkalar bilan tanlash.
+          Ilgari 15 ta chip ham tab stop edi, strelkalar ishlamasdi, `aria-disabled`
+          chiplar bosilaverardi va yorliq kontrasti 1.42:1 edi (AUDIT T-FIX-12).
+        */}
+        <div
+          className="flex gap-2 overflow-x-auto pb-2"
+          role="radiogroup"
+          aria-label={t("day")}
+          onKeyDown={(e) => {
+            const move = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 } as const;
+            if (e.key in move) {
+              e.preventDefault();
+              moveDay(move[e.key as keyof typeof move]);
+            } else if (e.key === "Home" || e.key === "End") {
+              e.preventDefault();
+              moveDay(e.key === "Home" ? "home" : "end");
+            }
+          }}
+        >
           {days.map((d, i) => {
             const disabled = d.slots.length === 0;
             const { wd, dm } = formatDayChip(d.date, locale);
@@ -225,19 +262,23 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
                 key={d.date}
                 type="button"
                 role="radio"
+                ref={(el) => {
+                  dayRefs.current[i] = el;
+                }}
                 aria-checked={i === dayIdx}
-                aria-disabled={disabled || undefined}
+                disabled={disabled}
+                tabIndex={i === dayIdx ? 0 : -1}
                 onClick={() => {
                   setDayIdx(i);
                   setSlot(null);
                 }}
                 className={
-                  "flex min-w-[64px] shrink-0 flex-col items-center rounded-xl border px-3 py-2 text-xs transition " +
+                  "flex min-h-11 min-w-[64px] shrink-0 flex-col items-center justify-center rounded-xl border px-3 py-2 text-xs transition " +
                   (i === dayIdx
                     ? "border-brand bg-brand text-white"
                     : disabled
-                      ? "border-slate-200 bg-slate-50 text-slate-300"
-                      : "border-slate-300 text-slate-600 hover:border-brand")
+                      ? "border-line bg-surface-muted text-ink-subtle"
+                      : "border-slate-300 text-ink-muted hover:border-brand")
                 }
               >
                 <span className="font-semibold uppercase">{wd}</span>
