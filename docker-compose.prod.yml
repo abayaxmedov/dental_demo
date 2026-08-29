@@ -1,0 +1,83 @@
+# dental_demo — PROD stack (ADR-021). Bitta VPS: postgres + django(gunicorn) + next(standalone) + nginx.
+#
+# Ishlatish (deploy/.env.prod ni interpolatsiya VA build-arg manbai qiladi):
+#   docker compose --env-file deploy/.env.prod -f docker-compose.prod.yml up -d --build
+# Yoki: bash deploy/deploy.sh
+#
+# Nega --env-file: NEXT_PUBLIC_* build vaqtida QOTADI (next.config izohi), shuning uchun ular
+# build ARG sifatida shu fayldan interpolatsiya qilinadi.
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-dental}
+      POSTGRES_USER: ${POSTGRES_USER:-dental}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD .env.prod da shart}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dental}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    env_file:
+      - deploy/.env.prod
+    volumes:
+      - media:/app/media          # yuklangan rasmlar — nginx ham shu volume'dan serve qiladi
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8000/healthz/ >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # Build vaqtida qotadi — deploy/.env.prod dan interpolatsiya (--env-file).
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:?}
+        NEXT_PUBLIC_MEDIA_URL: ${NEXT_PUBLIC_MEDIA_URL:?}
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:?}
+        SITE_HTTPS: ${SITE_HTTPS:-false}
+        MEDIA_REWRITE_TARGET: ${MEDIA_REWRITE_TARGET:-http://nginx}
+    restart: unless-stopped
+    environment:
+      # RUNTIME env (NEXT_PUBLIC emas → build'ga inline bo'lmaydi, konteynerda o'qiladi):
+      # SSR/ISR to'g'ridan-to'g'ri backend'ga (EC2 hairpin yo'q).
+      API_URL_INTERNAL: http://backend:8000
+      REVALIDATE_SECRET: ${REVALIDATE_SECRET:?}
+    depends_on:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://localhost:3000/uz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./deploy/nginx/dental.conf:/etc/nginx/conf.d/default.conf:ro
+      - media:/var/www/media:ro   # /media/ ni to'g'ridan-to'g'ri serve qiladi (backend'ni chetlab)
+    depends_on:
+      - backend
+      - frontend
+
+volumes:
+  pgdata:
+  media:

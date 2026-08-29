@@ -1,0 +1,18 @@
+# Backend image — faqat kod + requirements kerak.
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+# Sirlar HECH QACHON image'ga kirmaydi (compose env_file orqali beriladi):
+.env
+*.env
+!.env.example
+# Runtime yozadigan papkalar — image'da bo'lmasin, volume'dan keladi:
+media/
+staticfiles/
+db.sqlite3

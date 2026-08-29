@@ -10,3 +10,7 @@ Pillow>=11
 psycopg[binary]>=3.2,<3.3
 django-phonenumber-field[phonenumbers]>=8
 requests>=2.32,<3
+
+# Prod server (deploy)
+gunicorn>=23,<24
+whitenoise>=6.8,<7

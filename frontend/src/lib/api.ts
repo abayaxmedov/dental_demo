@@ -5,8 +5,14 @@
  */
 import type { components, paths } from "./api-types";
 
+// SERVER (SSR/ISR) fetch bazasi. `API_URL_INTERNAL` — runtime-only (NEXT_PUBLIC EMAS), shuning
+// uchun client bundle'ga chiqmaydi va u yerda `undefined` → ommaviy bazaga qaytadi. Prod'da
+// `http://backend:8000` beriladi: EC2'da konteyner instance'ning OʻZ ommaviy IP'siga yeta olmaydi
+// (hairpin NAT), shuning uchun SSR to'g'ridan-to'g'ri backend'ga boradi, nginx orqali emas.
 export const API_BASE =
-  process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
+  process.env.API_URL_INTERNAL ??
+  process.env.NEXT_PUBLIC_API_URL ??
+  "http://127.0.0.1:8000";
 
 
 /** Schema'dan olingan model tiplari — komponentlar shularni ishlatadi. */

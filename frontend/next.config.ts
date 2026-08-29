@@ -19,6 +19,11 @@ const MEDIA_ORIGIN = new URL(MEDIA_URL).origin;
 // sayt oʻzi build qilingan hostda serve qilinadi. Lekin OQIBATI bor: API/media origin va
 // NODE_ENV **build vaqtida** qotadi — env oʻzgarsa QAYTA BUILD kerak (deploy checklist).
 const isDev = process.env.NODE_ENV !== "production";
+// SITE_HTTPS — domen + TLS bilan deploy qilinsagina `true`. IP-only HTTP demo'da `false`
+// (default): `upgrade-insecure-requests` va HSTS OʻCHIRILADI, aks holda brauzer barcha
+// soʻrovni https'ga koʻtaradi-yu, TLS yoʻqligi uchun sayt butunlay ochilmaydi. Backend
+// `prod.py` dagi SITE_HTTPS bilan JUFT — ikkalasini birga oʻzgartirib qayta build qiling.
+const httpsEnabled = process.env.SITE_HTTPS === "true";
 
 // CSP — SSG bilan mos varianti. Nonce + `strict-dynamic` (Next hujjati tavsiyasi)
 // ATAYLAB ISHLATILMADI: u dinamik render talab qiladi va 121 static sahifani
@@ -39,7 +44,8 @@ const csp = [
   `connect-src 'self' ${API_ORIGIN}${isDev ? " ws://localhost:* ws://127.0.0.1:*" : ""}`,
   `worker-src 'self' blob:`,
   `manifest-src 'self'`,
-  ...(isDev ? [] : [`upgrade-insecure-requests`]),
+  // Faqat TLS bilan — HTTP/IP deploy'da bu sahifani buzadi (yuqoridagi SITE_HTTPS izohi).
+  ...(httpsEnabled ? [`upgrade-insecure-requests`] : []),
 ].join("; ");
 
 const securityHeaders = [
@@ -52,13 +58,16 @@ const securityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
   },
-  // HSTS faqat prod (HTTPS) — dev HTTP'da preload/long max-age xavfli boʻlishi mumkin.
-  ...(isDev
-    ? []
-    : [{ key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" }]),
+  // HSTS faqat haqiqiy HTTPS deploy'da — HTTP/IP demo'da brauzerni https'ga qulflab qoʻyadi.
+  ...(httpsEnabled
+    ? [{ key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" }]
+    : []),
 ];
 
 const nextConfig: NextConfig = {
+  // Docker deploy uchun minimal runtime chiqishi (server.js + faqat kerakli node_modules).
+  // Image `frontend/Dockerfile` `.next/standalone` ni nusxalaydi (ADR-021).
+  output: "standalone",
   poweredByHeader: false, // Next versiyasini oshkor qilmaymiz
   images: {
     formats: ["image/avif", "image/webp"],
@@ -84,6 +93,16 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
+  },
+  // Prod media proxy (ADR-021). Prod'da backend media URL'lari ROOT-relative (`/media/...`,
+  // MEDIA_PUBLIC_BASE=/), shuning uchun next/image ularni "local" deb biladi va OPTIMIZER
+  // ularni shu server orqali oladi → bu rewrite ichki nginx'ga uzatadi. Natijada optimizer
+  // instance'ning ommaviy IP'siga urinmaydi (EC2 hairpin yoʻq), rasm optimizatsiyasi SAQLANADI.
+  // Brauzerdagi og:image esa `metadataBase` bilan mutlaq ommaviy URL boʻladi. Dev'da
+  // MEDIA_REWRITE_TARGET boʻsh → rewrite yoʻq (dev backend mutlaq media URL beradi).
+  async rewrites() {
+    const target = process.env.MEDIA_REWRITE_TARGET;
+    return target ? [{ source: "/media/:path*", destination: `${target}/media/:path*` }] : [];
   },
 };
 
