@@ -13,8 +13,12 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-# Faqat HTTPS boʻlganda — aks holda IP/HTTP deploy buziladi.
-SECURE_SSL_REDIRECT = SITE_HTTPS
+# DIQQAT: http→https redirect'ni EDGE (reverse proxy — host nginx + certbot) bajaradi, Django EMAS.
+# Nega default False: Django SECURE_SSL_REDIRECT=True boʻlsa u ICHKI SSR fetch'ni ham
+# (frontend → http://backend:8000, X-Forwarded-Proto YOʻQ) https'ga 301 qiladi → backend'da TLS
+# yoʻq → "fetch failed" → barcha SSR sahifa BOʻSH chiqadi (T-DEPLOY-03 bug). Tashqi trafik
+# host nginx'da allaqachon https'ga yoʻnaltiriladi, shuning uchun bu ortiqcha va zararli.
+SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=False)
 SESSION_COOKIE_SECURE = SITE_HTTPS
 CSRF_COOKIE_SECURE = SITE_HTTPS
 SECURE_HSTS_SECONDS = 31536000 if SITE_HTTPS else 0
