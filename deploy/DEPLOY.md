@@ -96,11 +96,14 @@ $C exec backend python manage.py fetch_seed_images
 $C exec backend python manage.py seed_demo --reset
 # 3) Admin (prod'da --force shart, T-FIX-16 guard):
 $C exec backend python manage.py create_demo_admin --username admin --password 'KUCHLI_PAROL' --force
-# 4) ISR keshini yangilash:
+# 4) (ixtiyoriy) Admin TIRIK ko'rinishi uchun ko'p tasodifiy qabul + murojaat (additive):
+$C exec backend python manage.py seed_random --appointments 60 --leads 25
+# 5) ISR keshini yangilash:
 bash deploy/deploy.sh   # yoki faqat warm qismi
 ```
 
-Admin: `http://3.227.184.179/admin/` · Sayt: `http://3.227.184.179/`
+Admin: `https://<domen>/admin/` · Sayt: `https://<domen>/`. `seed_random` xohlagancha qayta
+ishga tushiriladi (o'chirmaydi, qo'shadi) — kalendar/inbox to'lasin.
 
 ---
 
