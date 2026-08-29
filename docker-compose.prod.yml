@@ -70,7 +70,9 @@ services:
     image: nginx:1.27-alpine
     restart: unless-stopped
     ports:
-      - "80:80"
+      # HTTP_BIND: dedicated server'da "80". Umumiy server'da (host nginx :80/:443 ni egallagan)
+      # "127.0.0.1:8090" — host nginx TLS'ni tugatib shu portga proxy qiladi (ADR-021, DEPLOY.md).
+      - "${HTTP_BIND:-80}:80"
     volumes:
       - ./deploy/nginx/dental.conf:/etc/nginx/conf.d/default.conf:ro
       - media:/var/www/media:ro   # /media/ ni to'g'ridan-to'g'ri serve qiladi (backend'ni chetlab)

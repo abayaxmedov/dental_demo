@@ -1,0 +1,28 @@
+# HOST nginx server bloki — UMUMIY server uchun (host nginx :80/:443 ni egallagan, dental stack
+# esa 127.0.0.1:8090 da). Bu faylni compose EMAS, HOST nginx o'qiydi:
+#   sudo cp deploy/nginx/host-site.conf.example /etc/nginx/sites-available/dentist
+#   sudo sed -i 's/DENTAL_HOST/dentist.onesystem.uz/g' /etc/nginx/sites-available/dentist
+#   sudo ln -sf /etc/nginx/sites-available/dentist /etc/nginx/sites-enabled/dentist
+#   sudo nginx -t && sudo systemctl reload nginx
+#   # so'ng TLS (certbot 443 blokini O'ZI qo'shadi va redirect yoqadi):
+#   sudo certbot --nginx -d dentist.onesystem.uz
+#
+# Mavjud saytlarga (mebel/sqb/redirect-ip) TEGMAYDI — bu ALOHIDA server_name.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name DENTAL_HOST;
+
+    # Rasm yuklash (admin) — host nginx ham ruxsat bersin.
+    client_max_body_size 25m;
+
+    location / {
+        proxy_pass http://127.0.0.1:8090;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;   # certbot buni https'ga o'zgartiradi
+        proxy_read_timeout 60s;
+    }
+}

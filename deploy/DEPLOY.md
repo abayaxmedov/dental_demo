@@ -132,6 +132,22 @@ Reskin uch tilni ham yozadi va ISR'ni tozalaydi (`FRONTEND_BASE_URL=http://front
 
 ---
 
+## 6b. Umumiy server (host nginx :80/:443 ni egallagan) — REAL setup
+
+Bu serverda host nginx allaqachon boshqa saytlarni (`mebel.onesystem.uz` → :3000, `sqb.onesystem.uz`)
+xizmat qiladi. Shuning uchun dental stack o'z nginx'ini **`127.0.0.1:8090`** ga bog'laydi, host nginx
+esa `dentist.onesystem.uz` ni unga proxy qiladi + TLS'ni tugatadi.
+
+1. `deploy/.env.prod` da: `HTTP_BIND=127.0.0.1:8090`, `SITE_HTTPS=true`, barcha URL'lar
+   `https://dentist.onesystem.uz`, `ALLOWED_HOSTS=dentist.onesystem.uz,localhost,127.0.0.1,backend`.
+2. Stack'ni ko'taring: `bash deploy/deploy.sh` (nginx faqat localhost:8090 da).
+3. Host nginx server bloki + TLS: [`deploy/nginx/host-site.conf.example`](nginx/host-site.conf.example)
+   izohidagi buyruqlar (cp → sed → symlink → `nginx -t` → reload → `certbot --nginx`).
+4. Chain nozikligi: compose nginx `X-Forwarded-Proto` ni host nginx'dan **saqlaydi** (`$fwd_proto` map),
+   aks holda `SITE_HTTPS=true` da Django cheksiz https-redirect qiladi.
+
+---
+
 ## 7. Kundalik ishlar
 
 ```bash
