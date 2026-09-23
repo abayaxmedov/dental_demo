@@ -1,5 +1,7 @@
 # Oq Marvarid Dental — demo
 
+**Jonli demo:** https://dentist.onesystem.uz · server/deploy: [deploy/DEPLOY.md](deploy/DEPLOY.md) (ADR-021, ADR-022)
+
 Stomatologiya klinikalari uchun sotiladigan **demo veb-sayt**. Bir marta quriladi, har bir
 klinika uchun `manage.py reskin` bilan 30 daqiqada qayta brendlanadi. Vizual mezon — Colorlib
 **Prodent**, lekin har jihatdan undan yaxshiroq va bir nechta joyda **haqiqiy 3D** bilan.

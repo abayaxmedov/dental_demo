@@ -1,17 +1,33 @@
 # dental_demo — Deploy qo'llanmasi (ADR-021)
 
 Bitta Linux VPS'da Docker Compose bilan: **PostgreSQL + Django (gunicorn) + Next.js (standalone) + nginx**.
-Barchasi `docker-compose.prod.yml` da. Demo hozircha **IP orqali, HTTP** (TLS yo'q) — domen olgach
-pastdagi *TLS* bo'limi bilan HTTPS'ga o'tiladi.
+Barchasi `docker-compose.prod.yml` da. Demo **https://dentist.onesystem.uz** da, TLS host nginx +
+certbot'da tugaydi (§6b — JORIY, REAL setup).
 
-Server: **3.227.184.179** · SSH kaliti: `aws-key_kz.pem` (repo ildizida, **git ignore**da — hech qachon commit qilinmaydi).
+| | |
+|---|---|
+| Server | **38.242.255.34** (Contabo VPS, `vmi2867712`) · Ubuntu 24.04 · 6 vCPU / 11 GB |
+| Kirish | `ssh root@38.242.255.34` (kalit `~/.ssh/id_ed25519`) |
+| Loyiha yo'li | **`/root/abay/dental_demo`** |
+| Domen | `dentist.onesystem.uz` → A-record shu IP'ga |
+| Stack porti | `127.0.0.1:8090` (faqat localhost; :80/:443 ni HOST nginx egallagan) |
+
+> **DIQQAT — umumiy server.** Bu VPS'da o'nlab boshqa loyiha ishlaydi (`~/abay/*`, 30+ konteyner,
+> `/etc/nginx/conf.d/*.conf` da boshqa saytlar). Faqat `~/abay/dental_demo` va bizning nginx
+> vhost'imizga tegiladi. `docker system prune`, umumiy `docker compose down`, host nginx'ning
+> boshqa fayllari — **MUTLAQO YO'Q**.
+>
+> **Eski AWS EC2 (`3.227.184.179`) endi bizniki EMAS** — Elastic IP biriktirilmagani uchun
+> instance IP'ni yo'qotdi, AWS uni boshqa mijozning ALB'siga berdi (ADR-022). Eski IP'ga
+> murojaat qilmang.
 
 ---
 
 ## 0. Nega bunday arxitektura (muhim eslatmalar)
 
-- **EC2 hairpin NAT:** instance (va uning konteynerlari) o'zining **ommaviy IP**'siga ura olmaydi.
-  Shuning uchun:
+- **Ichki trafik hech qachon ommaviy origin'ga chiqmaydi.** (Tarixan sabab EC2 hairpin NAT edi;
+  hozirgi VPS'da sabab boshqa — tashqi chiqish TLS/host nginx orqali behuda aylanma bo'lardi va
+  `SECURE_SSL_REDIRECT`/certbot bilan mo'rt zanjir hosil qilardi.) Qoida o'sha:
   - SSR/ISR fetch → `API_URL_INTERNAL=http://backend:8000` (ichki, nginx'ni chetlab).
   - next/image optimizer media'ni `MEDIA_REWRITE_TARGET=http://nginx` orqali (ichki) oladi.
   - Backend media URL'lari **root-relative** (`MEDIA_PUBLIC_BASE=/`); brauzerdagi `og:image`ni
@@ -24,14 +40,14 @@ Server: **3.227.184.179** · SSH kaliti: `aws-key_kz.pem` (repo ildizida, **git 
 
 ## 1. Serverni tayyorlash (bir marta)
 
-SSH (repo ildizidan, kalit huquqi 400 bo'lsin):
+SSH:
 
 ```bash
-chmod 400 aws-key_kz.pem
-ssh -i aws-key_kz.pem ubuntu@3.227.184.179
+ssh root@38.242.255.34
 ```
 
-Docker + Compose plugin (Ubuntu):
+Joriy serverda Docker (v29) + Compose (v5) **allaqachon o'rnatilgan** — quyidagi blok faqat
+NOLDAN yangi server uchun. Docker + Compose plugin (Ubuntu):
 
 ```bash
 sudo apt-get update && sudo apt-get install -y ca-certificates curl git
@@ -42,13 +58,19 @@ sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli container
 sudo usermod -aG docker $USER && newgrp docker   # sudo'siz docker
 ```
 
-**Security Group / firewall:** `22` (SSH) va `80` (HTTP) ochiq bo'lsin. TLS qo'shilganda `443`.
+**Firewall:** `22` (SSH), `80` va `443` ochiq bo'lsin. Bizning stack `127.0.0.1:8090` da —
+u tashqaridan KO'RINMAYDI va ko'rinmasligi ham kerak (kirish faqat host nginx orqali).
 
 ---
 
 ## 2. Kod + env (bir marta)
 
+Joriy serverda kod **`/root/abay/dental_demo`** da turibdi (eski EC2'dan ko'chirilgan, git
+metadata'siz — `git pull` ISHLAMAYDI, yangilash uchun §7 ga qarang).
+
+Noldan:
 ```bash
+mkdir -p ~/abay && cd ~/abay
 git clone git@github.com:abayaxmedov/dental_demo.git
 cd dental_demo
 cp deploy/.env.prod.example deploy/.env.prod
@@ -63,8 +85,9 @@ cp deploy/.env.prod.example deploy/.env.prod
 | `POSTGRES_PASSWORD` va `DATABASE_URL` dagi parol | bir xil kuchli parol |
 | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` | klinika bot/chat (sotiladigan xususiyat) |
 
-IP o'rniga domen ishlatsangiz, `ALLOWED_HOSTS` / `*_ORIGINS` / `NEXT_PUBLIC_*` / `PUBLIC_BASE_URL`
-larni domenga o'zgartiring.
+`.env.prod.example` **joriy setup** bilan to'ldirilgan (domen + `HTTP_BIND=127.0.0.1:8090` +
+`SITE_HTTPS=true`). Boshqa domen uchun `dentist.onesystem.uz` ni hamma joyda almashtiring —
+`ALLOWED_HOSTS`, `CORS/CSRF_TRUSTED_ORIGINS`, `NEXT_PUBLIC_*`, `PUBLIC_BASE_URL`.
 
 ---
 
@@ -122,7 +145,7 @@ Reskin uch tilni ham yozadi va ISR'ni tozalaydi (`FRONTEND_BASE_URL=http://front
 
 ## 6. TLS / domen (HTTP → HTTPS)
 
-1. Domenning A-record'ini `3.227.184.179` ga yo'naltiring.
+1. Domenning A-record'ini **38.242.255.34** ga yo'naltiring (`dig +short <domen>` bilan tekshiring).
 2. `deploy/.env.prod` da barcha IP'ni domenga almashtiring; **`SITE_HTTPS=true`**.
 3. `deploy/nginx/dental.conf` ga `443` server bloki + certbot (yoki Caddy) qo'shing, `80`→`443` redirect.
    Certbot uchun `certbot/certbot` konteyner yoki host'da certbot; sertifikatni nginx'ga mount qiling.
@@ -137,9 +160,12 @@ Reskin uch tilni ham yozadi va ISR'ni tozalaydi (`FRONTEND_BASE_URL=http://front
 
 ## 6b. Umumiy server (host nginx :80/:443 ni egallagan) — REAL setup
 
-Bu serverda host nginx allaqachon boshqa saytlarni (`mebel.onesystem.uz` → :3000, `sqb.onesystem.uz`)
-xizmat qiladi. Shuning uchun dental stack o'z nginx'ini **`127.0.0.1:8090`** ga bog'laydi, host nginx
-esa `dentist.onesystem.uz` ni unga proxy qiladi + TLS'ni tugatadi.
+**Bu — joriy, ishlab turgan setup.** Serverda host nginx o'nlab saytga xizmat qiladi
+(`/etc/nginx/conf.d/*.conf` + `/etc/nginx/sites-enabled/*`: `crm.onesystem.uz`, `24.procleaning.uz`,
+`airium.uz`, `metro.onesystem.uz` va h.k.), certbot sertifikatlari `/etc/letsencrypt/live/` da.
+Shuning uchun dental stack o'z nginx'ini **`127.0.0.1:8090`** ga bog'laydi (boshqa hech bir port
+band qilinmaydi), host nginx esa `dentist.onesystem.uz` ni unga proxy qiladi + TLS'ni tugatadi.
+Bizning vhost — **alohida fayl**, `server_name` ham alohida: qo'shni saytlarga ta'sir qilmaydi.
 
 1. `deploy/.env.prod` da: `HTTP_BIND=127.0.0.1:8090`, `SITE_HTTPS=true`, barcha URL'lar
    `https://dentist.onesystem.uz`, `ALLOWED_HOSTS=dentist.onesystem.uz,localhost,127.0.0.1,backend`.
@@ -159,19 +185,28 @@ $C ps                 # holat
 $C logs -f backend    # loglar
 $C restart backend    # xizmatni qayta ishga tushirish
 $C down               # to'xtatish (volume'lar saqlanadi)
-git pull && bash deploy/deploy.sh   # yangilanish
+```
+
+**Yangilash.** Serverdagi nusxada `.git` YO'Q (ko'chirishda tushib qolgan), shuning uchun
+`git pull` emas — lokal mashinadan kodni uzatib, qayta deploy qilamiz (`.env.prod` va
+`_migration/` TEGILMAYDI):
+
+```bash
+# LOKAL (repo ildizida):
+git archive --format=tar HEAD | ssh root@38.242.255.34 \
+  'tar xf - -C /root/abay/dental_demo'
+ssh root@38.242.255.34 'cd /root/abay/dental_demo && bash deploy/deploy.sh'
 ```
 
 **Zaxira (cron tavsiya):**
 ```bash
 bash deploy/backup.sh                       # deploy/backups/ ga DB + media
-# crontab -e:  0 3 * * *  cd /home/ubuntu/dental_demo && bash deploy/backup.sh
+# crontab -e:  0 3 * * *  cd /root/abay/dental_demo && bash deploy/backup.sh >> /root/abay/dental_demo/deploy/backups/cron.log 2>&1
 ```
 
-**Rollback:** oldingi commit'ga qayting va qayta deploy:
+**Rollback:** lokalda oldingi commit'ga o'ting va yuqoridagi `git archive` bilan qayta uzating.
 ```bash
-git checkout <oldingi-sha> && bash deploy/deploy.sh
-# DB'ni tiklash: gunzip < deploy/backups/db-XXddd.sql.gz | $C exec -T db psql -U dental dental
+# DB'ni tiklash: gunzip < deploy/backups/db-XXXX.sql.gz | $C exec -T db psql -U dental dental
 ```
 
 ---
@@ -180,8 +215,12 @@ git checkout <oldingi-sha> && bash deploy/deploy.sh
 
 | Alomat | Sabab / yechim |
 |---|---|
+| Brauzer "sertifikat mos emas" deydi (boshqa domen nomi) | DNS bizning serverga qaramayapti, YOKI host nginx'da bizning `server_name` bloki yo'q → so'rov default vhost'ga tushib, begona sertifikat beriladi. `dig +short dentist.onesystem.uz` = `38.242.255.34` va `nginx -T \| grep dentist` bilan tekshiring. |
+| Nginx "Welcome to nginx!" chiqadi | Xuddi shu sabab — vhost yo'q yoki `nginx -t` xato berib reload bo'lmagan. |
+| 502 Bad Gateway | Stack tushgan. `$C ps`, `$C logs -f frontend backend`. Host nginx `127.0.0.1:8090` ga uradi. |
+| Cheksiz https redirect sikli | `SECURE_SSL_REDIRECT` yoqilgan (yoqilmasligi kerak — ADR-022) yoki compose nginx `X-Forwarded-Proto`ni yo'qotgan (`$fwd_proto` map). |
 | Sayt ochilmaydi, https'ga o'tib ketadi | `SITE_HTTPS=true` bo'lib qolgan-u TLS yo'q. `false` qiling, qayta build. |
-| Admin login 403 (CSRF) | `CSRF_TRUSTED_ORIGINS` da to'liq origin (`http://IP`) yo'q. |
+| Admin login 403 (CSRF) | `CSRF_TRUSTED_ORIGINS` da to'liq origin (`https://domen`) yo'q. |
 | Rasm 404 / optimizatsiya xato | `MEDIA_REWRITE_TARGET=http://nginx` va media volume tekshiring: `$C exec nginx ls /var/www/media`. |
 | SSR bo'sh/eski content | backend healthy emas yoki seed qilinmagan (4-bo'lim). `$C logs backend`. |
 | `DisallowedHost` | `ALLOWED_HOSTS` ga `backend`, `localhost`, IP kirganini tekshiring. |

@@ -38,7 +38,16 @@ echo "  backend: $status"
 
 echo "→ ISR keshini tozalash + qizdirish…"
 SECRET="$(grep -E '^REVALIDATE_SECRET=' "$ENV_FILE" | cut -d= -f2- || true)"
-BASE="http://localhost"
+# Warm/purge MANZILI HTTP_BIND dan olinadi. Umumiy serverda stack 127.0.0.1:8090 da turadi va
+# :80 ni HOST nginx egallagan — qattiq yozilgan "http://localhost" o'sha yerda begona saytni
+# qizdirib, bizniki sovuq qolardi.
+BIND="$(grep -E '^HTTP_BIND=' "$ENV_FILE" | cut -d= -f2- || echo 80)"
+case "$BIND" in
+  0.0.0.0:*|:*) BASE="http://127.0.0.1:${BIND##*:}" ;;   # 0.0.0.0:80 → localhost
+  *:*)          BASE="http://${BIND%:*}:${BIND##*:}" ;;  # 127.0.0.1:8090 → o'sha manzil
+  *)            BASE="http://127.0.0.1:${BIND:-80}" ;;   # 80 → http://127.0.0.1:80
+esac
+echo "  manzil: $BASE"
 if [ -n "$SECRET" ]; then
   code="$(curl -s -o /dev/null -w '%{http_code}' -X POST "$BASE/api/revalidate" \
     -H "x-revalidate-secret: $SECRET" --max-time 20 || echo 000)"
@@ -48,6 +57,7 @@ for path in /uz /uz/narxlar /uz/xizmatlar /uz/haqimizda /uz/aloqa /uz/galereya /
   curl -s -o /dev/null "$BASE$path" --max-time 25 || true
 done
 
-echo "✓ Deploy tugadi. Ochish: http://<server-ip>/"
+PUB="$(grep -E '^PUBLIC_BASE_URL=' "$ENV_FILE" | cut -d= -f2- || true)"
+echo "✓ Deploy tugadi. Ochish: ${PUB:-$BASE}/"
 echo "  Loglar:   ${COMPOSE[*]} logs -f"
 echo "  Holat:    ${COMPOSE[*]} ps"
