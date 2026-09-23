@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
@@ -62,9 +62,11 @@ function Tooth() {
     return g;
   }, []);
 
-  useFrame((state, dt) => {
+  useFrame((state, delta) => {
     const g = group.current;
     if (!g) return;
+    // Pauzadan (ekrandan chiqish) qaytganda katta delta tishni "sakratmasin"
+    const dt = Math.min(delta, 0.1);
     g.rotation.y += dt * 0.3;
     g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, -0.1 + state.pointer.y * 0.16, 0.05);
     g.rotation.z = THREE.MathUtils.lerp(g.rotation.z, state.pointer.x * 0.1, 0.05);
@@ -80,13 +82,38 @@ function Tooth() {
   );
 }
 
+/** Birinchi kadr haqiqatan chizilgach xabar beradi — shundan keyingina sahna koʻrinadi. */
+function FirstFrame({ onReady }: { onReady: () => void }) {
+  const frames = useRef(0);
+  useFrame(() => {
+    // 1-kadr: useFrame render'dan OLDIN chaqiriladi; 2-kadrda birinchisi ekranda.
+    if (++frames.current === 2) onReady();
+  });
+  return null;
+}
+
 export function HeroTooth() {
+  const host = useRef<HTMLDivElement>(null);
+  const [shown, setShown] = useState(false);
+  const [visible, setVisible] = useState(true);
+
+  // Ekrandan chiqsa render toʻxtaydi (ADR-011) — koʻrinishga taʼsiri yoʻq, batareya tejaladi.
+  useEffect(() => {
+    const el = host.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <div
-      className="hero-scene-in absolute inset-0 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 via-brand to-brand-700"
+      ref={host}
+      className={`${shown ? "hero-scene-in" : "opacity-0"} absolute inset-0 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-600 via-brand to-brand-700`}
       aria-hidden="true"
     >
       <Canvas
+        frameloop={visible ? "always" : "never"}
         camera={{ position: [0, 0.1, 4.6], fov: 40 }}
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
@@ -100,6 +127,7 @@ export function HeroTooth() {
         <directionalLight position={[-4, 1, -2]} intensity={0.6} color="#7fd8de" />
         <pointLight position={[0, -2, 3]} intensity={0.5} color="#f2a65a" />
         <Tooth />
+        {shown ? null : <FirstFrame onReady={() => setShown(true)} />}
       </Canvas>
     </div>
   );

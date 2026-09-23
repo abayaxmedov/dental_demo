@@ -10,15 +10,18 @@ const HeroTooth = dynamic(() => import("./HeroTooth").then((m) => m.HeroTooth), 
 const CHUNK_TIMEOUT_MS = 6000;
 
 /**
- * Hero 3D tishni qodir desktopda DARHOL mount qiladi (ADR-011).
+ * Hero 3D tish (ADR-011, ADR-023).
  *
- * Poster foto `globals.css` da shu media query bilan yashirilgan, shuning uchun bu
- * yerda ikkita fallback SHART — aks holda foydalanuvchi boʻsh panel koʻradi:
+ * Desktopda DARHOL mount qiladi — poster foto `globals.css` da yashirilgan.
+ * Telefon/planshetda poster LCP boʻlib koʻrinadi; sahna `load` + idle'dan keyin mount
+ * boʻladi va birinchi kadr chizilgach poster ustiga crossfade qiladi (HeroTooth).
+ *
+ * Ikkita fallback SHART — aks holda desktopda foydalanuvchi boʻsh panel koʻradi:
  *  1) gate yiqilsa (WebGL2 yoʻq / saveData / 2g) → `hero-3d-failed`;
  *  2) three.js chunk'i 6 s ichida canvas chizmasa (sekin tarmoq / chunk xatosi) → xuddi shunday.
  */
 export function SceneGuard() {
-  const status = useWebGLStatus({ immediate: true });
+  const status = useWebGLStatus({ immediate: true, allowTouch: true });
   const [failed, setFailed] = useState(false);
   const host = useRef<HTMLDivElement>(null);
 
