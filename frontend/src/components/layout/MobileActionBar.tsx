@@ -1,22 +1,24 @@
 import { MapPin, Phone, Send } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import type { ClinicSettings } from "@/lib/api";
 import { telHref } from "@/lib/format";
 
 /** Yopishqoq pastki panel (mobil) — real deeplinklar. */
-export function MobileActionBar({ settings }: { settings: ClinicSettings | null }) {
+export async function MobileActionBar({ settings }: { settings: ClinicSettings | null }) {
+  const t = await getTranslations("mobileBar");
   const phone = settings?.phone_primary || "+998712004040";
   const tg = settings?.telegram_username;
   const map = settings?.yandex_maps_url || settings?.two_gis_url;
   const items = [
-    { icon: Phone, label: "Qoʻngʻiroq", href: telHref(phone) },
-    tg ? { icon: Send, label: "Telegram", href: `https://t.me/${tg}` } : null,
-    map ? { icon: MapPin, label: "Manzil", href: map } : null,
+    { icon: Phone, label: t("call"), href: telHref(phone) },
+    tg ? { icon: Send, label: t("telegram"), href: `https://t.me/${tg}` } : null,
+    map ? { icon: MapPin, label: t("map"), href: map } : null,
   ].filter(Boolean) as { icon: typeof Phone; label: string; href: string }[];
 
   return (
     <>
       <nav
-        aria-label="Tezkor amallar"
+        aria-label={t("label")}
         className="fixed inset-x-0 bottom-0 z-40 grid border-t border-line bg-surface/95 backdrop-blur lg:hidden"
         style={{
           gridTemplateColumns: `repeat(${items.length}, 1fr)`,

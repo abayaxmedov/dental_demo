@@ -8,6 +8,12 @@
     "hours": "Du–Sha 09:00–19:00",
     "phone": "+998 71 200 40 40"
   },
+  "mobileBar": {
+    "label": "Tezkor amallar",
+    "call": "Qoʻngʻiroq",
+    "telegram": "Telegram",
+    "map": "Manzil"
+  },
   "nav": {
     "home": "Bosh sahifa",
     "about": "Biz haqimizda",
@@ -19,7 +25,9 @@
     "reviews": "Sharhlar",
     "blog": "Blog",
     "contact": "Aloqa",
-    "mediaCredits": "Media litsenziyalari"
+    "mediaCredits": "Media litsenziyalari",
+    "menu": "Menyu",
+    "close": "Yopish"
   },
   "hero": {
     "eyebrow": "Ishonchli stomatologiya",

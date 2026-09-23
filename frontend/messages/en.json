@@ -8,6 +8,12 @@
     "hours": "Mon–Sat 09:00–19:00",
     "phone": "+998 71 200 40 40"
   },
+  "mobileBar": {
+    "label": "Quick actions",
+    "call": "Call",
+    "telegram": "Telegram",
+    "map": "Map"
+  },
   "nav": {
     "home": "Home",
     "about": "About",
@@ -19,7 +25,9 @@
     "reviews": "Reviews",
     "blog": "Blog",
     "contact": "Contact",
-    "mediaCredits": "Media licences"
+    "mediaCredits": "Media licences",
+    "menu": "Menu",
+    "close": "Close"
   },
   "hero": {
     "eyebrow": "Dentistry you can trust",

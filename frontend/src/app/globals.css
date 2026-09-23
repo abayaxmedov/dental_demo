@@ -100,3 +100,23 @@ body {
     visibility: visible;
   }
 }
+
+/*
+  Mobil menyu (Header) — toʻliq ekranli sheet.
+  Ochiq paytda sahifa orqada scroll boʻlmasin; sheet yumshoq paydo boʻlsin.
+*/
+@media (max-width: 767px) {
+  html:has(details[data-mobile-menu][open]) {
+    overflow: hidden;
+  }
+}
+@keyframes mobile-menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  details[data-mobile-menu][open] > .mobile-menu-sheet {
+    animation: mobile-menu-in 0.2s ease-out both;
+  }
+}
+

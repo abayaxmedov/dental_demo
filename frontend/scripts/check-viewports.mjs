@@ -115,6 +115,10 @@ const AUDIT = () => {
   for (const el of document.querySelectorAll("a,button,summary,[role=radio],[role=slider],input:not([type=hidden]),select,textarea")) {
     const cs = getComputedStyle(el);
     if (isHidden(el, cs) || el.tabIndex === -1) continue;
+    // Yopiq <details> kontenti (mobil menyu) — bosib boʻlmaydi, Chrome uni content-visibility bilan
+    // joylashtirmaydi va rect soxta (masalan 20×56) chiqadi. <summary> esa tekshiriladi.
+    const closedDetails = el.closest("details:not([open])");
+    if (closedDetails && !closedDetails.querySelector(":scope > summary")?.contains(el)) continue;
     let r = el.getBoundingClientRect();
     if (r.width <= 4 || r.height <= 4 || r.right < 0 || r.left > innerW) continue;
     interactiveInspected++;

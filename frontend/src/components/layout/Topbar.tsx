@@ -10,8 +10,8 @@ const WEEKDAYS_SHORT: Record<string, string[]> = {
   en: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 };
 
-/** Ish vaqtini "Du–Sha 09:00–19:00" koʻrinishida qisqartiradi. */
-function summariseHours(
+/** Ish vaqtini "Du–Sha 09:00–19:00" koʻrinishida qisqartiradi (Header mobil menyusi ham ishlatadi). */
+export function summariseHours(
   hours: ClinicSettings["working_hours"] | undefined,
   locale: string,
 ): string | null {
@@ -42,8 +42,9 @@ export async function Topbar({
 
   return (
     <div className="border-b border-line bg-surface-muted text-sm text-ink-muted">
-      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-2 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
+      {/* Telefonda faqat telefon + til: manzil va ish vaqti mobil menyuda (Header). */}
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-0.5 md:py-2">
+        <div className="hidden flex-wrap items-center gap-x-5 gap-y-1 md:flex">
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="h-4 w-4 shrink-0 text-brand" aria-hidden />
             {address}
@@ -53,12 +54,13 @@ export async function Topbar({
             {hours}
           </span>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex w-full items-center justify-between gap-2 md:w-auto md:justify-start md:gap-4">
           <a
             href={telHref(phone)}
-            className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-ink hover:text-brand"
+            className="inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap font-semibold text-ink hover:text-brand"
           >
-            <Phone className="h-4 w-4 shrink-0 text-brand" aria-hidden />
+            {/* 320px ekranda raqam + 3 til tugmasi sigʻishi uchun ikonka yashiriladi */}
+            <Phone className="h-4 w-4 shrink-0 text-brand max-[359px]:hidden" aria-hidden />
             {formatPhone(phone)}
           </a>
           <LangSwitcher />

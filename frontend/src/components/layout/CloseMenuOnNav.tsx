@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { usePathname } from "@/i18n/navigation";
 
 /**
- * Mobil `<details>` menyusini navigatsiyada va Escape'da yopadi (T-RESP-05).
+ * Mobil `<details>` menyusini navigatsiyada, menyu ichidagi havola bosilganda va Escape'da yopadi
+ * (T-RESP-05).
  *
  * Nega kerak: `<details>` layout segmentida yashaydi, App Router esa soft-navigatsiyada
  * layout DOM'ini remount qilmaydi — shuning uchun havola bosilgach menyu OCHIQ qolib,
@@ -23,6 +24,17 @@ export function CloseMenuOnNav() {
         d.open = false;
       });
   }, [pathname]);
+
+  // Pathname oʻzgarmaydigan havolalar (masalan bosh sahifada "/#qabul") ham menyuni yopsin.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as Element | null)?.closest?.("a");
+      const menu = a?.closest<HTMLDetailsElement>("details[data-mobile-menu][open]");
+      if (menu) menu.open = false;
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
