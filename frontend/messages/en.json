@@ -12,7 +12,8 @@
     "label": "Quick actions",
     "call": "Call",
     "telegram": "Telegram",
-    "map": "Map"
+    "map": "Map",
+    "book": "Book"
   },
   "nav": {
     "home": "Home",
@@ -121,7 +122,8 @@
       "from": "from",
       "callTitle": "Ask about a price",
       "callLead": "Leave a request and we'll call you back.",
-      "hidden": "Prices are provided by phone."
+      "hidden": "Prices are provided by phone.",
+      "free": "Free"
     },
     "doctors": {
       "title": "Doctors",
@@ -164,7 +166,9 @@
       "equipment": "Equipment",
       "team": "Team",
       "work": "Work",
-      "all": "All"
+      "all": "All",
+      "prev": "Previous",
+      "next": "Next"
     },
     "blog": {
       "title": "Blog",
@@ -203,6 +207,7 @@
       "home": "Home"
     },
     "stages": {
+      "eyebrow": "Implants",
       "title": "Implant stages",
       "lead": "From diagnostics to a natural smile — in 4 steps.",
       "s1t": "Diagnostics",

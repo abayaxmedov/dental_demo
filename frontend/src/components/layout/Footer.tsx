@@ -69,7 +69,7 @@ export async function Footer({
 
         <div>
           <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-400">
-            {t("topbar.hours")}
+            {t("pages.contact.hours")}
           </p>
           <ul className="space-y-1.5 text-sm">
             {settings?.working_hours?.map((h) => (

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { MapPin, Phone, Clock, Send } from "lucide-react";
+import { MapPin, Phone, Clock, Send, Navigation } from "lucide-react";
 import { getSiteSettings } from "@/lib/api";
 import { buildAlternates, localePath } from "@/lib/seo";
 import { formatPhone, telHref } from "@/lib/format";
@@ -45,12 +45,12 @@ export default async function ContactPage({ params }: { params: Params }) {
           ) : null}
           <div className="flex gap-3">
             <Phone className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden />
-            <div><p className="font-semibold text-ink">{t("phone")}</p><a href={telHref(phone)} className="text-brand hover:underline">{formatPhone(phone)}</a></div>
+            <div><p className="font-semibold text-ink">{t("phone")}</p><a href={telHref(phone)} className="inline-flex min-h-11 items-center text-lg font-semibold text-brand hover:underline">{formatPhone(phone)}</a></div>
           </div>
           {settings?.telegram_username ? (
             <div className="flex gap-3">
               <Send className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden />
-              <div><p className="font-semibold text-ink">Telegram</p><a href={`https://t.me/${settings.telegram_username}`} className="text-brand hover:underline">@{settings.telegram_username}</a></div>
+              <div><p className="font-semibold text-ink">Telegram</p><a href={`https://t.me/${settings.telegram_username}`} className="inline-flex min-h-11 items-center font-medium text-brand hover:underline">@{settings.telegram_username}</a></div>
             </div>
           ) : null}
           {hours.length ? (
@@ -62,7 +62,7 @@ export default async function ContactPage({ params }: { params: Params }) {
                 <table className="w-full text-sm text-ink-muted">
                   <tbody>
                     {hours.map((h) => (
-                      <tr key={h.weekday}><td className="pr-4">{days[h.weekday]}</td><td>{h.is_closed ? "—" : `${h.opens?.slice(0, 5)}–${h.closes?.slice(0, 5)}`}</td></tr>
+                      <tr key={h.weekday}><td className="pr-4">{days[h.weekday]}</td><td className={h.is_closed ? "text-ink-subtle" : ""}>{h.is_closed ? h.note || "—" : `${h.opens?.slice(0, 5)}–${h.closes?.slice(0, 5)}`}</td></tr>
                     ))}
                   </tbody>
                 </table>
@@ -71,13 +71,32 @@ export default async function ContactPage({ params }: { params: Params }) {
             </div>
           ) : null}
           {(settings?.yandex_maps_url || settings?.two_gis_url) ? (
-            <a href={settings?.yandex_maps_url || settings?.two_gis_url || "#"} target="_blank" rel="noopener"
-              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-5 text-sm font-semibold text-ink hover:border-brand hover:text-brand">
-              {t("directions")}
-            </a>
+            <div>
+              <p className="mb-3 font-semibold text-ink">{t("directions")}</p>
+              {/* Telefonda ikkala xarita ilovasi yonma-yon, katta tugma (oldin bitta kichik havola edi) */}
+              <div className="grid grid-cols-2 gap-3 sm:flex">
+                {[
+                  { href: settings?.yandex_maps_url, label: "Yandex Maps" },
+                  { href: settings?.two_gis_url, label: "2GIS" },
+                ]
+                  .filter((m) => m.href)
+                  .map((m) => (
+                    <a
+                      key={m.label}
+                      href={m.href!}
+                      target="_blank"
+                      rel="noopener"
+                      className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-line bg-surface px-5 text-sm font-semibold text-ink transition hover:border-brand hover:text-brand"
+                    >
+                      <Navigation className="h-4 w-4 text-brand" aria-hidden />
+                      {m.label}
+                    </a>
+                  ))}
+              </div>
+            </div>
           ) : null}
         </div>
-        <div className="rounded-2xl border border-line p-6">
+        <div className="rounded-2xl border border-line p-5 sm:p-6">
           <h2 className="mb-4 font-display text-lg font-bold text-ink">{t("form")}</h2>
           <ContactForm />
         </div>

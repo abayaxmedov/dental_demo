@@ -1,8 +1,9 @@
 import { getTranslations } from "next-intl/server";
 import type { PriceItem } from "@/lib/api";
-import { formatSum } from "@/lib/format";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Badge } from "@/components/ui/Badge";
+import { ButtonLink } from "@/components/ui/Button";
+import { PriceTag } from "@/components/ui/PriceTag";
 
 export async function Prices({
   prices,
@@ -12,51 +13,39 @@ export async function Prices({
   locale: string;
 }) {
   const t = await getTranslations("nav");
+  const tp = await getTranslations("pages.services");
   // Bosh sahifada teaser — birinchi 8 qator
   const rows = prices.slice(0, 8);
   if (!rows.length) return null;
 
   return (
     <Section id="narxlar" tone="muted" width="4xl">
-      <SectionHeading title={t("prices")} />
-      {/* overflow-x-auto (overflow-hidden EMAS): 320px'da uzun narx kesilib yo'qolmasin,
-          scroll qilinsin (T-RESP-01). Naqsh: media-litsenziyalar/page.tsx. */}
-      <div className="overflow-x-auto overscroll-x-contain rounded-2xl border border-line bg-surface">
-        <table className="w-full text-left text-sm">
-          <tbody className="divide-y divide-line">
-            {rows.map((p) => (
-              <tr key={p.id} className="transition hover:bg-surface-muted">
-                <td className="px-3 py-4 sm:px-5">
-                  <span className="font-medium text-ink">{p.title}</span>
-                  {p.is_promo && p.promo_note ? (
-                    <span className="ml-2">
-                      <Badge tone="promo">{p.promo_note}</Badge>
-                    </span>
-                  ) : null}
-                  {p.unit ? (
-                    <span className="ml-2 text-xs text-ink-subtle">/ {p.unit}</span>
-                  ) : null}
-                </td>
-                <td className="whitespace-nowrap px-3 py-4 text-right font-semibold text-ink sm:px-5">
-                  {Number(p.price_from) === 0 ? (
-                    <span className="text-brand">—</span>
-                  ) : (
-                    <>
-                      <span className="text-sm font-normal text-ink-subtle">
-                        {p.qualifier}{" "}
-                      </span>
-                      {formatSum(p.price_from, locale)}
-                      <span className="ml-1 text-sm font-normal text-ink-subtle">
-                        {p.currency}
-                      </span>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <SectionHeading
+        title={t("prices")}
+        action={<ButtonLink href="/narxlar" variant="secondary">{tp("all")}</ButtonLink>}
+      />
+      {/* Jadval EMAS, roʻyxat: telefonda nom toʻliq kenglikni oladi, birlik nom ostida,
+          narx oʻngda bir qatorda (oldin nom 2–3 qatorga sinardi). */}
+      <ul className="divide-y divide-line rounded-2xl border border-line bg-surface">
+        {rows.map((p) => (
+          <li key={p.id} className="flex items-center justify-between gap-4 px-4 py-3.5 sm:px-5">
+            <div className="min-w-0">
+              <p className="font-medium text-ink">
+                {p.title}
+                {p.is_promo && p.promo_note ? (
+                  <span className="ml-2 align-middle">
+                    <Badge tone="promo">{p.promo_note}</Badge>
+                  </span>
+                ) : null}
+              </p>
+              {p.unit ? <p className="mt-0.5 text-xs text-ink-subtle">{p.unit}</p> : null}
+            </div>
+            <div className="shrink-0 text-right">
+              <PriceTag value={p.price_from} currency={p.currency} locale={locale} />
+            </div>
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 }

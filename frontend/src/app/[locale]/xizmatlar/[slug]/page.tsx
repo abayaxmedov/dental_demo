@@ -131,7 +131,7 @@ export default async function ServiceDetail({ params }: { params: Params }) {
       ) : null}
 
       {settings?.booking_enabled !== false ? (
-        <div className="mt-10"><ButtonLink href="/" size="lg">{t("book")}</ButtonLink></div>
+        <div className="mt-10"><ButtonLink href={{ pathname: "/", hash: "qabul" }} size="lg">{t("book")}</ButtonLink></div>
       ) : null}
     </Section>
   );

@@ -111,7 +111,7 @@ export default async function DoctorDetail({ params }: { params: Params }) {
 
       {d.is_bookable && settings?.booking_enabled !== false ? (
         <div className="mt-10">
-          <ButtonLink href="/" size="lg">{t("book")}</ButtonLink>
+          <ButtonLink href={{ pathname: "/", hash: "qabul" }} size="lg">{t("book")}</ButtonLink>
         </div>
       ) : null}
     </Section>

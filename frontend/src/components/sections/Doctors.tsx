@@ -7,6 +7,7 @@ import { Avatar } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
+import { CAROUSEL, CAROUSEL_ITEM } from "@/components/ui/carousel";
 
 const LANG: Record<string, string> = { uz: "OʻZ", ru: "РУ", en: "EN", tr: "TR" };
 
@@ -22,9 +23,9 @@ export async function Doctors({ doctors }: { doctors: Doctor[] }) {
         action={<ButtonLink href="/shifokorlar" variant="secondary">{td("title")}</ButtonLink>}
       />
       <Reveal>
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className={`${CAROUSEL} sm:grid-cols-2 lg:grid-cols-3`}>
         {doctors.slice(0, 6).map((d) => (
-          <Link key={d.id} href={{ pathname: "/shifokorlar/[slug]", params: { slug: d.slug ?? "" } }}>
+          <Link key={d.id} href={{ pathname: "/shifokorlar/[slug]", params: { slug: d.slug ?? "" } }} className={CAROUSEL_ITEM}>
             <Card interactive className="flex h-full gap-4 p-5">
               <Avatar image={d.photo} name={d.full_name} size={72} />
               <div className="min-w-0">

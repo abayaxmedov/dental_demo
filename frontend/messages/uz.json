@@ -12,7 +12,8 @@
     "label": "Tezkor amallar",
     "call": "Qoʻngʻiroq",
     "telegram": "Telegram",
-    "map": "Manzil"
+    "map": "Manzil",
+    "book": "Yozilish"
   },
   "nav": {
     "home": "Bosh sahifa",
@@ -121,7 +122,8 @@
       "from": "dan",
       "callTitle": "Narxni aniqlashtirish",
       "callLead": "Qoldiring — biz qoʻngʻiroq qilamiz.",
-      "hidden": "Narxlar telefon orqali beriladi."
+      "hidden": "Narxlar telefon orqali beriladi.",
+      "free": "Bepul"
     },
     "doctors": {
       "title": "Shifokorlar",
@@ -164,7 +166,9 @@
       "equipment": "Uskunalar",
       "team": "Jamoa",
       "work": "Ishlar",
-      "all": "Barchasi"
+      "all": "Barchasi",
+      "prev": "Oldingi",
+      "next": "Keyingi"
     },
     "blog": {
       "title": "Blog",
@@ -203,6 +207,7 @@
       "home": "Bosh sahifa"
     },
     "stages": {
+      "eyebrow": "Implantatsiya",
       "title": "Implantatsiya bosqichlari",
       "lead": "Diagnostikadan tabiiy tabassumgacha — 4 bosqich.",
       "s1t": "Diagnostika",

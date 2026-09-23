@@ -9,6 +9,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { CARD_3UP } from "@/lib/image-sizes";
+import { CAROUSEL, CAROUSEL_ITEM } from "@/components/ui/carousel";
 
 export async function Services({ services }: { services: Service[] }) {
   const t = await getTranslations("nav");
@@ -22,10 +23,10 @@ export async function Services({ services }: { services: Service[] }) {
         action={<ButtonLink href="/xizmatlar" variant="secondary">{tp("all")}</ButtonLink>}
       />
       <Reveal>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={`${CAROUSEL} sm:grid-cols-2 lg:grid-cols-3`}>
           {services.map((s) => (
-            <Link key={s.id} href={{ pathname: "/xizmatlar/[slug]", params: { slug: s.slug ?? "" } }}>
-              <TiltCard>
+            <Link key={s.id} href={{ pathname: "/xizmatlar/[slug]", params: { slug: s.slug ?? "" } }} className={CAROUSEL_ITEM}>
+              <TiltCard className="h-full">
                 <Card interactive className="flex h-full flex-col overflow-hidden">
               <ImageFrame image={s.cover} alt={s.title} ratio="3/2" rounded="" sizes={CARD_3UP} />
               <div className="flex flex-1 flex-col p-5">

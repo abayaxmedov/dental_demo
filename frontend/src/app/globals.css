@@ -120,3 +120,8 @@ body {
   }
 }
 
+
+/* Galereya koʻrish oynasi (<dialog>) ochiq paytda orqa sahifa scroll boʻlmasin. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}

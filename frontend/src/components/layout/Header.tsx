@@ -19,10 +19,9 @@ import Image from "next/image";
 import type { ClinicSettings } from "@/lib/api";
 import type { ComponentProps } from "react";
 import { Link } from "@/i18n/navigation";
-import { formatPhone, telHref } from "@/lib/format";
+import { formatPhone, summariseHours, telHref } from "@/lib/format";
 import { NavLink } from "./NavLink";
 import { CloseMenuOnNav } from "./CloseMenuOnNav";
-import { summariseHours } from "./Topbar";
 
 type NavHref = ComponentProps<typeof Link>["href"];
 
@@ -68,11 +67,11 @@ export async function Header({ settings }: { settings: ClinicSettings | null }) 
   const hours = summariseHours(settings?.working_hours, locale) ?? tt("hours");
   const tg = settings?.telegram_username;
 
-  // Banner landmark'i layout'da (Topbar bilan birga) — bu yerda faqat sticky nav div'i.
+  // Banner landmark'i va sticky layout'dagi <header> da — bu yerda faqat nav qatori.
   // Mobilda backdrop-blur YOʻQ: u `fixed` bolalar uchun containing block yaratadi va
   // toʻliq ekranli menyu header ichiga qamalib qolardi.
   return (
-    <div className="sticky top-0 z-50 border-b border-line bg-surface md:bg-surface/90 md:backdrop-blur">
+    <div className="border-b border-line bg-surface md:bg-surface/90 md:backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5 md:py-3.5">
         <Logo settings={settings} />
 

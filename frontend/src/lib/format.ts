@@ -74,3 +74,47 @@ export function formatDayChip(dateStr: string, locale = "uz"): { wd: string; dm:
     dm: d.toLocaleDateString(loc, { day: "numeric", month: "short" }),
   };
 }
+
+const WEEKDAYS_SHORT: Record<string, string[]> = {
+  uz: ["Du", "Se", "Ch", "Pa", "Ju", "Sha", "Yak"],
+  ru: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
+  en: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+};
+
+type WorkingDay = {
+  weekday: number;
+  opens?: string | null;
+  closes?: string | null;
+  is_closed?: boolean;
+};
+
+/**
+ * Ish vaqtini qisqa koʻrinishga keltiradi, bir xil vaqtli KETMA-KET kunlarni guruhlab:
+ * Du–Ju 09:00–19:00 · Sha 09:00–16:00. Yopiq kunlar tushib qoladi.
+ * (Oldin faqat birinchi kun vaqti olinardi → "Du–Sha 09:00–19:00" shanbani notoʻgʻri koʻrsatardi.)
+ */
+export function summariseHours(hours: WorkingDay[] | null | undefined, locale = "uz"): string | null {
+  const names = WEEKDAYS_SHORT[locale] ?? WEEKDAYS_SHORT.uz;
+  const open = (hours ?? [])
+    .filter((h) => !h.is_closed && h.opens && h.closes)
+    .sort((a, b) => a.weekday - b.weekday);
+  if (!open.length) return null;
+
+  const span = (h: WorkingDay) => `${h.opens!.slice(0, 5)}–${h.closes!.slice(0, 5)}`;
+  const groups: { from: number; to: number; time: string }[] = [];
+  for (const h of open) {
+    const last = groups[groups.length - 1];
+    const time = span(h);
+    if (last && last.time === time && last.to === h.weekday - 1) last.to = h.weekday;
+    else groups.push({ from: h.weekday, to: h.weekday, time });
+  }
+  return groups
+    .map((g) => `${g.from === g.to ? names[g.from] : `${names[g.from]}–${names[g.to]}`} ${g.time}`)
+    .join(" · ");
+}
+
+/** Valyuta yorligʻi: UZS → "soʻm" / "сум" / "UZS". */
+export function currencyLabel(currency: string | null | undefined, locale = "uz"): string {
+  if (!currency || currency === "UZS") return { uz: "soʻm", ru: "сум" }[locale] ?? "UZS";
+  return currency;
+}

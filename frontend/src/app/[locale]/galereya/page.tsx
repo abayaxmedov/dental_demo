@@ -3,10 +3,9 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getGallery } from "@/lib/api";
 import { buildAlternates, localePath } from "@/lib/seo";
 import { Section, SectionHeading } from "@/components/ui/Section";
-import { ImageFrame } from "@/components/ui/ImageFrame";
+import { GalleryGrid } from "@/components/ui/GalleryGrid";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Empty } from "@/components/ui/Empty";
-import { CARD_3UP } from "@/lib/image-sizes";
 
 type Params = Promise<{ locale: string }>;
 
@@ -22,6 +21,7 @@ export default async function GalleryPage({ params }: { params: Params }) {
   const images = await getGallery(locale);
   const t = await getTranslations("pages.gallery");
   const tc = await getTranslations("pages.crumbs");
+  const tn = await getTranslations("nav");
 
   return (
     <Section>
@@ -30,14 +30,10 @@ export default async function GalleryPage({ params }: { params: Params }) {
       {images.length === 0 ? (
         <Empty title={t("title")} />
       ) : (
-        <div className="columns-1 gap-4 sm:columns-2 md:columns-3 [&>*]:mb-4">
-          {images.map((g) => (
-            <figure key={g.id} className="break-inside-avoid">
-              <ImageFrame image={g.image} alt={g.alt || g.caption || t("title")} ratio="4/3" sizes={CARD_3UP} />
-              {g.caption ? <figcaption className="mt-1.5 text-xs text-ink-subtle">{g.caption}</figcaption> : null}
-            </figure>
-          ))}
-        </div>
+        <GalleryGrid
+          images={images}
+          labels={{ title: t("title"), close: tn("close"), prev: t("prev"), next: t("next") }}
+        />
       )}
     </Section>
   );

@@ -1,32 +1,8 @@
 import { MapPin, Clock, Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import type { ClinicSettings } from "@/lib/api";
-import { formatPhone, telHref } from "@/lib/format";
+import { formatPhone, summariseHours, telHref } from "@/lib/format";
 import { LangSwitcher } from "./LangSwitcher";
-
-const WEEKDAYS_SHORT: Record<string, string[]> = {
-  uz: ["Du", "Se", "Ch", "Pa", "Ju", "Sha", "Yak"],
-  ru: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
-  en: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-};
-
-/** Ish vaqtini "Du–Sha 09:00–19:00" koʻrinishida qisqartiradi (Header mobil menyusi ham ishlatadi). */
-export function summariseHours(
-  hours: ClinicSettings["working_hours"] | undefined,
-  locale: string,
-): string | null {
-  if (!hours?.length) return null;
-  const open = hours.filter((h) => !h.is_closed && h.opens && h.closes);
-  if (!open.length) return null;
-
-  const names = WEEKDAYS_SHORT[locale] ?? WEEKDAYS_SHORT.uz;
-  const hhmm = (t: string) => t.slice(0, 5);
-  const first = open[0];
-  const last = open[open.length - 1];
-  const span =
-    open.length === 1 ? names[first.weekday] : `${names[first.weekday]}–${names[last.weekday]}`;
-  return `${span} ${hhmm(first.opens!)}–${hhmm(first.closes!)}`;
-}
 
 export async function Topbar({
   settings,

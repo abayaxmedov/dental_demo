@@ -122,8 +122,10 @@ export default async function LocaleLayout({
             >
               Asosiy kontentga oʻtish
             </a>
-            <header>
-              <Topbar settings={settings} locale={locale} />
+            <Topbar settings={settings} locale={locale} />
+            {/* Sticky <header> ning O'ZIDA: oldin sticky ichki div'da edi va ota <header> faqat
+                topbar+nav balandligida bo'lgani uchun hech qachon yopishmasdi. Topbar scroll bilan ketadi. */}
+            <header className="sticky top-0 z-50">
               <Header settings={settings} />
             </header>
             <main id="main" tabIndex={-1}>

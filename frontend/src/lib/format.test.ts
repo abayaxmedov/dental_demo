@@ -5,6 +5,8 @@ import {
   telHref,
   formatDayChip,
   formatWhen,
+  summariseHours,
+  currencyLabel,
 } from "@/lib/format";
 
 describe("formatSum", () => {
@@ -74,3 +76,40 @@ describe("formatWhen", () => {
     expect(s).toMatch(/Saturday/i);
   });
 });
+
+describe("summariseHours", () => {
+  const wk = (weekday: number, opens: string | null, closes: string | null, is_closed = false) => ({ weekday, opens, closes, is_closed });
+  const clinic = [
+    ...[0, 1, 2, 3, 4].map((d) => wk(d, "09:00:00", "19:00:00")),
+    wk(5, "09:00:00", "16:00:00"),
+    wk(6, null, null, true),
+  ];
+
+  it("bir xil vaqtli ketma-ket kunlarni guruhlaydi, qisqa kunni alohida koʻrsatadi", () => {
+    expect(summariseHours(clinic, "uz")).toBe("Du–Ju 09:00–19:00 · Sha 09:00–16:00");
+    expect(summariseHours(clinic, "ru")).toBe("Пн–Пт 09:00–19:00 · Сб 09:00–16:00");
+  });
+
+  it("hamma kun bir xil boʻlsa — bitta guruh", () => {
+    expect(summariseHours([0, 1, 2, 3, 4, 5].map((d) => wk(d, "09:00", "19:00")), "uz")).toBe("Du–Sha 09:00–19:00");
+  });
+
+  it("uzilgan kunlarni birlashtirmaydi", () => {
+    expect(summariseHours([wk(0, "09:00", "18:00"), wk(2, "09:00", "18:00")], "en")).toBe("Mon 09:00–18:00 · Wed 09:00–18:00");
+  });
+
+  it("maʼlumot yoʻq → null", () => {
+    expect(summariseHours([], "uz")).toBeNull();
+    expect(summariseHours(undefined, "uz")).toBeNull();
+  });
+});
+
+describe("currencyLabel", () => {
+  it("UZS ni tilga moslaydi", () => {
+    expect(currencyLabel("UZS", "uz")).toBe("soʻm");
+    expect(currencyLabel("UZS", "ru")).toBe("сум");
+    expect(currencyLabel("UZS", "en")).toBe("UZS");
+    expect(currencyLabel("USD", "uz")).toBe("USD");
+  });
+});
+

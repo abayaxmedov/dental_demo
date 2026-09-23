@@ -33,9 +33,16 @@ export default async function FaqPage({ params }: { params: Params }) {
       ) : (
         <div className="divide-y divide-line rounded-2xl border border-line">
           {faqs.map((f) => (
-            <details key={f.id} className="group px-5 py-4">
-              <summary className="cursor-pointer list-none font-medium text-ink [&::-webkit-details-marker]:hidden">{f.question}</summary>
-              <p className="mt-2 text-sm text-ink-muted">{f.answer}</p>
+            <details key={f.id} className="group px-4 py-4 sm:px-5">
+              <summary className="flex min-h-11 cursor-pointer list-none items-center font-medium text-ink [&::-webkit-details-marker]:hidden">
+                <span className="flex w-full items-start justify-between gap-4">
+                  {f.question}
+                  <span className="shrink-0 text-xl leading-6 text-brand transition group-open:rotate-45" aria-hidden>
+                    +
+                  </span>
+                </span>
+              </summary>
+              <p className="mt-3 text-sm leading-relaxed text-ink-muted">{f.answer}</p>
             </details>
           ))}
         </div>

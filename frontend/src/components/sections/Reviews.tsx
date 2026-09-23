@@ -4,6 +4,7 @@ import { Section, SectionHeading } from "@/components/ui/Section";
 import { Card } from "@/components/ui/Card";
 import { Rating } from "@/components/ui/Rating";
 import { Badge } from "@/components/ui/Badge";
+import { CAROUSEL, CAROUSEL_ITEM } from "@/components/ui/carousel";
 
 const SOURCE_LABEL: Record<string, string> = {
   google: "Google",
@@ -37,13 +38,13 @@ export async function Reviews({
           ) : undefined
         }
       />
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className={`${CAROUSEL} sm:grid-cols-2 lg:grid-cols-3`}>
         {reviews.slice(0, 6).map((r) => {
           // Schema'da `rating`/`source` ixtiyoriy (model default'i bor) — himoyalanamiz.
           const rating = r.rating ?? 5;
           const sourceLabel = r.source ? SOURCE_LABEL[r.source] : "";
           return (
-            <Card key={r.id} className="p-6">
+            <Card key={r.id} className={`${CAROUSEL_ITEM} p-6`}>
               <figure>
                 <Rating value={rating} />
                 <blockquote className="mt-3 text-sm leading-relaxed text-ink-muted">

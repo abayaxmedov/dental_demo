@@ -22,3 +22,9 @@ export const PROSE = "(min-width:768px) 48rem, 100vw";
 
 /** Toʻliq kenglikdagi kontent rasmi (`Section width="4xl"` = 896px cap). */
 export const CONTENT_4XL = "(min-width:1024px) 56rem, 100vw";
+
+/** Galereya gridi (`grid-cols-2 md:grid-cols-3`): telefonda ham 2 ustun → 50vw. */
+export const GALLERY_GRID = "(min-width:1216px) 23rem, (min-width:768px) 31vw, 50vw";
+
+/** Toʻliq ekranli koʻrish (lightbox). */
+export const FULLSCREEN = "100vw";
