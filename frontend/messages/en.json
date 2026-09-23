@@ -133,7 +133,8 @@
       "relatedDoctors": "Doctors who perform this",
       "relatedCases": "Our work",
       "book": "Book an appointment",
-      "priceFrom": "Price"
+      "priceFrom": "Price",
+      "mapTapHint": "Tap a tooth to see the service"
     },
     "cases": {
       "title": "Our work",

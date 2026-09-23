@@ -41,6 +41,7 @@ export default async function ServicesPage({ params, searchParams }: { params: P
         <ToothMapSection
           items={services.filter((s) => s.is_featured).slice(0, 7).map((s) => ({ slug: s.slug ?? "", title: s.title }))}
           hint={t("all")}
+          tapHint={t("mapTapHint")}
         />
       ) : null}
 

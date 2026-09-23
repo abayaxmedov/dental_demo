@@ -133,7 +133,8 @@
       "relatedDoctors": "Bu xizmatni bajaradigan shifokorlar",
       "relatedCases": "Ishlarimiz",
       "book": "Qabulga yozilish",
-      "priceFrom": "Narxi"
+      "priceFrom": "Narxi",
+      "mapTapHint": "Tishni bosing — xizmat nomi chiqadi"
     },
     "cases": {
       "title": "Ishlarimiz",
