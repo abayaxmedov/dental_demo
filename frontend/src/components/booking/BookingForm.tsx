@@ -15,6 +15,7 @@ import {
   type Service,
 } from "@/lib/api";
 import { formatDayChip, formatWhen } from "@/lib/format";
+import { centerChip } from "./centerChip";
 
 type Props = {
   services: Service[];
@@ -58,7 +59,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
   // Tanlangan kun chipini koʻrinishga suramiz — klinika bir necha kun yopiq boʻlsa,
   // birinchi boʻsh kun oʻngda qolib, bemor faqat greyed chiplarni koʻrardi (T-RESP-08).
   useEffect(() => {
-    dayRefs.current[dayIdx]?.scrollIntoView({ inline: "center", block: "nearest" });
+    centerChip(dayRefs.current[dayIdx]);
   }, [dayIdx]);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [bookingEnabled, setBookingEnabled] = useState(true);
@@ -121,7 +122,7 @@ export function BookingForm({ services, doctors, phone, telegram }: Props) {
     }
     setDayIdx(next);
     setSlot(null);
-    dayRefs.current[next]?.focus();
+    dayRefs.current[next]?.focus({ preventScroll: true });
   }
 
   async function refreshSlotsFrom(available?: { days: ApiDay[] }) {

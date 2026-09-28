@@ -10,6 +10,7 @@ import {
   type PublicAppointment,
 } from "@/lib/api";
 import { formatDayChip } from "@/lib/format";
+import { centerChip } from "./centerChip";
 
 /** Qabulni boshqa vaqtga koʻchirish — slot picker + reschedule chaqiruvi. */
 export function RescheduleFlow({
@@ -33,7 +34,7 @@ export function RescheduleFlow({
   const dayRefs = useRef<(HTMLButtonElement | null)[]>([]);
   // Tanlangan kun chipini koʻrinishga suramiz (T-RESP-08).
   useEffect(() => {
-    dayRefs.current[dayIdx]?.scrollIntoView({ inline: "center", block: "nearest" });
+    centerChip(dayRefs.current[dayIdx]);
   }, [dayIdx]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
